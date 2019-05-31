@@ -1,0 +1,70 @@
+---
+title: "Dashboards com R"
+author: "curso-r"
+date: "1º de junho de 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: middle, center
+
+<img src="img/cursor.png">
+
+---
+class: middle, center
+
+<img src="img/professores.png">
+
+---
+class: middle, center
+
+## Neste curso, vamos aprender
+
+### 1. Dashboards estáticos
+
+### 2. Dashboards dinâmicos
+
+--
+
+<img src="img/rstudio.png">
+
+---
+class: middle, center, inverse
+
+## Por que dashboards?
+
+---
+class: middle, center
+
+<img src="img/ciclo.png">
+
+---
+class: middle, center, inverse
+
+# dashboard estático vs dashboard dinâmico
+
+---
+class: middle, center
+
+<img src="img/como-funciona.png">
+
+---
+class: middle, center
+
+## O que vamos ver?
+
+### rmarkdown
+### Flexdashboard
+
+### shiny
+### shinydashboard
+
