@@ -1,0 +1,44 @@
+---
+title: "Nosso primeiro flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Uma tabela
+
+```{r}
+knitr::kable(head(mtcars, 15))
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Um gráfico
+
+```{r}
+hist(mtcars$mpg)
+```
+
+### Exercícios
+
+1. O que acontece se aumentarmos o número de linhas da tabela para 30?
+
+2. Com 30 linhas na tabela, o que acontece se mudarmos o `vertical_layout:` no cabeçalho de `fill` para `scroll`?
+
+3. Crie um arquivo chamado `meu-segundo-flexdashboard.Rmd` para criar um *flexdashboard*.
+
+4. Usando o layout padrão do arquivo criado, divida a primeira coluna do dashboard em **duas seções** (assim como a segunda coluna).
+
+5. Popule seu dashboard com os gráficos que você criou no exercício de R Markdown. Não se esqueça de carregar a base e os pacotes necessários.
+
+6. O que acontece se tirarmos o `orientation: columns`?
+

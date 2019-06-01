@@ -1,0 +1,150 @@
+---
+title: "Nosso primeiro R Markdown"
+author: "Curso-R e alunos"
+date: "1º de junho de 2019"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  warning = FALSE, 
+  message = FALSE,
+  fig.align = "center"
+)
+```
+
+```{r}
+library(tidyverse)
+imdb <- read_rds("../dados/imdb.rds")
+```
+
+
+### Introdução ao R Markdown
+
+Com o *R Markdown*, podemos gerar **texto, tabelas e gráficos** direto do R.
+
+#### Exemplo de tabela
+
+Podemos usar a função `knitr::kable()` para produzir tabelas bem formatadas. A tabela a seguir mostra os filmes do diretor Quentin Tarantino ordenados por ano de lançamento.
+
+```{r}
+imdb %>% 
+  filter(diretor == "Quentin Tarantino") %>%
+  arrange(ano) %>%
+  select(`Título` = titulo, Ano = ano) %>% 
+  knitr::kable()
+```
+
+
+#### Exemplos de gráfico
+
+O gráfico abaixo mostra os filmes que não se pagaram.
+
+```{r}
+imdb %>%
+  filter(!is.na(balanco)) %>% 
+  mutate(
+    lucro = ifelse(balanco <= 0, "Não", "Sim")
+  ) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = orcamento, y = receita, color = lucro)) +
+  labs(x = "Orçamento", y = "Arrecadação", color = "Houve lucro?") +
+  scale_y_continuous(label = scales::dollar_format()) +
+  scale_x_continuous(label = scales::dollar_format()) +
+  theme_minimal()
+```
+
+O gráfico abaixo nos permite visualizar conjuntamente as seguintes variáveis:
+
+- Orçamento
+- Nota IMDB
+- Classificação etária (a partir de 13 anos ou livre)
+- Data de lançamento (antigo ou recente)
+
+```{r}
+imdb %>%
+  filter(classificacao %in% c("Livre", "A partir de 13 anos")) %>%
+  mutate(
+    orcamento = orcamento/1000000,
+    ano_cat = ifelse(ano < 2000, "Antigos", "Recentes"),
+    ano_class = paste(classificacao, ano_cat, sep = "/")
+  ) %>%
+  ggplot() +
+  geom_point(aes(x = orcamento, y = nota_imdb, color = ano_class)) +
+  facet_grid(ano_cat ~ classificacao) +
+  scale_x_continuous(label = scales::dollar_format()) +
+  labs(
+    x = "Orçamento (em milhões de dólares)", 
+    y = "Nota IMDB", 
+    color = "Classificação/Lançamento"
+  ) +
+  theme_minimal() 
+```
+
+A seguir, os diretores com mais filmes na base do IMDB.
+
+```{r}
+imdb %>% 
+  count(diretor) %>% 
+  arrange(desc(n)) %>% 
+  filter(!is.na(diretor)) %>% 
+  top_n(10, n) %>%
+  mutate(
+    diretor = fct_reorder(diretor, n)
+  ) %>% 
+  ggplot(aes(x = diretor, y = n)) +
+  geom_col(
+    color = "black",
+    fill = "#ffa500"
+  ) +
+  geom_text(aes(y = n + 1, label = n)) +
+  labs(y = "Número de filmes") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5)) 
+```
+
+Os boxplots abaixo mostram a distribuição do balanço financeiro dos filmes dos 5 diretores com mais filmes na base do IMDB.
+
+```{r}
+imdb %>% 
+  filter(!is.na(diretor)) %>%
+  group_by(diretor) %>% 
+  filter(n() >= 15) %>%
+  ungroup() %>% 
+  mutate(
+    diretor = fct_reorder(diretor, balanco, .fun = max, na.rm = TRUE)
+  ) %>% 
+  ggplot() +
+  geom_boxplot(aes(x = diretor, y = balanco, fill = diretor)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5)) +
+  scale_y_continuous(label = scales::dollar_format()) +
+  labs(x = "Diretor", y = "Balanço", fill = "Diretor") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5))
+```
+
+### Exercícios
+
+1. Na função `knitr::opts_chunk$set`, o que acontece se você mudar o argumento `echo`para `TRUE`.
+
+2. Na função `knitr::opts_chunk$set`, o que acontece se você mudar o argumento `warning`para `TRUE`.
+
+3. Na função `knitr::opts_chunk$set`, o que acontece se você mudar o argumento `message`para `TRUE`.
+
+4. Na função `knitr::opts_chunk$set`, o que acontece se você retirar o argumento `fig.align`?
+
+5. Crie um novo arquivo R Markdown chamado `exercicios.Rmd`. O *output* desse arquivo deve ser **HTML**. Neste novo arquivo, copie os *chunks* da tabela e gráficos acima, fazendo as seguintes modificações.
+
+a) Refaça a tabela pegando os filmes do Steven Spielberg e acrescentando as informações de orçamento, receita e balanço. Formate esses valores para ficar na unidade de medida *milhões de dólares*.
+
+b) Transforme o gráfico da **Arrecadação vs Orçamento** por um gráfico do **Balanço vs nota IMDB**.
+
+c) Transforme o gráfico do **Orçamento vs Nota IMDB** retirando o mapeamento da cor dos pontos.
+
+d) No gráfico de barras, coloque o número de filmes no centro de cada barra.
+
+e) Nos boxplots, deixe o preenchimento das caixinhas em branco e mapeie o contorno dela à variavel diretor.
+
+f) Compile o relatório também para PDF.

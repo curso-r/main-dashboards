@@ -1,0 +1,158 @@
+---
+title: "Páginas, componentes e temas"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: bootstrap
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+
+credit <- read_rds("../dados/credit.rds")
+```
+
+Empréstimos
+=======================================================================
+
+Column {data-width=250}
+-----------------------------------------------------------------------
+
+### Número de clientes
+
+```{r}
+valueBox(nrow(credit), icon = "fa-users", color = "success")
+```
+
+### Empréstimo médio
+
+```{r}
+emprestimo_medio <- mean(credit$valor_emprestimo*1000) %>% 
+  scales::dollar(big.mark = ".", decimal.mark = ",")
+  
+valueBox(emprestimo_medio, icon = "fa-dollar-sign", color = "warning")
+```
+
+### Tempo médio de empréstimo
+
+```{r}
+tempo_medio <- mean(credit$tempo_emprestimo, na.rm = TRUE) %>% 
+  round(0) %>% 
+  paste("meses")
+  
+valueBox(tempo_medio, icon = "fa-clock", color = "primary")
+```
+
+### Proporção de clientes com dívidas
+
+```{r}
+prop_divida <- sum(credit$dividas == 0, na.rm = TRUE)/nrow(credit)
+prop_divida <- scales::percent(prop_divida, digits = 1)
+
+gauge(prop_divida, min = 0, max = 100, symbol = "%", gaugeSectors(colors = "danger"))
+```
+
+### Proporção de empréstimos concedidos
+
+```{r}
+prop_bons <- sum(credit$status == "bom")/nrow(credit)
+prop_bons <- scales::percent(prop_bons, digits = 1)
+
+gauge(prop_bons, min = 0, max = 100, symbol = "%", gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+
+
+Column
+-----------------------------------------------------------------------
+
+### Perfil dos clientes
+
+```{r, fig.width=5, fig.height=3.5}
+credit %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(y = status, x = idade, fill = status)) +
+  ggridges::geom_density_ridges(show.legend = FALSE) +
+  labs(y = "Status", x = "Idade") +
+  theme_minimal()
+
+credit %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(y = status, x = renda, fill = status)) +
+  ggridges::geom_density_ridges(show.legend = FALSE) +
+  labs(y = "Status", x = "Renda") +
+  coord_cartesian(xlim = c(0, 500)) +
+  theme_minimal()
+
+credit %>% 
+  filter(!is.na(trabalho)) %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(x = trabalho, fill = status)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Trabalho", y = "Número de clientes", fill = "Status") +
+  theme_minimal()
+
+credit %>% 
+  filter(!is.na(moradia)) %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(x = moradia, fill = status)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Moradia", y = "Número de clientes", fill = "Status") +
+  theme_minimal()
+```
+
+Exercícios
+=======================================================================
+
+Column
+-----------------------------------------------------------------------
+
+### Exercícios
+
+1. Experimente outros temas para o dashboard.
+
+**Observação**: Faça os exercícios abaixo em um novo arquivo.
+
+2. Divida a segunda coluna da página em duas, com dois gráficos em cada coluna. 
+
+3. Divida a segunda coluna da página em duas, com duas caixas em cada coluna e um gráfico em cada caixa.
+
+4. Transforme a segunda coluna em um *tabset*, com 2 gráficos em cada aba.
+
+Column
+-----------------------------------------------------------------------
+
+### Temas disponíveis
+
+Para trocar o tema do *dashboard*, basta utilizar um dos nomes abaixo na opção `theme:` do cabeçalho.
+
+- default
+
+- cosmo
+
+- bootstrap
+
+- cerulean
+
+- journal
+
+- flatly
+
+- readable
+
+- spacelab
+
+- united
+
+- lumen
+
+- paper
+
+- sandstone
+
+- simplex
+
+- yeti
+
