@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>My First Dashboard With Shiny</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="date" content="2019-11-22" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css\custom-shiny.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# My First Dashboard With Shiny
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '70%'>
+### 2019-11-22
+
+---
+
+
+
+
+class: middle
+
+## Requirements
+
+### - R v3.5.0 or superior
+
+### - RStudio v1.2.0 or superior
+
+### - Previous programming experience with R
+
+### - Files [Click Here to Download](https://github.com/curso-r/my-first-dashboard-with-shiny-csds2019/archive/master.zip)
+
+---
+class: middle, center
+
+&lt;img src="img/cursor.png"&gt;
+
+## [curso-r.com](http://curso-r.com)
+
+## Athos Petri Damiani 
+
+
+---
+class: middle
+
+## In this course, we are going to learn
+
+### 1. How to build a Shiny App
+
+### 2. Reactivity
+
+### 3. Layouts (shinydashboard)
+
+### 4. Deploy with Shinyapps.io (if we got time!)
+
+&lt;img src="img/hex-shiny.png" style="position: fixed; top: 250px; right: 75px; z-index: 1;" width="15%"&gt;
+
+---
+class: middle
+
+## Dynamic Dashboards
+
+&lt;img src="img/como-funciona.png"&gt;
+
+.footnote[
+source: [rstudio.com/shiny/](http://www.rstudio.com/shiny/)
+]
+
+---
+class: middle, center
+
+&lt;img src="img/hex-shiny.png" style="position: fixed; top: 50px; left: 75px; z-index: 1;" width="9%"&gt;
+
+&lt;img src="img/shiny.png" width = "50%"&gt;
+
+&lt;img src="img/shiny2.png" width = "50%"&gt;
+
+### Motivation:
+
+### [Shiny Gallery](https://shiny.rstudio.com/gallery/)
+
+### [Show me Shiny Website](https://www.showmeshiny.com/)
+
+---
+
+## Hello World
+
+
+```r
+library(shiny)
+
+ui &lt;- fluidPage("Hello World!")
+
+server &lt;- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+---
+class: middle, center
+
+## To R!
+
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+
+---
+
+## Inputs and Outputs
+
+
+&lt;img src="img/inputs_outputs.png" width = "500" height = "300"&gt;
+
+
+```r
+ui &lt;- fluidPage(
+  # *Input() functions,
+  # *Output() functions
+)
+```
+
+---
+
+## Inputs 
+
+&lt;img src="img/inputs.png", width = "100%"&gt;
+
+.footnote[
+source: [rstudio.com/shiny/](http://www.rstudio.com/shiny/)
+]
+
+
+---
+
+## Outputs
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Function &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Output &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; imageOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; image &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; plotOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; plot &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; tableOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; table &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; textOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; text &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; verbatimOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; text &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; htmlOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; raw HTML &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; dataTableOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; interactive table &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; uiOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a Shiny UI element &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+## In the "hello world" example, lets...
+
+1) insert a slider input accepting values from 1 to 100.
+
+2) insert a plot output.
+
+3) insert a text input with `inputId = "title"`. (exercise!)
+
+---
+
+## Server
+
+
+
+```r
+server &lt;- function(input, output, session) {
+  
+  
+  
+  
+  
+  
+}
+```
+
+---
+
+## Server
+
+
+```r
+server &lt;- function(input, output, session) {
+  
+  output$hist &lt;- renderPlot({
+    hist(rnorm(100))    
+  })
+  
+}
+```
+
+--
+
+remember our UI setup...
+
+
+```r
+ui &lt;- fluidPage(
+  
+  ...
+  
+  plotOutput("hist")
+)
+```
+
+
+---
+
+## Server
+
+### render*() functions
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; *output() &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; render*() &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; imageOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderImage() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; plotOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderPlot() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; tableOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderTable() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; textOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderText() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; verbatimOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderText() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; htmlOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderUI() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; dataTableOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderDataTable() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; uiOutput() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; renderUI() &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+]
+
+.pull-right[
+
+
+```r
+# ui
+plotOutput("hist")
+```
+
+
+```r
+# server
+output$hist &lt;- renderPlot({
+  hist(rnorm(100))    
+})
+```
+
+
+]
+
+
+---
+
+## Reactive Values and Reactive Functions
+
+Use input values with **`input$`**
+
+.pull-left[
+
+&lt;img src="img/inputvalues.png" width= "100%"&gt;
+
+]
+
+.pull-right[
+&lt;img src="img/sliderinputexample.png" width= "80%"&gt;
+
+
+- `render*()` are **reactive functions**
+
+- `input$*` are **reactive values**
+
+
+]
+
+.footnote[
+source: [rstudio.com/shiny/](http://www.rstudio.com/shiny/)
+]
+
+--
+
+If we put **`input$num`** inside the **`renderPlot()`** in our example, the output would **`react`** if slider were changed by user.
+
+
+```r
+# server
+hist(rnorm(input$num))
+```
+
+
+
+---
+
+## Server
+
+### Recap:
+
+Inside `server` function,
+
+1) save the output using **`output$hist &lt;-`**
+
+2) feed the output **`render*()`** function with code
+
+3) access **input values** with **`input$*`**
+
+4) create reactivity by using  **`input$*`** inside **`render*()`** functions
+
+
+```r
+# server
+output$hist &lt;- renderPrint({
+  hist(rnorm(input$num))    
+})
+```
+
+---
+
+## Back to our "hello world" example...
+
+3) then, lets make the title of the histogram depending on the text input that you created before. (exercise!)
+
+4) finally, create an **`verbatimTextOutput("summary")`** on ui and feed it with **`summary(rnorm(input$num))`** using **`renderPrint({})`** on server. (exercise!)
+
+---
+
+class: middle, center, inverse
+
+# Reactivity
+
+---
+
+## Reactivity
+
+Reactivity is the relationship between **reactive values** and **reactive functions**: **reactive values** triggers **reactive functions**
+
+&lt;img src="img/reactive1.png" width= "100%"&gt;
+
+---
+
+## Reactive Context
+
+Reactive values must be usend in Reactive Context.
+
+### Right
+
+
+```r
+# server
+* output$hist &lt;- renderPlot({hist(rnorm(input$num))})
+```
+
+### Wrong
+
+
+```r
+# server
+output$hist &lt;- hist(rnorm(input$num))
+```
+
+
+---
+
+## Reactive Functions
+
+### Main reactive functions in Shiny
+
+- **`render*({})`**
+
+- **`reactive({})`**
+
+- **`isolate({})`**
+
+- **`observe({})`**
+
+- **`eventReactive({})`**
+
+- **`oberveEvent({})`**
+
+---
+
+## Reactive Functions
+
+### **`reactive({})`**
+
+Builds a **reactive expression** (behaves like the **`input$*`**!).
+
+
+```r
+# server
+data &lt;- reactive({
+  rnorm(input$num)
+})
+```
+
+Is used like an ordinary function:
+
+
+```r
+# server
+output$summary &lt;- renderPrint({
+  summary(data())
+})
+```
+
+---
+
+## Reactive Functions
+
+### **`reactive({})`**
+
+&lt;img src="img/reactive2.png" width= "80%"&gt;
+
+1) Exercise: create the data() reactive expression in the 'hello world' example.
+
+.footnote[
+source: [rstudio.com/shiny/](http://www.rstudio.com/shiny/)
+]
+
+
+---
+
+## Reactive Functions
+
+### **`isolate({})`**
+
+Turn an **reactive value** into a **non-reactive value**.
+
+
+```r
+# server
+output$hist &lt;- renderPlot({
+  * title &lt;- isolate(input$title)
+  hist(data(), main = title)
+})
+```
+
+Now **`renderPlot({})`** will NOT react if **`input$title`** changes.
+
+
+
+---
+
+## Reactive Functions
+
+### **`observeEvent({})`**
+
+Useful to trigger a block of code to run on server whenever a given **`input$*`** changes.
+
+
+```r
+# ui
+actionButton("write_data", "Write Data as CSV")
+```
+
+
+```r
+# server
+observeEvent(input$write_data, {
+  write.csv(data(), "data.csv")
+})
+```
+
+PS: action button is just another type of input! Useful along with **`observeEvent()`**. See [Using Action Button](https://shiny.rstudio.com/articles/action-buttons.html) from Shiny docs.
+
+Exercise: put the 'write data' functionality into 'hello world' example.
+
+---
+
+## Reactive Functions
+
+### **`observe({})`**
+
+Also useful to trigger a block of code to run on server, but any **reactive value** inside the code will trigger it.
+
+
+```r
+# server
+observe({
+  print(data())
+  print(as.numeric(input$writ_data))
+})
+```
+
+
+
+---
+
+## Reactive Functions
+
+### **`eventReactive({})`**
+
+
+Create a **reactive value** whenever a specified **`input$*`** changes (or any other **reactive value**).
+
+
+```r
+# ui
+actionButton("update", "Update!")
+```
+
+
+```r
+# server
+data &lt;- eventReactive(input$update, {
+  write.csv(data(), "data.csv")
+})
+```
+
+
+Exercise: put it into 'hello world' example.
+
+
+---
+
+class: middle, center, inverse
+
+# Layouts
+
+## [shiny.rstudio.com/layout-guide](https://shiny.rstudio.com/articles/layout-guide.html)
+
+---
+
+## But first... HTML Tags
+
+
+```r
+fluidPage(
+  tags$h1("My First Shiny App"),
+  tags$p(
+    "The link to the Shiny website is",
+    tags$a(href = "https://www.rstudio.com/shiny/", "rstudio.com/shiny."),
+    tags$strong("I strongly recommend that you take a look at it!")
+  )
+)
+```
+
+
+```html
+&lt;div class="container-fluid"&gt;
+  &lt;h1&gt;My First Shiny App&lt;/h1&gt;
+  &lt;p&gt;
+    The link to the Shiny website is
+    &lt;a href="https://www.rstudio.com/shiny/"&gt;rstudio.com/shiny.&lt;/a&gt;
+    &lt;strong&gt;I strongly recommend that you take a look at it!&lt;/strong&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+```
+
+---
+
+## But first... HTML Tags
+
+
+```r
+names(tags)
+```
+
+```
+##  [1] "a"           "abbr"        "address"     "area"        "article"    
+##  [6] "aside"       "audio"       "b"           "base"        "bdi"        
+## [11] "bdo"         "blockquote"  "body"        "br"          "button"     
+## [16] "canvas"      "caption"     "cite"        "code"        "col"        
+## [21] "colgroup"    "command"     "data"        "datalist"    "dd"         
+## [26] "del"         "details"     "dfn"         "div"         "dl"         
+## [31] "dt"          "em"          "embed"       "eventsource" "fieldset"   
+## [36] "figcaption"  "figure"      "footer"      "form"        "h1"         
+## [41] "h2"          "h3"          "h4"          "h5"          "h6"
+```
+...
+
+
+```r
+tags$h1("My First Shiny App")
+
+## &lt;h1&gt;My First Shiny App&lt;/h1&gt;
+```
+
+---
+
+## But first... HTML Tags
+
+The most commonly used tags are:
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; R function &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HTML &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a hyperlink &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; hr() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; horizontal line &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; br() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; line break &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; code() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; monospaced code styled text &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; h1(), ..., h6() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; headers &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; img() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; image &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; p() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; paragraph &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; em() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; italic text &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; strong() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; bold text &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Grid System
+
+&lt;img src="img/gridsystem.jpg"&gt;
+
+- Each row is a **`fluidRow()`**.
+- **`columns`** are divided up to 12 parts. The **`width`** determines how many parts wide are the column.
+
+.footnote[
+source: [dzone.com/articles/working-with-bootstrap-4-grid-system-for-creating](https://dzone.com/articles/working-with-bootstrap-4-grid-system-for-creating)
+]
+
+--
+
+Grid System comes from Twitter's Open-source [Bootstrap Framework](https://getbootstrap.com.br/docs/4.1/getting-started/introduction/).
+
+---
+
+## Grid System
+
+Two main layout functions
+
+
+```r
+fluidRow()
+```
+
+```
+## &lt;div class="row"&gt;&lt;/div&gt;
+```
+
+
+```r
+column(2)
+```
+
+```
+## &lt;div class="col-sm-2"&gt;&lt;/div&gt;
+```
+
+---
+
+## tabPanels and tabsetPanels
+
+
+```r
+# ui
+tabsetPanel(
+  tabPanel("Plot", plotOutput("plot")), 
+  tabPanel("Summary", verbatimTextOutput("summary")), 
+  tabPanel("Table", tableOutput("table"))
+)
+```
+
+&lt;img src="img/tabsetpanel.png"&gt;
+
+---
+
+## pageWithSidebar Layout
+
+
+```r
+pageWithSidebar(
+  headerPanel = headerPanel("Hello Shiny!"),
+  
+  sidebarPanel(
+    sliderInput("n", "Sample size:", min= 0, max=150, value=50)
+  ),
+  
+  mainPanel(
+    plotOutput("iris_plot")
+  )
+)
+```
+
+&lt;img src = "img/sidebarpage.png"&gt;
+
+---
+
+## navbarPage Layout
+
+
+
+```r
+navbarPage(title = "My Navbar Page",
+           tabPanel("a"),
+           tabPanel("b"),
+           tabPanel("c"),
+           tabPanel("d")
+)
+```
+
+output:
+
+&lt;img src = "img/navbarpage.png"&gt;
+
+
+---
+
+## shinydashboard Layout
+
+&lt;img src="img/dashexample.png"&gt;
+
+
+.footnote[
+source: [db.rstudio.com/dashboards/](https://db.rstudio.com/best-practices/dashboards/)
+]
+---
+
+## shinydashboard Layout
+
+### The template
+
+.pull-left[
+
+
+```r
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+
+#server...
+```
+
+]
+
+.pull-right[
+
+&lt;img src="img/shinydashboard.png"&gt;
+
+]
+
+---
+
+## shinydashboard Layout
+
+.pull-left[
+
+### box 
+
+
+```r
+box(
+  title = "Histogram", ...
+),
+box(
+  title = "Inputs", ...
+)
+```
+
+&lt;img src="img/box.png"&gt;
+
+]
+
+.pull-right[
+
+### tabBox 
+
+
+```r
+tabBox(
+  title = "Densities",
+  tabPanel("Sepal.Length",..),
+  tabPanel("Sepal.Width",...),
+  tabPanel("Petal.Length",..),
+  tabPanel("Petal.Width",...)
+)
+```
+
+
+&lt;img src="img/tabbox.png"&gt;
+
+]
+
+---
+
+## shinydashboard Layout
+
+
+.pull-left[
+
+### valueBox
+
+&lt;img src="img/valuebox.png"&gt;
+
+**`renderValueBox({}) + valueBoxOutput()`**
+
+]
+
+.pull-right[
+
+
+### infoBox
+
+&lt;img src="img/infobox.png"&gt;
+
+**`renderInfoBox({}) + infoBoxOutput()`**
+
+]
+
+
+---
+
+## shinydashboard Layout
+
+### dashboardHeader 
+
+
+
+```r
+dashboardPage(
+* dashboardHeader(title = "Iris Predictor"),
+  
+  dashboardSidebar(...),
+  dashboardBody(...)
+)
+
+#server...
+```
+
+&lt;img src="img/dashboardHeader.png"&gt;
+
+
+
+---
+
+## shinydashboard Layout
+
+#### dashboardSidebar + sidebarMenu + menuItem 
+
+
+```r
+dashboardSidebar(
+    sidebarMenu(
+      menuItem("Calculator", tabName = "calc"),
+      menuItem("Descriptive", tabName = "desc")
+    )
+  )
+```
+
+#### dashboardBody + tabItems + tabItem
+
+
+```r
+dashboardBody(
+    tabItems(
+      tabItem(tabName = "calc",...),
+      tabItem(tabName = "desc",...)
+    )
+)
+```
+
+---
+
+## Exercise 1
+
+Replicate the "Calculator" page of [this dashboard (click me!)](https://rseis.shinyapps.io/my-first-dashboard-with-shiny-csds2019/).
+
+&lt;img src="img/dashtutorial.png"&gt;
+
+---
+
+## Exercise 2 (hard!)
+
+Replicate the "Descriptive" page of [this dashboard (click me!)](https://rseis.shinyapps.io/my-first-dashboard-with-shiny-csds2019/).
+
+&lt;img src="img/dashtutorial2.png"&gt;
+
+
+---
+
+class: middle, center, inverse
+
+# Shinyapps.io
+
+---
+class: middle, center
+
+## Shinyapps.io
+
+### To R!
+
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+
+---
+
+## Reference
+
+This course is based on [Garrett Grolemund's Shiny Tutorial](https://shiny.rstudio.com/tutorial/).
+
+---
+
+class: middle, center, inverse
+
+# Thank you!
+
+&lt;a href = "http://curso-r.com"&gt;
+&lt;img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'&gt;
+&lt;/a&gt;
+
+## athos.damiani@curso-r.com
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

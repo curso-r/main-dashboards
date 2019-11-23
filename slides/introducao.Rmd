@@ -1,0 +1,110 @@
+---
+title: "Dashboards com R"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "25 de novembro de 2019"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom-shiny.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: middle, center
+
+# Sobre a Curso-R
+
+---
+
+## Curso-R
+
+<img src="img/professores.png" style=" display: block; margin-left: auto; margin-right: auto;"></img>
+
+---
+
+## Linha do tempo
+
+<center>
+<img src="img/linha_do_tempo.jpg" width = 45%></img>
+</center>
+
+---
+class: middle, center
+
+# Sobre o curso
+
+---
+class: middle, center
+
+## Neste curso, vamos aprender
+
+### 1. Dashboards estáticos
+
+### 2. Dashboards dinâmicos
+
+--
+
+<img src="img/rstudio.png">
+
+---
+class: middle, center
+
+<img src="img/ciclo.png">
+
+---
+class: middle, center, inverse
+
+## estático vs dinâmico
+
+---
+class: middle, center
+
+<img src="img/como-funciona.png">
+
+---
+class: middle, center
+
+# O que vamos ver?
+
+### rmarkdown
+### knitr
+### flexdashboard
+### shiny
+### shinydashboard
+
+<img src="img/hex-rmarkdown.png" style="position: fixed; top: 150px; left: 75px; z-index: 1;" width="15%">
+
+<img src="img/hex-knitr.png" style="position: fixed; top: 350px; left: 75px; z-index: 1;" width="15%">
+
+<img src="img/hex-shiny.png" style="position: fixed; top: 250px; right: 75px; z-index: 1;" width="15%">
+
+---
+class: middle, center
+
+<img src="img/rmarkdown.png" width = "50%">
+
+<img src="img/hex-rmarkdown.png" style="position: fixed; top: 50px; left: 75px; z-index: 1;" width="9%">
+
+---
+class: middle, center
+
+<img src="img/hex-shiny.png" style="position: fixed; top: 50px; left: 75px; z-index: 1;" width="9%">
+
+<img src="img/shiny.png" width = "50%">
+
+<img src="img/shiny2.png" width = "50%">
+
+---
+class: middle, center
+
+## Vamos ao R!
+
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+
