@@ -1,0 +1,48 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Programação do curso
+
+## Aula 1
+
+- Introdução ao curso
+- Introdução ao shiny
+- shinyapps.io
+- Conectar shinyapps.io com o RStudio
+- UI/Server
+- Input/Output
+- Subir app para o shinyapps.io
+
+## Aula 2
+
+- Reatividade
+- Debug
+
+## Aula 3
+
+- Layout
+- Shinydasboards (UI)
+
+## Aula 4
+
+- Shinydashboards (UI/Server)
+- Update UI
+- UI Output
+
+## Aula 5
+
+- Plotly
+- Reactable
+- Leaflet
+
+## Aula 6
+
+- (Intro RMarkdown)
+- Flexdashboard
+- Runtime shiny
+
