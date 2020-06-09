@@ -1,0 +1,117 @@
+---
+title: "Dashboards com R"
+subtitle: "Introdução ao curso"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom-intro.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: middle, center
+
+# Sobre a Curso-R
+
+---
+
+## Curso-R
+
+<img src="img/professores.png" style=" display: block; margin-left: auto; margin-right: auto;"></img>
+
+---
+
+## Linha do tempo
+
+<center>
+<img src="img/linha_do_tempo.png" width = 45%></img>
+</center>
+
+---
+## Nossos cursos
+
+.pull-left[
+<div class="container center">
+  <div class="card">
+    <h2>Programação em R</h2>
+    <hr style = "background-color: #3bb44a;"/>
+    <p><a href = "https://www.curso-r.com/cursos/r4ds-1/">R para Ciência de dados I</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/r4ds-2/">R para Ciência de dados II</a></p>
+  </div>
+</div>
+
+<br>
+
+<div class="container center">
+  <div class="card">
+    <h2>Modelagem</h2>
+    <hr style = "background-color: #996699;"/>
+    <p><a href = "https://www.curso-r.com/cursos/regressao/">Regressão Linear</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/intro-machine-learning/">Machine Learning</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/xgboost/">XGBoost</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/deep-learning/">Deep Learning</a></p>
+  </div>
+</div>
+]
+
+
+.pull-right[
+<div class="container center">
+  <div class="card">
+    <h2>Extração de dados</h2>
+    <hr style = "background-color: #eeba30;"/>
+    <p><a href = "https://www.curso-r.com/cursos/web-scraping-1/">Web scraping I</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/web-scraping-2/">Web scraping II</a></p>
+  </div>
+</div>
+
+<br>
+
+<div class="container center">
+  <div class="card">
+    <h2>Comunicação e automação</h2>
+    <hr style = "background-color: #ff6699;"/>
+    <p><a href = "https://www.curso-r.com/cursos/dashboards/">Dashboards com R</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/deploy/">Deploy</a></p>
+  </div>
+</div>
+]
+
+---
+class: middle, center
+
+# Sobre o curso
+
+---
+## Dinâmica curso
+
+- As aulas serão (quase totalmente) expositivas.
+
+- Teremos diversos exercícios para serem feitos "em casa".
+
+- Os exercícios não serão avaliações, portanto não terão prazo nem nota. O objetivo deles será gerar dúvidas em vocês, para que os professores possam melhor orientá-las(los) durante o curso.
+
+- O certificado será emitido mediante uma **entrega final**. A engrega final será uma composição de todos os exercícios. O prazo da entrega final será de 7 dias após o fim do curso.
+
+- Todos os exercícios e a entrega final serão um shiny app funcionando.
+
+---
+## Extras
+
+- Teremos monitoria duas vezes pode semana, sempre 1 hora antes do início das aulas (seg e qua, das 18h às 19h)
+
+- Além das aulas, teremos alguns conteúdos extras, tanto em texto quanto em vídeo.
+
+- As três entregas finais mais legais ganharão uma vaga em qualquer curso da Curso-R.
+
+- A gravação das aulas ficará disponível no Google Clasroom por 1 ano após o final do curso.
+
