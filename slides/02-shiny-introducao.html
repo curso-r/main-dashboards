@@ -76,17 +76,6 @@ shinyApp(ui, server)
 No RStudio, para rodar um aplicativo shiny localmente (o seu computador é o servidor), clique no botão **Run app** logo acima do script.
 ---
 
-## Atividade
-
-Vamos criar e rodar o exemplo minimal do slide anterior.
-
-&lt;center&gt;
-&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
-&lt;br&gt;
-Ao RStudio!
-&lt;center&gt;
-
----
 ## UI: o que o usuário vai ver
 
 No objeto `ui`, construímos o que será mostrado na tela para o usuário. Nele, devemos:
@@ -120,6 +109,27 @@ A função `server` sempre terá os parâmetros:
 - `session`: uma lista com informações da sessão que está rodando o aplicativo. Embora não seja necessária para o app funcionar, é uma boa prática mantê-la como parâmetro.
 
 O código dentro da função `server` é executado uma vez quando o app é carregado e **será executado novamente sempre que houver uma interação do usuário**. Por isso precisamos de uma sessão do R rodando por trás para manter um Shiny app funcionando.
+
+---
+## Atividade
+
+Vamos criar e rodar o exemplo minimal do slide anterior.
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio!</span>
+&lt;center&gt;
+
+---
+## Inputs e Outputs
+
+Fazer um shiny app tem duas grandes tarefas: a construção do layout (veremos mais a frente) e a construção dos inputs e outputs.
+
+&lt;center&gt;
+&lt;img src="img/inputs_outputs.png" width = "80%"&gt;
+&lt;/center&gt;
 
 ---
 ## Outputs: tabelas, gráficos e muito mais!
@@ -201,11 +211,35 @@ Vamos criar e rodar um shiny app com um gráfico como output.
 &lt;center&gt;
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
-Ao RStudio!
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio!</span>
 &lt;center&gt;
 
 ---
 ## Acessando outputs no server
+
+O argumento `outputId` das funções `_Output()` é utilizado para nos referirmos aos outputs dentro do server. Todos os outputs criados ficarão dentro da lista `output`.
+
+
+```r
+library(shiny)
+
+ui &lt;- fluidPage(
+  "Um histograma",
+* plotOutput(outputId = "hist")
+)
+
+server &lt;- function(input, output, session) {
+  
+* output$hist &lt;- renderPlot({
+    hist(mtcars$mpg)
+  })
+  
+}
+
+shinyApp(ui, server)
+```
+
 
 ---
 ## Inputs: dê controle ao usuário
@@ -221,14 +255,15 @@ Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt
 ---
 ## Atividade
 
-Vamos colocar um ... no nosso exemplo anterior para permitir que o usuário ... .
+Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o usuário escolha qual variável será exibida no histograma.
 
 &lt;br&gt;
 
 &lt;center&gt;
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
-Ao RStudio!
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio!</span>
 &lt;center&gt;
 
 ---
@@ -273,7 +308,8 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 &lt;center&gt;
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
-Ao RStudio!
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio!</span>
 &lt;center&gt;
 
 ---

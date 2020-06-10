@@ -1,0 +1,315 @@
+---
+title: "Dashboards com R"
+subtitle: "Reatividade (parte 1)"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom-intro.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+
+## Atividade
+
+Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da distribuição normal.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio!')`
+<center>
+
+---
+## Valores e funções reativas
+
+**Valores reativos** são aqueles que podem mudar de valor conforme uma ação do usuário. **Funções reativas** são funções que recebem valores reativos e, portanto, mudam seus resultados conforme uma ação do usuário.
+
+Valores reativos só podem ser usados dentro de funções reatiavas ou um **contexto reativo**.
+
+`r colorido('Certo', 'green')`
+
+```{r, echo=TRUE, eval= FALSE}
+# server
+output$hist <- renderPlot({hist(rnorm(input$num))})
+```
+
+`r colorido('Errado', 'red')`
+
+```{r, echo = TRUE, eval=FALSE}
+# server
+output$hist <- hist(rnorm(input$num))
+#>  Operation not allowed without an active reactive context. #<<
+```
+
+---
+## Reatividade
+
+Reatividade é a relação entre **valores reativos** e **funções reativas**. 
+
+- Valores reativos notificam mudanças (valores desatualizados).
+
+- Funções reativas reagem às mudanças (geram as visualizações com os novos valores).
+
+<img src="img/reactive1.png" width= "85%">
+
+---
+
+## Trabalhando com reatividade
+
+Listamos abaixo as principais funções para trabalhar com reatividade no Shiny:
+
+- **`render*({})`**
+
+- **`reactive({})`**
+
+- **`isolate({})`**
+
+- **`observe({})`**
+
+- **`eventReactive({})`**
+
+- **`oberveEvent({})`**
+
+A seguir, discutiremos com detalhes cada uma delas.
+
+---
+## Funções render_()
+
+Para criar um output, precisamos das funções do tipo `render_()`. Essas funções
+criam as visualizações que vamos motrar na UI e as deixam reativas. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+
+Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
+
+```{r, echo = FALSE, eval=TRUE}
+tibble::tribble(~`_Output()`, ~`render_()`,
+                "imageOutput()", "renderImage()",
+                "plotOutput()", "renderPlot()",
+                "tableOutput()", "renderTable()",
+                "textOutput()", "renderText()") %>%
+  knitr::kable(format = "html")
+```
+
+---
+## Atividade
+
+Vamos acrescentar ao nosso app uma tabela com um sumário da amostra normal usada na construção do histograma e um título ao gráfico.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio!')`
+<center>
+
+---
+## Gráfico de reatividade
+
+Você pode gerar um gráfico de reatividade do seu aplicativo utizando o pacote `reaclog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
+
+```{r, eval=FALSE}
+options(shiny.reactlog = TRUE) 
+```
+
+e então, dentro do app, utilizar o comando `CTRL + F3` (no Mac, `command + F3`).
+
+<center>
+<img src="img/reaclog_intro.png" width = "100%"
+</center>
+
+---
+## A função reactive()
+
+A função `reactive()` pode ser utilizada para criar **expressões reativas**, que funcionam exatamente igual a um valor reativo. É muito utilizada para gerar valores reativos que são utilizados na construção de vários outputs.
+
+```{r, eval=FALSE}
+# server
+data <- reactive({
+  rnorm(input$num)
+})
+```
+
+É usado como uma função qualquer do R:
+
+```{r, eval=FALSE}
+# server
+output$summary <- renderPrint({
+  summary(data())
+})
+```
+
+---
+## Atividade
+
+Vamos utilizar a função `reactive()` para fazer o histograma e a tabela sumário serem criadas a partir da mesma amostra.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio!')`
+<center>
+
+---
+<br><br>
+
+Veja que agora ambos os outputs utilizam a mesma amostra.
+
+<center>
+<img src="img/reaclog_reactive.png" width = "100%"
+</center>
+
+---
+## A função eventReactive()
+
+Cria uma **expressão reativa** que responde às mudanças de um valor reativo específico.
+
+```{r, echo = TRUE, eval=FALSE}
+# ui
+actionButton("atualizar", "Gerar gráfico")
+```
+
+```{r, echo = TRUE, eval=FALSE}
+# server
+titulo <- eventReactive(input$atualizar, {
+  input$titulo
+})
+
+output$hist <- renderPlot({
+  hist(amostra(), main = titulo())
+})
+```
+
+---
+## Atividade
+
+Vamos criar um botão para atualizar o título do gráfico apenas quando clicarmos nele.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio!')`
+<center>
+
+---
+## Corrigindo erros (debug)
+
+A seguir, listamos erros muito comuns que cometemos quando estamos programando em Shiny.
+
+- Erros comuns de programação em R, como chamar objetos ou funções inexistentes, operações não permitidas ou má utilização de funções costumam devolver mensagens de erro informativas. O primeiro passo para resolver qualquer problema de programação de Shiny (ou de R em geral) é ler a mensagem de erro e tentar interpretá-la.
+
+- Erros de sintaxe no Shiny. Em geral, o app não roda e receberemos a mensagem de erro `unexpected symbol`. Causados principalmente por falta ou excesso de vírgulas, parênteses ou chaves. 
+
+- Usar uma expressão reativo fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Operation not allowed without an active reactive context.`.
+
+---
+<br><br>
+
+- Não fazer a correspondência certa entre as funções `_Output()` e `render_()`. O app vai rodar, mas a visualização não ser mostrada. Em algumas situações, uma mensagem de erro será retornada. Em outras, o erro será silencioso.
+
+- Esquecer os parênteses ao chamar uma expressão reativa (objeto criado pelas funções `reactive()` e `eventReactive()`). Normalmente receberemos uma mensagem indicando que a classe de algum objeto está errada, como  `'x' must be numeric` ou a famosa mensagem `cannot coerce type 'closure' to vector of type ...`.
+
+---
+## A função browser()
+
+Quando as mensagens de erro não nos ajudarem, podemos usar a função `browser()` para espiarmos o que está acontecendo dentro do server. Basta colocar essa função onde você suspeita que o erro está acontecendo e, ao rodar o app, você poderá utilizar o Console para avaliar os objetos que estiverem no Environment. Enquanto a função `browser()` estiver ativa, o app ficará congelado.
+
+```{r, eval=FALSE}
+# server
+valor_reativo <- reactive({
+  sample(1:10, 1)
+})
+
+output$plot <- renderPlot({
+  browser() #<<
+  hist(rnorm(100, valor_reativo, 1))
+})
+
+```
+
+```{r}
+# No console
+
+# Browse[1]> valor_reativo()
+# [1] 4
+```
+
+---
+<br><br>
+
+Embora você possa colocar a função browser em qualquer lugar no server, é melhor colocá-la dentro de uma função reativa. Caso contrário, você não conseguirá avaliar valores reativos.
+
+```{r, eval=FALSE}
+# server
+valor_reativo <- reactive({
+  sample(1:10, 1)
+})
+
+browser() #<<
+
+output$plot <- renderPlot({
+  hist(rnorm(100, valor_reativo, 1))
+})
+
+```
+
+```{r}
+# No console
+
+# Browse[1]> valor_reativo()
+# Error in .getReactiveEnvironment()$currentContext() : 
+#  Operation not allowed without an active reactive context. 
+# (You tried to do # something that can only be done from 
+# inside a reactive expression or observer.) 
+```
+
+---
+## Carregando bases de dados
+
+Você pode importar uma base de dados normalmente dentro da função server. Em geral, importar bases não envolve um contexto reativo, portanto essa operação pode ser feita fora de funções reativas.
+
+Se essa operação não depender de um valor reativo, a importação poderá ser feita sem um contexto reativo.
+
+```{r, eval=FALSE}
+# server
+imdb <- read_rds("dados/imdb.rds") #<<
+  
+output$table <- renderTable({
+  imdb %>%  #<<
+    top_n(20, receita) %>% 
+    select(titulo, ano, diretor)
+})
+```
+
+---
+## Atividade
+
+Vamos criar um novo Shiny app que importa uma base de dados.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio!')`
+<center>

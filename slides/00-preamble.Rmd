@@ -8,5 +8,12 @@ blue <- function(x) {
     htmltools::HTML()
 }
 
+colorido <- function(x, cor) {
+  glue::glue(
+    '<span style="color:{cor}; font-weight: bold;">{x}</span>'
+  ) %>% 
+    htmltools::HTML()
+}
+
 options(width = 85)
 ```
