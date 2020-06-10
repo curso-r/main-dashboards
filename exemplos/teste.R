@@ -1,47 +1,40 @@
 library(shiny)
+library(shinydashboard)
+library(tidyverse)
 
-ui <- fluidPage(
-  "Histograma da distribuição normal",
-  sliderInput(
-    inputId = "num",
-    label = "Selecione o tamanho da amostra",
-    min = 1,
-    max = 1000,
-    value = 100
-  ),
-  textInput(inputId = "titulo", label = "Título do gráfico"),
-  actionButton("atualizar", "Gerar gráfico"),
-  plotOutput(outputId = "hist"),
-  "Tabela com sumário",
-  plotly::plotlyOutput(outputId = "sumario")
+ui <- dashboardPage(
+  dashboardHeader(),
+    dashboardSidebar(
+      sidebarMenu(
+        menuItem("Página 1", tabName = "pag1")
+      )
+    ),
+  dashboardBody(
+    tabItems(
+      tabItem(
+        tabName = "pag1",
+        tabBox(
+          height = "200px",
+          tabPanel(
+            title = "Aba 1",
+            ...
+          ),
+          tabPanel(
+            title = "Aba 2",
+            ...
+          ),
+          tabPanel(
+            title = "Aba 3",
+            ...
+          )
+        )
+      )
+    )
+  )
 )
 
 server <- function(input, output, session) {
   
-  amostra <- reactive({
-    rnorm(input$num)
-  })
-  
-  titulo <- eventReactive(input$atualizar, ignoreNULL = FALSE, {
-    input$titulos
-  })
-  
-  output$hist <- renderPlot({
-    hist(amostra(), main = titulo())
-  })
-  
-  output$sumario <- renderPlot({
-    data.frame(
-      media = mean(amostra()),
-      dp = sd(amostra()),
-      min = min(amostra()),
-      max = max(amostra())
-    )
-  })
-  
 }
 
 shinyApp(ui, server)
-
-
-downloadHandler()

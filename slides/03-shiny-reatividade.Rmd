@@ -313,3 +313,11 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 <br>
 `r blue('Ao RStudio!')`
 <center>
+
+---
+## Referências e material extra
+
+### Tutoriais
+
+- [Garrett Grolemund's Shiny Tutorial](https://shiny.rstudio.com/tutorial/).
+

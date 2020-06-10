@@ -268,7 +268,11 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 <center>
 
 ---
-## Referências
+## Referências e material extra
+
+### Tutoriais
+
+- [Garrett Grolemund's Shiny Tutorial](https://shiny.rstudio.com/tutorial/).
 
 #### Galeria de Exemplos
 
