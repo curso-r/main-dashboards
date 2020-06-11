@@ -1,0 +1,216 @@
+---
+title: "Dashboards com R"
+subtitle: "Reatividade (parte 2)"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom-intro.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+## UIs reativas
+
+Muitas vezes, precisamos construir elementos da interface do usuário (inputs) que dependem de valores que estão no server.
+
+Nesses casos, utilizamos as funções `uiOutput()` e `renderUI()`. Essas funções funcionam assim como qualquer outro par output/render, a diferença é que não retornaremos uma visualização, mas sim um elemento da UI.
+
+As funções `uiOutput()` e `renderUI()` nos permitem:
+
+- quando nossa base de dados está apenas no server, usar elemenos da base para construir inputs (usar os nomes das colunas para gerar um caixa de seleção, por exemplo);
+
+- construir filtros hierárquicos (o filtro 2 depende da escolha feita no filtro 1)
+
+---
+<br><br>
+
+Veja que construir um `selectInput` reativo é igual a construir um output qualquer. No exemplo, utilizamos os nomes das colunas da base para gerar um filtro de variáveis.
+
+```{r, eval = FALSE}
+#ui
+uiOutput(outputId = "ui_variaveis") #<<
+
+#server
+imdb <- read_rds("../dados/imdb.rds")
+
+output$ui_variaveis <- renderUI({ #<<
+  
+  variaveis <- names(imdb)
+  
+  selectInput(
+    inputId = "variaveis",
+    label = "Selecione a variável",
+    choices = variaveis
+  )
+  
+}) #<<
+```
+
+---
+<br><br>
+
+Agora, utilizamos para construir filtros hierárquicos. O `selectInput` de filmes vai depender do valor `input$ano`, isto é, a caixa de seleção só vai mostrar filmes do ano escolhido no `sliderInput`.
+
+.tiny[
+```{r, eval = FALSE}
+#ui
+sliderInput(
+    inputId = "ano",
+    label = "Selecione um ano",
+    min = 1916, max = 2016, value = 2000
+  ),
+uiOutput(outputId = "ui_filmes") #<<
+
+#server
+imdb <- read_rds("../dados/imdb.rds")
+
+output$ui_filmes <- renderUI({
+  filmes <- imdb %>% 
+    filter(ano == input$ano) %>%  #<<
+    pull(titulo)
+  
+  selectInput(
+    inputId = "filmes",
+    label = "Selecione um filme",
+    choices = filmes #<<
+  )
+})
+```
+]
+
+---
+## Funções update
+
+Outra forma de inserir reatividade na sua UI é utilizar as funções `update_()`. Essas funções atualizam aspectos de um input, conforme as mudanças de um valor reativo.
+
+Utilizamos as funções update dentro da função `observeEvent()`. Essa função funciona de forma muito parecida que a função `eventReactive()`. A diferença é que a função `observeEvent()` não cria expressões reativas. Ela apenas roda o pedaço de código que estiver dentro dela sempre que o valor reativo especificado mudar.
+
+---
+<br><br>
+
+Podemos reconstruir o nosso filtro hierárquico utilizando a função update `updateSelectInput()`.
+
+.tiny[
+```{r, eval = FALSE}
+#ui
+sliderInput(
+    inputId = "ano",
+    label = "Selecione um ano",
+    min = 1916, max = 2016, value = 2000
+  ),
+selectInput( 
+  inputId = "filmes",
+  label = "Selecione um filme",
+  choices = "" #<<
+)
+
+#server
+imdb <- read_rds("../dados/imdb.rds")
+
+observeEvent(input$ano {
+  filmes <- imdb %>% filter(ano == input$ano) %>% pull(titulo) 
+  
+  updateSelectInput( #<< 
+    session, #<<
+    inputId = "filmes", #<<
+    choices = filmes #<<
+  ) #<<
+})
+```
+]
+
+---
+## Atividade
+
+Vamos construir UIs reativas no nosso Shinydashboard.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: ')`
+<center>
+
+---
+## Validação
+
+O pacote `shiny` possui algumas funções que nos ajudam a validar valores reativos antes de rodarmos um código que gera uma visualização (output). Isso impede que mensagens de erros internas do R apareçam para o usuário, envia mensagens e avisos personalizados quando o usuário faz algo que não devia, controla pontas soltas de reatividade e deixa o nosso aplicativo mais eficiente.
+
+- `isTruthy(x)`: teste se x é válido. `FALSE`, `NULL`, `""`, entrre outros, são considerados valores inválidos. Veja `help(isTruthy)` para ver a lista de valores considerados inválidos.
+
+- `req(x)`: retorna um erro silencioso caso `x` seja inválido.
+
+- `validate()`: tranforma uma mensagem personalizada em uma mensagem de erro para o usuário. Geralmente utilizada junto da função `need()`.
+
+- `need(teste, mensagem)`: retorna uma mensagem personalizada caso o resultado do teste seja falso.
+
+---
+## Função req()
+
+Veja um exemplo de utilização da função `req()`. No código abaixo, a infoBox só será criada se o valor reativo `input$filme` tiver um valor válido (no caso, uma string não nula). Caso o valor seja inválido, a infoBox não será mostrada no app. Nenhuma mensagem de erro ou aviso será retornado ao usuário.
+
+```{r, eval = FALSE}
+#server
+ouput$orcamento <- renderInfoBox({
+  
+  req(input$filme) #<<
+  
+  infoBox(
+    title = "Orçamento",
+    value = input$orcamento
+  )
+  
+})
+```
+
+
+---
+## Retornando uma mensagem de erro personalizada
+
+Neste caso, além de o aplicativo não mostrar a infoBox, uma mensagem é enviada ao usuário explicando o porquê. No código, utilizamos `isTruthy(input$filme)` para testar se `input$filme` é válido, retornamos a mensagem `"Nenhum filme selecionado."` caso ele não seja e usamos a função `validate()` para parar a execução e retornar essa mensagem ao usuário. 
+
+```{r, eval = FALSE}
+#server
+ouput$orcamento <- renderInfoBox({
+  
+  validate( #<<
+    need(isTruthy(input$filme), message = "Nenhum filme selecionado.") #<<
+  ) #<<
+  
+  infoBox(
+    title = "Orçamento",
+    value = input$orcamento
+  )
+  
+})
+```
+
+---
+## Atividade
+
+Vamos corrigir os problemas de reatividade do nosso Shinydashboard.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: ')`
+<center>
+
+---
+## Referências e material extra
+
+- [Tutorial do Shiny Dashboard](https://rstudio.github.io/shinydashboard/get_started.html)

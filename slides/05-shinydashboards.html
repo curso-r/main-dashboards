@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards com R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Dashboards com R
+## Shinydashboard
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+### Junho de 2020
+
+---
+
+
+
+
+
+
+## Shinydashboard
+
+O `shinydasboard` é um pacote de R que introduz diversas ferramentas para o Shiny. A mais importante delas é uma nova opção de layout: o dashboard. Com um simples template, conseguimos gerar uma UI naturalmente bonita e organizada.
+
+.pull-left[
+
+
+```r
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+```
+
+]
+
+.pull-right[
+
+&lt;img src="img/shinydashboard.png"&gt;
+
+]
+
+---
+## Elementos do shinydashboard
+
+.pull-left[
+- A função `dashboardPage()` é responsável por criar o layout de dashboard. Ela recebe três funções como argumentos: `dashboardHeader()`, `dashboardSidebar()` e `dashboardBody()`.
+
+- A função `dashboardHeader()` é responsável por elementos da barra superior (azul).
+]
+
+.pull-right[
+
+&lt;img src="img/shinydashboard.png"&gt;
+
+]
+
+- A função `dashboardSidebar()` é responsável por elementos da barra lateral (preta). Geralmente colocamos nelas um menu para criar várias páginas no nosso dashboard.
+
+- A função `dashboardBody()` controla os elementos da área principal do dashboard (cinza). É nela que colocaremos as nossas visualizações.
+
+---
+## Atividade
+
+Vamos construir um app com o layout do Shinydashboard.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 14-shinydashboard-layout.R</span>
+&lt;center&gt;
+
+---
+## Menu lateral
+
+Para construir um menu na barra lateral, utilizamos a função `sidebarMenu()` dentro da função `dashboardSidebar()`. Cada item do menu é criado pela função `menuItem()`. Além do nome dado ao menu, essa função recebe um argumento chamado `tabName`, que será utilizado para nos referirmos a esse item dentro do `dashboardBody`.
+
+
+```r
+# ui
+dashboardSidebar(
+  sidebarMenu(
+    menuItem("Item 1", tabName = "item1"),
+    menuItem("Item 2", tabName = "item2")
+  )
+)
+```
+
+---
+&lt;br&gt;&lt;br&gt;
+
+Dentro do `dashboardBody()` usamos a função `tabItems()` para listar os itens do menu. A página é criada utilizando a função `tabItem()`. Também passamos a essa função o argmuneto `tabName`, para podermos nos referir a cada um dos itens criados no `sidebarMenu()`. No código abaixo, substituríamos o `...` pelos inputs e outputs que quisermos construir em cada item (página) do dashboard.
+
+
+```r
+# ui
+dashboardBody(
+  tabItems(
+    tabItem(tabName = "item1",...),
+    tabItem(tabName = "item2",...)
+  )
+)
+```
+
+---
+&lt;br&gt;&lt;br&gt;
+
+Assim, o código da ui ficaria:
+
+
+```r
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(
+    sidebarMenu(
+*     menuItem("Item 1", tabName = "item1"),
+      menuItem("Item 2", tabName = "item2")
+    )
+  ),
+  dashboardBody(
+    tabItems(
+*     tabItem(tabName = "item1",...),
+      tabItem(tabName = "item2",...)
+    )
+  )
+)
+```
+
+---
+## Atividade
+
+Vamos construir um menu lateral no nosso Shinydashboard.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 15-shinydashboard-menu.R</span>
+&lt;center&gt;
+
+---
+## box e tabbox
+
+Além do layout de dashboard, o pacote `flexdashboard` trás novos elementos para a UI: o `box()` e o `tabBox()`.
+
+.pull-left[
+
+```r
+box(
+  title = "Histograma", ...
+),
+box(
+  title = "Inputs", ...
+)
+```
+
+&lt;img src="img/box.png"&gt;
+
+]
+
+.pull-right[
+
+
+```r
+tabBox(
+  tabPanel("Aba 1",...),
+  tabPanel("Aba 2",...),
+  tabPanel("Aba 3",...)
+)
+```
+
+
+&lt;img src="img/tabbox.png"&gt;
+
+]
+
+---
+## valueBox e infoBox
+
+E novos outputs: 
+
+.pull-left[
+
+### valueBox
+
+&lt;img src="img/valuebox.png"&gt;
+
+**`renderValueBox({}) + valueBoxOutput()`**
+
+]
+
+.pull-right[
+
+
+### infoBox
+
+&lt;img src="img/infobox.png"&gt;
+
+**`renderInfoBox({}) + infoBoxOutput()`**
+
+]
+
+---
+## Atividade
+
+Vamos acrescentar esses novos elementos ao nosso Shinydashboard.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 16-shinydashboard-elementos.R</span>
+&lt;center&gt;
+
+---
+## Referências e material extra
+
+- [Tutorial do Shiny Dashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
