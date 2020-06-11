@@ -77,7 +77,7 @@ Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 10-exemplo-html.html')`
 <center>
 
 ---
@@ -110,7 +110,7 @@ Para criar colunas dentro de uma linha, utilizamos a função `column()`. Essa f
 ---
 ## Atividade
 
-Vamos fazer um Shiny app para observar o gridsystem na prática.
+Vamos fazer um Shiny app para observar o grid system na prática.
 
 <br>
 
@@ -118,7 +118,7 @@ Vamos fazer um Shiny app para observar o gridsystem na prática.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 11-gridsystem.R')`
 <center>
 
 
@@ -349,7 +349,7 @@ Vamos fazer um Shiny app com sidebarLayout.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 12-sidebarLayout.R')`
 <center>
 
 ---
@@ -502,7 +502,7 @@ Vamos fazer um Shiny app com navbarLayout.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 13-navbarPage.R')`
 <center>
 
 ---
@@ -558,7 +558,7 @@ Vamos construir um app com o layout do Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 14-shinydashboard-layout.R')`
 <center>
 
 ---
@@ -617,7 +617,7 @@ ui <- dashboardPage(
 ---
 ## Atividade
 
-Vamos construir páginas no nosso Shinydashboard.
+Vamos construir um menu lateral no nosso Shinydashboard.
 
 <br>
 
@@ -625,7 +625,7 @@ Vamos construir páginas no nosso Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 15-shinydashboard-menu.R')`
 <center>
 
 ---
@@ -699,12 +699,14 @@ Vamos acrescentar esses novos elementos ao nosso Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 16-shinydashboard-elementos.R')`
 <center>
 
 ---
 ## Referências e material extra
 
-- [Garrett Grolemund's Shiny Tutorial](https://shiny.rstudio.com/tutorial/).
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/).
 
-- [Shiny Layout Guide](https://shiny.rstudio.com/articles/layout-guide.html)
+- [Guia de layout do Shiny](https://shiny.rstudio.com/articles/layout-guide.html)
+
+- [Tutorial do Shiny Dashboard](https://rstudio.github.io/shinydashboard/get_started.html)
