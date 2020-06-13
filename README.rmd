@@ -1,0 +1,42 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Dashboards com R
+
+Material do curso Dashboards com R.
+Duração: 18 horas
+
+## Slides
+
+```{r, echo = FALSE}
+knitr::kable(
+  tibble::tibble(
+    slide = list.files("slides/", pattern = ".html"),
+    link = paste0("https://curso-r.github.io/dashboard-mestre/slides/", slide)
+  )
+)
+```
+
+## Exemplos de aplicativos Shiny
+
+```{r, echo = FALSE}
+knitr::kable(
+  tibble::tibble(
+    script = list.files("exemplos/", pattern = ".R"),
+    link = paste0("https://curso-r.github.io/dashboard-mestre/exemplos/", script)
+  )
+)
+```
+
+
+

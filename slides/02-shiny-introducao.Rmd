@@ -44,6 +44,11 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 </center>
 
 ---
+class: center, middle
+
+## [Exemplo de Shiny app em produção](https://rseis.shinyapps.io/exemplo-kmeans/)
+
+---
 ## Exemplo minimal
 
 O código de qualquer aplicativo em Shiny terá a estrutura abaixo:
