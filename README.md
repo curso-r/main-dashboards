@@ -1,11 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Dashboards com R
-
-Material do curso Dashboards com R da
-[Curso-R](https://www.curso-r.com/).
-
 ## Baixar ou atualizar material
 
     install.packages("remotes")
