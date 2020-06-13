@@ -3,7 +3,8 @@
 
 # Dashboards com R
 
-Material do curso Dashboards com R. Duração: 18 horas
+Material do curso Dashboards com R da
+[Curso-R](https://www.curso-r.com/).
 
 ## Baixar ou atualizar material
 
