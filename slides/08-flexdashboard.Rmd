@@ -1,0 +1,311 @@
+---
+title: "Dashboards com R"
+subtitle: "flexdashboard"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom-intro.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+## O pacote flexdashboard
+
+O pacote `flexdashboard` oferece um layout de R Markdown para construirmos dashboards estáticos diretamente do R.
+
+Um dashboard estático é aquele que não exige um servidor com uma sessão de R rodando por tras. Dashboards gerados com `flexdashboard` são apenas um arquivo `.html`, que pode ser enviado para qualquer usuário e tudo o que ele precisará para abrir o arquivo é um navegador (Firefox, Chrome etc), isto é, ele não precisará do R ou RStudio instalado na máquina dele para visualizar o seu trabalho.
+
+Por usar R Markdown, tudo o que precisaremos aprender para construir um flexdashboard é qual marcação deveremos usar para construir cada elemento do dashboard.
+
+---
+## Metadados
+
+---
+## Outputs
+
+---
+## Colunas e linhas
+
+Para orientarmos a posição dos elementos do dashboard em linhas ou colunas, a depender da orientação definida no metadado, utilizamos uma linha com vários hífens:
+
+
+Layout com duas colunas:
+
+```{code}
+---
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns #<<
+---
+      
+Coluna
+-----------------------------------------------------------------------
+
+Outputs da primeira coluna
+  
+Coluna 
+-----------------------------------------------------------------------
+
+Outputs da segunda coluna
+```
+
+---
+<br><br>
+
+Layout com duas linhas:
+
+```{code}
+---
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows #<<
+---
+      
+Coluna
+-----------------------------------------------------------------------
+
+Outputs da primeira coluna
+  
+Coluna 
+-----------------------------------------------------------------------
+
+Outputs da segunda coluna
+```
+
+
+---
+## Comprimento e altura
+
+Você pode especificar o comprimento e a altura das colunas e linhas utilizando os argumentos `{data-width=}` para colunas
+
+```{code}
+---
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns 
+---
+      
+Coluna {data-width=400} #<<
+-----------------------------------------------------------------------
+
+Coluna menor.
+  
+Coluna {data-width=600} #<<
+-----------------------------------------------------------------------
+
+Coluna maior.
+```
+
+---
+<br><br>
+
+e `{data-height=}` para linhas.
+
+```{code}
+---
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows 
+---
+      
+Linha {data-height=400} #<<
+-----------------------------------------------------------------------
+
+Linha menor.
+  
+Linha {data-height=600} #<<
+-----------------------------------------------------------------------
+
+Linha maior.
+```
+
+---
+## Tabs
+
+Você pode inserir diversos outputs em uma mesma linha ou coluna utilizando abas.
+
+```{code}
+---
+output: flexdashboard::flex_dashboard
+---
+    
+Coluna 
+-------------------------------------
+    
+### Uma tabela
+  
+   
+Column {.tabset} #<<
+-------------------------------------
+   
+### Um gráfico na primeira aba
+ 
+### Outro gráfico na segunda aba
+  
+### Um terceiro gráfico na terceira aba
+    
+
+```
+
+
+
+---
+## Páginas
+
+Para criar páginas no nosso flexdashboard, inserimos uma linha de `=` (sinal de igual).
+
+.tiny[
+```{code}
+---
+output: flexdashboard::flex_dashboard
+---
+    
+Página 1  #<<
+=================================== #<<
+    
+Coluna 1 da página 1
+-------------------------------------
+  
+Coluna 2 da página 1
+-------------------------------------
+   
+Página 2 #<<
+=================================== #<<
+  
+Coluna 1 da página 2
+-------------------------------------
+
+Coluna 2 da página 2
+-------------------------------------
+    
+```
+]
+
+---
+## Temas
+
+Para mudar o tema (visual) do seu flexdashboard, basta usar a opção `theme` no metadado como mostrado abaixo.
+
+```{code}
+---
+title: "Flexdashboard com tema bootstrap"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: bootstrap #<<
+---
+```
+
+---
+<br><br>
+
+As seguintes opções de temas estão disponíveis:
+
+.pull-left[
+- default (tema padrãi)
+
+- cosmo
+
+- bootstrap
+
+- cerulean
+
+- journal
+
+- flatly
+
+- readable
+]
+
+.pull-right[
+- spacelab
+
+- united
+
+- lumen
+
+- paper
+
+- sandstone
+
+- simplex
+
+- yeti
+]
+
+---
+## Storyboard
+
+Você pode fugir do layout por linhas e colunas utilizando a opção `storyboard: true` no metadado. Esse layout dispõe as saídas em forma de carrossel, com espaço para comentários na lateral de cada página.
+
+```{code}
+---
+title: "Storyboard"
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true #<<
+---
+```
+
+
+---
+## Flexdashboard com shiny
+
+Para transformar seu flexdashboard em um dashboard dinâmico, usando o Shiny, siga os seguintes passos:
+
+1. Adicione `runtime: shiny` no metadado do flexdashboard.
+
+2. Adicione o parâmetro `{.sidebar}` na primeira coluna do seu dashboard. Essa coluna será a casa dos seus inputs. Esse passo não é necessário, mas fortemente recomendado.
+
+3. Adicione inputs e outputs, como no shiny. Você não precisa definir os outputs na "UI" como fazemos no Shiny.
+
+4. Não se esqueça de embrulhar seus outputs com as funções `render_()` apropriadas.
+
+
+
+
+---
+<br><br>
+
+Exemplo:
+
+.tiny[
+```{code}
+---
+title: "Flexdashboard com Shiny"
+output: flexdashboard::flex_dashboard
+runtime: shiny
+---
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+```
+]
+
+#### Observações
+
+- Ao usar Shiny com flexdashboard, não será gerado um arquivo HTML, portanto você não poderá compartilhar a sua análise apenas enviando um arquivo.
+
+- Um flexdashboard com Shiny deve ser compartilhado em um servidor Shiny, assim como um Shiny app convencional.
+
+---
+## Referências e material extra
+
+- [Tutorial do flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/using.html)
+
+- [Usando flexdashboard com Shiny](https://rmarkdown.rstudio.com/flexdashboard/shiny.html)
+
+- [Galeria do flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/examples.html)
+
+- [Gere mais interatividade sem Shiny com o pacote crosstalk](https://rstudio.github.io/crosstalk/)
+
+
+

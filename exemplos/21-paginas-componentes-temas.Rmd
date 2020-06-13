@@ -1,0 +1,161 @@
+---
+title: "Páginas, componentes e temas"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: bootstrap
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+
+credit <- read_rds("../dados/credit.rds")
+```
+
+Perfil financeiro
+=======================================================================
+
+Column {data-width=250}
+-----------------------------------------------------------------------
+
+### Número de clientes
+
+```{r}
+valueBox(nrow(credit), icon = "fa-users", color = "success")
+```
+
+### Valor médio dos empréstimos
+
+```{r}
+emprestimo_medio <- mean(credit$valor_emprestimo*1000) %>% 
+  scales::dollar(big.mark = ".", decimal.mark = ",")
+  
+valueBox(emprestimo_medio, icon = "fa-dollar-sign", color = "warning")
+```
+
+### Tempo médio dos empréstimo
+
+```{r}
+tempo_medio <- mean(credit$tempo_emprestimo, na.rm = TRUE) %>% 
+  round(0) %>% 
+  paste("meses")
+  
+valueBox(tempo_medio, icon = "fa-clock", color = "primary")
+```
+
+### Proporção de clientes com dívidas
+
+```{r}
+prop_divida <- sum(credit$dividas == 0, na.rm = TRUE)/nrow(credit)
+prop_divida <- scales::percent(prop_divida, digits = 1)
+
+gauge(prop_divida, min = 0, max = 100, symbol = "%", gaugeSectors(colors = "danger"))
+```
+
+### Proporção de empréstimos concedidos
+
+```{r}
+prop_bons <- sum(credit$status == "bom")/nrow(credit)
+prop_bons <- scales::percent(prop_bons, digits = 1)
+
+gauge(prop_bons, min = 0, max = 100, symbol = "%", gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+
+
+Column {data-width=750}
+-----------------------------------------------------------------------
+
+### Perfil dos clientes
+
+```{r, fig.width=10, fig.height=3.5, fig.align="center"}
+credit %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(y = status, x = renda, fill = status)) +
+  ggridges::geom_density_ridges(show.legend = FALSE) +
+  labs(y = "Status", x = "Renda") +
+  coord_cartesian(xlim = c(0, 500)) +
+  theme_minimal()
+
+credit %>% 
+  filter(!is.na(trabalho)) %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(x = trabalho, fill = status)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Trabalho", y = "Número de clientes", fill = "Status") +
+  theme_minimal()
+```
+
+Perfil demográfico
+=======================================================================
+
+Column {data-width=250}
+-----------------------------------------------------------------------
+
+### Número de clientes
+
+```{r}
+valueBox(nrow(credit), icon = "fa-users", color = "success")
+```
+
+### Valor médio dos empréstimos
+
+```{r}
+emprestimo_medio <- mean(credit$valor_emprestimo*1000) %>% 
+  scales::dollar(big.mark = ".", decimal.mark = ",")
+  
+valueBox(emprestimo_medio, icon = "fa-dollar-sign", color = "warning")
+```
+
+### Tempo médio dos empréstimo
+
+```{r}
+tempo_medio <- mean(credit$tempo_emprestimo, na.rm = TRUE) %>% 
+  round(0) %>% 
+  paste("meses")
+  
+valueBox(tempo_medio, icon = "fa-clock", color = "primary")
+```
+
+### Proporção de clientes com dívidas
+
+```{r}
+prop_divida <- sum(credit$dividas == 0, na.rm = TRUE)/nrow(credit)
+prop_divida <- scales::percent(prop_divida, digits = 1)
+
+gauge(prop_divida, min = 0, max = 100, symbol = "%", gaugeSectors(colors = "danger"))
+```
+
+### Proporção de empréstimos concedidos
+
+```{r}
+prop_bons <- sum(credit$status == "bom")/nrow(credit)
+prop_bons <- scales::percent(prop_bons, digits = 1)
+
+gauge(prop_bons, min = 0, max = 100, symbol = "%", gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+
+Column {data-width=750}
+-----------------------------------------------------------------------
+
+### Perfil dos clientes
+
+```{r, fig.width=10, fig.height=3.5, fig.align="center"}
+credit %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(y = status, x = idade, fill = status)) +
+  ggridges::geom_density_ridges(show.legend = FALSE) +
+  labs(y = "Status", x = "Idade") +
+  theme_minimal()
+
+credit %>% 
+  filter(!is.na(moradia)) %>% 
+  mutate(status = fct_rev(status)) %>% 
+  ggplot(aes(x = moradia, fill = status)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Moradia", y = "Número de clientes", fill = "Status") +
+  theme_minimal()
+```

@@ -1,0 +1,40 @@
+---
+title: "Nosso primeiro flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+```
+
+Column {data-width=550}
+-----------------------------------------------------------------------
+
+### Uma tabela
+
+```{r}
+mtcars %>% 
+  head(15) %>% 
+  knitr::kable()
+```
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Um gráfico
+
+```{r}
+hist(mtcars$mpg)
+```
+
+### Outro gráfico
+
+```{r}
+boxplot(mpg ~ cyl, data = mtcars)
+```
+
+

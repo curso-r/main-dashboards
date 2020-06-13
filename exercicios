@@ -1,0 +1,62 @@
+### 1
+
+1. O que acontece se aumentarmos o número de linhas da tabela para 30?
+
+2. Com 30 linhas na tabela, o que acontece se mudarmos o `vertical_layout:` no cabeçalho de `fill` para `scroll`?
+
+3. Crie um arquivo chamado `meu-segundo-flexdashboard.Rmd` para criar um *flexdashboard*.
+
+    a. Usando o layout padrão do arquivo criado, divida a primeira coluna do dashboard em **duas seções** (assim como a segunda coluna).
+
+    b. Popule o seu dashboard com tabelas ou gráficos da nossa aula de R Markdown. Não se esqueça de importar a base de dados.
+
+4. O que acontece se tirarmos o `orientation: columns`?
+
+### 2
+
+1. O que acontece se você remover o `.tabset` das opções da segunda linha.
+
+2. Acrescente mais uma aba à segunda seção, replicando os gráficos para algum outro tipo.
+
+
+### 3
+
+1. Experimente outros temas para o dashboard. Os temas disponíveis estão ao lado.
+
+2. Crie uma nova página e replique as visualizações da primeira página, dividindo a segunda coluna em duas, com dois gráficos em cada coluna. 
+
+3. Crie uma nova página e replique as visualizações da primeira página, dividindo a segunda coluna em duas, com duas caixas em cada coluna e um gráfico em cada caixa.
+
+### Temas disponíveis
+
+Para trocar o tema do *dashboard*, basta utilizar um dos nomes abaixo na opção `theme:` do cabeçalho.
+
+- default
+
+- cosmo
+
+- bootstrap
+
+- cerulean
+
+- journal
+
+- flatly
+
+- readable
+
+- spacelab
+
+- united
+
+- lumen
+
+- paper
+
+- sandstone
+
+- simplex
+
+- yeti
+
+4. Crie uma nova página e replique as visualizações da primeira página, dividindo a segunda coluna em um *tabset*, com 2 gráficos em cada aba.

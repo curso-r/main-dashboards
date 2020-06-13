@@ -1,0 +1,125 @@
+---
+title: "Storyboard e htmlwidgets"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    storyboard: true
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(highcharter)
+library(leaflet)
+
+pkmn <- read_rds("../dados/pkmn.rds")
+imdb <- read_rds("../dados/imdb.rds")
+```
+
+### Highcharts com o pacote highcharter
+
+```{r}
+cores <- pkmn %>% 
+  distinct(tipo_1, cor_1) %>% 
+  arrange(tipo_1) %>% 
+  .$cor_1
+
+pkmn %>%
+  dplyr::count(tipo_1) %>% 
+  hchart(
+    type = "bar", 
+    hcaes(x = tipo_1, y = n),
+    showInLegend = FALSE,
+    colorByPoint = TRUE,
+    name = "Qtd. de pokémon"
+  ) %>% 
+  hc_yAxis(
+    reversed = FALSE,
+    title = list(text = "Número de pokémon")
+  ) %>% 
+  hc_xAxis(title = "") %>%
+  hc_colors(cores)
+```
+
+***
+
+- Você vai encontrar todas as informações sobre *Highcharts* em https://www.highcharts.com/.
+
+- O pacote `highcharter` tem um tutorial disponível em http://jkunst.com/highcharter/ com exemplos de diversos tipos de gráficos.
+
+### plotly, uma opção mais simples para gráficos interativos
+
+```{r}
+p <- imdb %>% 
+  mutate(
+    genero = case_when(
+      str_detect(generos, "Comedy") ~ "Comédia",
+      str_detect(generos, "Romance") ~ "Romance",
+      str_detect(generos, "Horror") ~ "Terror",
+      str_detect(generos, "Action") ~ "Ação",
+      TRUE ~ "Outro"
+    )
+  ) %>% 
+  filter(genero != "Outro", ano > 1970) %>% 
+  ggplot(aes(x = ano, y = nota_imdb, color = genero)) +
+  geom_smooth(se = FALSE) +
+  labs(y = "Nota imdb", x = "Ano", color = "") +
+  theme_minimal()
+
+plotly::ggplotly(p, tooltip = c("colour", "y"))
+```
+
+***
+
+- Com a função `ggplotly()` podemos nos gerar gráficos interativos a partir de um ggplot. 
+
+- Mais informações sobre o pacote `plolty` podem ser encontradas em https://plot.ly/r/.
+
+### Mapas com o leaflet
+
+```{r}
+tibble(
+  lat = -23.558554,
+  lng = -46.658790,
+  text = "Nós estamos aqui!"
+) %>% 
+leaflet() %>% 
+  addTiles() %>%
+  addPopups(lat = ~lat, lng = ~lng, popup = ~text)
+```
+
+***
+
+- Saiba tudo sobre o pacote `leaflet` lendo este material: https://rstudio.github.io/leaflet/.
+
+### Tabelas com o pacote reactable
+
+```{r}
+imdb %>% 
+  filter(ano > 1990, !is.na(receita)) %>% 
+  arrange(desc(receita)) %>% 
+  mutate(receita = scales::dollar(receita, big.mark = ".", decimal.mark = ",")) %>% 
+  select(`Título` = titulo, Ano = ano, Diretor = diretor, Receita = receita) %>% 
+  reactable::reactable()
+```
+
+***
+
+- Mais sobre o pacote `reactable` em https://github.com/glin/reactable.
+
+### Continue estudando
+
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+
+***
+
+Material extra:
+
+- [Confira outros **htmlwidgets**](http://www.htmlwidgets.org/showcase_leaflet.html).
+
+- [Continue estudando `flexdashboard`](https://rmarkdown.rstudio.com/flexdashboard/).
+
+- [Conectando `flexdashboard` com `Shiny`](https://rmarkdown.rstudio.com/flexdashboard/shiny.html).
+
+- [Customize usando seu próprio CSS](https://rmarkdown.rstudio.com/flexdashboard/using.html#css_styles)
+
