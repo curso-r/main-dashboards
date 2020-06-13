@@ -92,7 +92,11 @@ output$ui_filmes <- renderUI({
 
 Outra forma de inserir reatividade na sua UI é utilizar as funções `update_()`. Essas funções atualizam aspectos de um input, conforme as mudanças de um valor reativo.
 
-Utilizamos as funções update dentro da função `observeEvent()`. Essa função funciona de forma muito parecida que a função `eventReactive()`. A diferença é que a função `observeEvent()` não cria expressões reativas. Ela apenas roda o pedaço de código que estiver dentro dela sempre que o valor reativo especificado mudar.
+Utilizamos as funções update dentro das funções `observe()` ou `observeEvent()`. Essas funções funcionam de forma muito parecida que a função `eventReactive()`. A diferença é essas funções não criam expressões reativas. 
+
+A função `observe()` vai rodar o seu pedaço de código sempre que qualquer valor reativo dentro dela mudar.
+
+Se você quiser que o pedaço de código rode apenas se um de seus valores reativos mudar, você pode usar a função `observeEvent()`. Ela permite determinar qual valor reativo será o gatilho da reatividade.
 
 ---
 <br><br>
@@ -116,7 +120,7 @@ selectInput(
 #server
 imdb <- read_rds("../dados/imdb.rds")
 
-observeEvent(input$ano {
+observe({
   filmes <- imdb %>% filter(ano == input$ano) %>% pull(titulo) 
   
   updateSelectInput( #<< 
@@ -124,6 +128,34 @@ observeEvent(input$ano {
     inputId = "filmes", #<<
     choices = filmes #<<
   ) #<<
+})
+```
+]
+
+---
+<br><br>
+
+Se no exemplo anterior tivéssemos dois ou mais valores reativos usados para filtrar a base, poderíamos usar a função `observeEvent()` para especificar qual deles seria o gatilho da reatividade. No exemplo abaixo, embora tenhamos 3 valores reativos dentro da função `observeEvent()`, apenas mudanças no `input$ano` faria o pedaço de código dentro dela rodar novamente (isto é, atualizar o filtro de filmes).
+
+.tiny[
+```{r, eval = FALSE}
+#server
+imdb <- read_rds("../dados/imdb.rds")
+
+observeEvent(input$ano, { #<<
+  filmes <- imdb %>% 
+    filter(
+      ano == input$ano, #<<
+      diretor = input$diretor,  #<<
+      str_detect(generos, "Action") #<<
+    ) %>% 
+    pull(titulo) 
+  
+  updateSelectInput(
+    session,
+    inputId = "filmes",
+    choices = filmes 
+  )
 })
 ```
 ]
