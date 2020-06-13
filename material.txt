@@ -1,2 +1,4 @@
 dados
 exemplos
+scripts_aula
+README.rmd
