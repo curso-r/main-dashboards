@@ -16,6 +16,15 @@ knitr::opts_chunk$set(
 Material do curso Dashboards com R.
 Duração: 18 horas
 
+## Baixar ou atualizar material
+
+```
+install.packages("remotes")
+remotes::install_github("curso-r/CursoR")
+
+CursoR::atualizar_material()
+```
+
 ## Slides
 
 ```{r, echo = FALSE}
@@ -27,16 +36,15 @@ knitr::kable(
 )
 ```
 
-## Exemplos de aplicativos Shiny
+## Scripts feitos em aula
 
 ```{r, echo = FALSE}
 knitr::kable(
   tibble::tibble(
-    script = list.files("exemplos/", pattern = ".R"),
-    link = paste0("https://curso-r.github.io/dashboard-mestre/exemplos/", script)
+    script = list.files("scripts_aula/", pattern = ".R"),
+    link = paste0("https://curso-r.github.io/dashboard-mestre/scripts_aula/", script)
   )
 )
 ```
-
 
 
