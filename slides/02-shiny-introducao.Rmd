@@ -116,7 +116,7 @@ Vamos criar e rodar o exemplo minimal do slide anterior.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 01-ola-mundo.R')`
 <center>
 
 ---
@@ -173,7 +173,7 @@ Vamos criar e rodar um shiny app com um gráfico como output.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 02-output.R')`
 <center>
 
 ---
@@ -223,8 +223,8 @@ Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o u
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
-<center>
+`r blue('Ao RStudio: 03-output-input.R')`
+</center>
 
 ---
 ## Acessando os inputs no server
@@ -252,7 +252,7 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 
 O [shinyapps.io](https://www.shinyapps.io/) é um serviço do RStudio para hospedagem de Shiny apps.
 
-A conta gratuita permite você ter até 5 aplicações e 25 horas mensais de uso (um aplicativo utilizado por 1 hora consome 1 hora do seu plano, 2 aplicativos utilizados simutaneamente por 1 hora consomem 2 horas do seu plano).
+A conta gratuita permite você ter até 5 aplicações e 25 horas mensais de uso (um aplicativo utilizado por 1 hora consome 1 hora do seu plano, 2 aplicativos utilizados simultaneamente por 1 hora consomem 2 horas do seu plano).
 
 Criada uma conta, você poderá subir o seu app para o shinyapps.io diretamente do RStudio. Para isso, você precisará apenas conectar a sua conta com o RStudio.
 
@@ -269,18 +269,18 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
-<center>
+`r blue('Ao RStudio: 03-output-input.R')`
+</center>
 
 ---
 ## Referências e material extra
 
 ### Tutoriais
 
-- [Garrett Grolemund's Shiny Tutorial](https://shiny.rstudio.com/tutorial/).
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/).
 
 #### Galeria de Exemplos
 
-- [Shiny Gallery](https://shiny.rstudio.com/gallery/)
+- [Galeria do Shiny](https://shiny.rstudio.com/gallery/)
 
-- [Show me Shiny Website](https://www.showmeshiny.com/)
+- [Site Show me Shiny](https://www.showmeshiny.com/)

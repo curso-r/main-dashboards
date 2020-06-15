@@ -32,7 +32,7 @@ Nesses casos, utilizamos as funções `uiOutput()` e `renderUI()`. Essas funçõ
 
 As funções `uiOutput()` e `renderUI()` nos permitem:
 
-- quando nossa base de dados está apenas no server, usar elemenos da base para construir inputs (usar os nomes das colunas para gerar um caixa de seleção, por exemplo);
+- quando nossa base de dados está apenas no server, usar elementos da base para construir inputs (usar os nomes das colunas para gerar um caixa de seleção, por exemplo);
 
 - construir filtros hierárquicos (o filtro 2 depende da escolha feita no filtro 1)
 
@@ -189,11 +189,11 @@ Vamos construir UIs reativas no nosso Shinydashboard.
 
 O pacote `shiny` possui algumas funções que nos ajudam a validar valores reativos antes de rodarmos um código que gera uma visualização (output). Isso impede que mensagens de erros internas do R apareçam para o usuário, envia mensagens e avisos personalizados quando o usuário faz algo que não devia, controla pontas soltas de reatividade e deixa o nosso aplicativo mais eficiente.
 
-- `isTruthy(x)`: teste se x é válido. `FALSE`, `NULL`, `""`, entrre outros, são considerados valores inválidos. Veja `help(isTruthy)` para ver a lista de valores considerados inválidos.
+- `isTruthy(x)`: teste se x é válido. `FALSE`, `NULL`, `""`, entre outros, são considerados valores inválidos. Veja `help(isTruthy)` para ver a lista de valores considerados inválidos.
 
 - `req(x)`: retorna um erro silencioso caso `x` seja inválido.
 
-- `validate()`: tranforma uma mensagem personalizada em uma mensagem de erro para o usuário. Geralmente utilizada junto da função `need()`.
+- `validate()`: transforma uma mensagem personalizada em uma mensagem de erro para o usuário. Geralmente utilizada junto da função `need()`.
 
 - `need(teste, mensagem)`: retorna uma mensagem personalizada caso o resultado do teste seja falso.
 

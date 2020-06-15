@@ -29,7 +29,7 @@ Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da d
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 04-hist-normal.R')`
 <center>
 
 ---
@@ -37,7 +37,7 @@ Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da d
 
 **Valores reativos** são aqueles que podem mudar de valor conforme uma ação do usuário. **Funções reativas** são funções que recebem valores reativos e, portanto, mudam seus resultados conforme uma ação do usuário.
 
-Valores reativos só podem ser usados dentro de funções reatiavas ou um **contexto reativo**.
+Valores reativos só podem ser usados dentro de funções reativas ou um **contexto reativo**.
 
 `r colorido('Certo', 'green')`
 
@@ -75,21 +75,19 @@ Listamos abaixo as principais funções para trabalhar com reatividade no Shiny:
 
 - **`reactive({})`**
 
-- **`isolate({})`**
+- **`eventReactive({})`**
 
 - **`observe({})`**
 
-- **`eventReactive({})`**
-
 - **`oberveEvent({})`**
 
-A seguir, discutiremos com detalhes cada uma delas.
+A seguir, discutiremos as funções `render*({})`, `reactive({})` e `eventReactive({})`. As demais serão discutidas na parte II do tópico de reatividade.
 
 ---
 ## Funções render_()
 
 Para criar um output, precisamos das funções do tipo `render_()`. Essas funções
-criam as visualizações que vamos motrar na UI e as deixam reativas. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+criam as visualizações que vamos mostrar na UI e as deixam reativas. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
 
 Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
 
@@ -113,13 +111,13 @@ Vamos acrescentar ao nosso app uma tabela com um sumário da amostra normal usad
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 05-dois-outputs.R')`
 <center>
 
 ---
 ## Gráfico de reatividade
 
-Você pode gerar um gráfico de reatividade do seu aplicativo utizando o pacote `reaclog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
+Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reaclog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
 
 ```{r, eval=FALSE}
 options(shiny.reactlog = TRUE) 
@@ -163,7 +161,7 @@ Vamos utilizar a função `reactive()` para fazer o histograma e a tabela sumár
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 06-reactive.R')`
 <center>
 
 ---
@@ -207,7 +205,7 @@ Vamos criar um botão para atualizar o título do gráfico apenas quando clicarm
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 07-eventReactive.R')`
 <center>
 
 ---
@@ -283,6 +281,20 @@ output$plot <- renderPlot({
 ```
 
 ---
+## Atividade
+
+Vamos criar um novo Shiny app que importa uma base de dados.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 08-debug.R')`
+<center>
+
+---
 ## Carregando bases de dados
 
 Você pode importar uma base de dados normalmente dentro da função server. Em geral, importar bases não envolve um contexto reativo, portanto essa operação pode ser feita fora de funções reativas.
@@ -311,7 +323,7 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio!')`
+`r blue('Ao RStudio: 09-dados.R')`
 <center>
 
 ---
@@ -319,5 +331,13 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 
 ### Tutoriais
 
-- [Garrett Grolemund's Shiny Tutorial](https://shiny.rstudio.com/tutorial/).
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
+
+- [O pacote reaclog](https://rstudio.github.io/reactlog/articles/reactlog.html)
+
+### Material avançado
+
+- [Mais sobre reatividade](https://shiny.rstudio.com/articles/#reactivity)
+
+- [Mais sobre debug](https://shiny.rstudio.com/articles/#code-quality)
 

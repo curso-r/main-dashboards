@@ -20,13 +20,13 @@ output:
 
 ## Tags HTML
 
-Tags são utilizadas em HTML para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e insirir imagens. 
+Tags são utilizadas em HTML para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e inserir imagens. 
 
 O pacote `shiny` traz diversas funções que simulam essas tags, nos permitindo usá-las livremente na UI para melhor formatar o nosso app. As principais são:
 
 ```{r, echo = FALSE, eval=TRUE}
 tibble::tribble(~`função`, ~`para que serve`,
-                "a()", "cria um hyperlink",
+                "a()", "cria um hiperlink",
                 "hr()", "cria uma linha horizontal",
                 "br()", "insere uma quebra de linha",
                 "h1(), ..., h6()", "cria títulos",
@@ -88,7 +88,7 @@ O layout de um Shiny app segue o *grid system* do [Bootstrap Framework](https://
 1. os elementos serão dispostos primeiramente em linhas (alinhamento horizontal);
 2. cada nova linha será colocada embaixo da anterior;
 3. cada linha será dividida em colunas, para dispormos os elementos horizontalmente;
-4. o comprimento da página será dividido em 12 unidades, indepentemente do tamanho da tela.
+4. o comprimento da página será dividido em 12 unidades, independentemente do tamanho da tela.
 
 <center>
 <img src="img/gridsystem.jpg" width = 80%>

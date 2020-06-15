@@ -22,7 +22,7 @@ output:
 
 O pacote `flexdashboard` oferece um layout de R Markdown para construirmos dashboards estáticos diretamente do R.
 
-Um dashboard estático é aquele que não exige um servidor com uma sessão de R rodando por tras. Dashboards gerados com `flexdashboard` são apenas um arquivo `.html`, que pode ser enviado para qualquer usuário e tudo o que ele precisará para abrir o arquivo é um navegador (Firefox, Chrome etc), isto é, ele não precisará do R ou RStudio instalado na máquina dele para visualizar o seu trabalho.
+Um dashboard estático é aquele que não exige um servidor com uma sessão de R rodando por trás. Dashboards gerados com `flexdashboard` são apenas um arquivo `.html`, que pode ser enviado para qualquer usuário e tudo o que ele precisará para abrir o arquivo é um navegador (Firefox, Chrome etc), isto é, ele não precisará do R ou RStudio instalado na máquina dele para visualizar o seu trabalho.
 
 Por usar R Markdown, tudo o que precisaremos aprender para construir um flexdashboard é qual marcação deveremos usar para construir cada elemento do dashboard.
 
@@ -35,7 +35,7 @@ Por usar R Markdown, tudo o que precisaremos aprender para construir um flexdash
 ---
 ## Colunas e linhas
 
-Para orientarmos a posição dos elementos do dashboard em linhas ou colunas, a depender da orientação definida no metadado, utilizamos uma linha com vários hífens:
+Para orientarmos a posição dos elementos do dashboard em linhas ou colunas, a depender da orientação definida no metadado, utilizamos uma linha com vários hifens:
 
 
 Layout com duas colunas:

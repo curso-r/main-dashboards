@@ -85,7 +85,7 @@ A seguir, uma lista de pacotes/funções alternativos que trazem soluções para
 ---
 ## Gráficos com plotly
 
-O pacote `plotly` nos permite criar gráficos interativos baseados na biblioteca [Plotly](https://plotly.com/) (construída em [D3](https://d3js.org/)). Para criar um plolty no nosso app, precisaremos criar um plotly e das funções `plotlyOutput()` e `renderPlotly()`.
+O pacote `plotly` nos permite criar gráficos interativos baseados na biblioteca [Plotly](https://plotly.com/) (construída em [D3](https://d3js.org/)). Para criar um plotly no nosso app, precisaremos criar um plotly e das funções `plotlyOutput()` e `renderPlotly()`.
 
 Embora seja possível criar um plotly do zero usando a função `plot_ly()`, um jeito muito eficiente de utilizar essa biblioteca é criar um ggplot e então utilizar a função `ggplotly()`. Veja o exemplo a seguir.
 

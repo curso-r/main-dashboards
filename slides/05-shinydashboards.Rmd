@@ -91,7 +91,7 @@ dashboardSidebar(
 ---
 <br><br>
 
-Dentro do `dashboardBody()` usamos a função `tabItems()` para listar os itens do menu. A página é criada utilizando a função `tabItem()`. Também passamos a essa função o argmuneto `tabName`, para podermos nos referir a cada um dos itens criados no `sidebarMenu()`. No código abaixo, substituríamos o `...` pelos inputs e outputs que quisermos construir em cada item (página) do dashboard.
+Dentro do `dashboardBody()` usamos a função `tabItems()` para listar os itens do menu. A página é criada utilizando a função `tabItem()`. Também passamos a essa função o argumento `tabName`, para podermos nos referir a cada um dos itens criados no `sidebarMenu()`. No código abaixo, substituiríamos o `...` pelos inputs e outputs que quisermos construir em cada item (página) do dashboard.
 
 ```{r, eval=FALSE}
 # ui

@@ -25,19 +25,19 @@ CursoR::atualizar_material()
 ```{r, echo = FALSE}
 knitr::kable(
   tibble::tibble(
-    slide = list.files("slides/", pattern = ".html"),
-    link = paste0("https://curso-r.github.io/dashboard-mestre/slides/", slide)
+    slide = CursoR:::list_github_files("dashboard-mestre", "slides/", "html"),
+    link = paste0("https://curso-r.github.io/dashboard-mestre/", slide)
   )
 )
 ```
 
-## Scripts feitos em aula
+## Scripts com exemplos mostrados em aula
 
 ```{r, echo = FALSE}
 knitr::kable(
   tibble::tibble(
-    script = list.files("scripts_aula/", pattern = ".R"),
-    link = paste0("https://curso-r.github.io/dashboard-mestre/scripts_aula/", script)
+    script = list.files("exemplos/", pattern = ".R"),
+    link = paste0("https://curso-r.github.io/dashboard-mestre/exemplos/", script)
   )
 )
 ```
