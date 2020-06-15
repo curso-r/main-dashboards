@@ -255,6 +255,12 @@ A seguir, listamos erros muito comuns que cometemos quando estamos programando e
 
 - Não fazer a correspondência certa entre as funções `_Output()` e `render_()`. O app vai rodar, mas a visualização não ser mostrada. Em algumas situações, uma mensagem de erro será retornada. Em outras, o erro será silencioso.
 
+- Errar o nome de um input (usar um input que não existe). O app vai rodar e, geralmente, retornar um erro relacionado a uma função receber um valor que não deveria ser NULL.
+
+- Errar o nome de um output. O app vai rodar e não vai retornar erro. O output não será gerado.
+
+- Usar o mesmo ID para dois outputs. O app vai rodar e não vai retornar erro. Os outputs não serão gerados.
+
 - Esquecer os parênteses ao chamar uma expressão reativa (objeto criado pelas funções `reactive()` e `eventReactive()`). Normalmente receberemos uma mensagem indicando que a classe de algum objeto está errada, como  `'x' must be numeric` ou a famosa mensagem `cannot coerce type 'closure' to vector of type ...`.
 
 ---
