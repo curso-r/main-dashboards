@@ -353,6 +353,99 @@ output$table &lt;- renderTable({
 ```
 
 ---
+### Arquitetura de um servidor shiny
+
+A estrutura de um servidor shiny está descrita na imagem abaixo:
+
+&lt;center&gt;
+&lt;img src="img/servidor-shiny.png" width = "90%"&gt;
+&lt;br&gt;
+Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt;
+&lt;/center&gt;
+
+---
+&lt;br&gt;&lt;br&gt;
+
+1. O primeiro nível (*Application*) representa o servidor onde o app está hospedado.
+
+2. O segundo nível (*Instance*) representa uma máquina virtual (instância), gerada pelo servidor principal, que tem como única missão rodar o seu app. Cada servidor pode abrir várias instâncias.
+
+3. O terceiro nível (*Worker*) é uma sessão de R, responsável por servir o app. Cada instância pode abrir várias sessões de R.
+
+4. O último nível (*Connections*) representa o usuário final. Cada sessão de R pode abrir várias sessões independentes do app, servindo vários usuários ao mesmo tempo.
+
+Novas instâncias e sessões são abertas para administrar eficientemente fluxos maiores de usuários.
+ 
+---
+&lt;br&gt;&lt;br&gt;
+
+Essa estrutura importante para entendermos onde devemos importar os nossos dados.
+
+Carregando fora do server, a base será importada apenas uma vez, assim que cada sessão de R for criada.
+
+
+```r
+library(shiny)
+*imdb &lt;- read_rds("dados/imdb.rds")
+
+ui &lt;- fluidPage()
+
+server &lt;- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+---
+&lt;br&gt;&lt;br&gt;
+
+Carregando dentro do server, mas fora de um contexo reativo, a base será importada sempre que um usuário abrir o app. No entanto, não importa qual ação o usuário fizer, ela não será importada novamente enquanto ele estiver usando app.
+
+
+```r
+library(shiny)
+
+ui &lt;- fluidPage()
+
+server &lt;- function(input, output, session) {
+* imdb &lt;- read_rds("dados/imdb.rds")
+}
+
+shinyApp(ui, server)
+```
+
+---
+&lt;br&gt;&lt;br&gt;
+
+Carregando dentro do server, mas fora de um contexo reativo, a base será importada sempre que o usuário fizer uma ação gatilho do contexo reativo.
+
+
+```r
+library(shiny)
+
+ui &lt;- fluidPage(
+  selectInput(
+    inputId = "diretor",
+    label = "Selecione um diretor",
+    diretor = c("Steven Spielberg", "Quentin Tarantino")
+  )
+)
+
+server &lt;- function(input, output, session) {
+  imdb &lt;- reactive({
+    
+*   tab &lt;- read_rds("dados/imdb.rds")
+    
+    tab %&gt;% dplyr::filter(diretor == input$diretor)
+  })
+    
+}
+
+shinyApp(ui, server)
+```
+
+---
 ## Atividade
 
 Vamos criar um novo Shiny app que importa uma base de dados.
