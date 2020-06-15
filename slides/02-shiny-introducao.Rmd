@@ -125,7 +125,7 @@ Vamos criar e rodar o exemplo minimal do slide anterior.
 Fazer um shiny app tem duas grandes tarefas: a construção do layout (veremos mais a frente) e a construção dos inputs e outputs.
 
 <center>
-<img src="img/inputs_outputs.png" width = "80%">
+<img src="img/inputs_outputs.png" width = "100%">
 </center>
 
 ---
