@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - Introdução ao curso
 - Introdução ao shiny
-- shinyapps.io
+- shinyapps.ioxZ
 - Conectar shinyapps.io com o RStudio
 - UI/Server
 - Input/Output
