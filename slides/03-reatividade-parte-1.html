@@ -353,7 +353,7 @@ output$table &lt;- renderTable({
 ```
 
 ---
-### Arquitetura de um servidor shiny
+## Arquitetura de um servidor shiny [avançado]
 
 A estrutura de um servidor shiny está descrita na imagem abaixo:
 
@@ -375,11 +375,13 @@ Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt
 4. O último nível (*Connections*) representa o usuário final. Cada sessão de R pode abrir várias sessões independentes do app, servindo vários usuários ao mesmo tempo.
 
 Novas instâncias e sessões são abertas para administrar eficientemente fluxos maiores de usuários.
+
+Para saber mais, veja a página no [Shiny Server](https://rstudio.com/products/shiny/shiny-server/).
  
 ---
-&lt;br&gt;&lt;br&gt;
+## Onde carregar a nossa base de dados?
 
-Essa estrutura importante para entendermos onde devemos importar os nossos dados.
+Essa arquitetura é importante para entendermos onde devemos importar os nossos dados. Mas, se quisermos abstrair todas essa informações, basta lembrarmos das seguintes regras:
 
 Carregando fora do server, a base será importada apenas uma vez, assim que cada sessão de R for criada.
 
@@ -473,6 +475,8 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 - [Mais sobre reatividade](https://shiny.rstudio.com/articles/#reactivity)
 
 - [Mais sobre debug](https://shiny.rstudio.com/articles/#code-quality)
+
+- [Shiny Server](https://rstudio.com/products/shiny/shiny-server/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
