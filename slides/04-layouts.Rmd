@@ -402,7 +402,7 @@ ui <- navbarPage(
 ---
 <br><br>
 
-Com a função `tabPanel()` as criamos diferentes páginas do aplicativo, que são acessadas pela barra superior. O `title` indica o título que aparecerá em cada botão.
+Com a função `tabPanel()` as criamos diferentes páginas do aplicativo, que são acessadas pela barra superior. O `title` indica o título que aparecerá em cada botão. 
 
 ```{r, eval=FALSE}
 ui <- navbarPage(
