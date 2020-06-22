@@ -377,7 +377,7 @@ ui <- navbarPage(
 
 Essa estrutura vai originar o seguinte layout. Cada opção da barra superior mostra uma página diferente do aplicativo.
 
-<img src = "img/navbarPage.png">
+<img src = "img/navbarpage.png">
 
 ---
 <br><br>
