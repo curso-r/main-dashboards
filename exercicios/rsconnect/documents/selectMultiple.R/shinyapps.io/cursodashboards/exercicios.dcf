@@ -1,0 +1,13 @@
+name: exercicios
+title: exercicios
+username:
+account: cursodashboards
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2479575
+bundleId: 3293493
+url: https://cursodashboards.shinyapps.io/exercicios/
+when: 1592599134.76973
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: dateInput.R
