@@ -171,7 +171,7 @@ Vamos construir UIs reativas no nosso Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: ')`
+`r blue('Ao RStudio: 17-ui-reativa.R')`
 <center>
 
 ---
@@ -198,9 +198,13 @@ ouput$orcamento <- renderInfoBox({
   
   req(input$filme) #<<
   
+  orcamento <- imdb %>% 
+    filter(titulo == input$filme) %>% 
+    pull(orcamento)
+  
   infoBox(
     title = "Orçamento",
-    value = input$orcamento
+    value = orcamento
   )
   
 })
@@ -212,6 +216,7 @@ ouput$orcamento <- renderInfoBox({
 
 Neste caso, além de o aplicativo não mostrar a infoBox, uma mensagem é enviada ao usuário explicando o porquê. No código, utilizamos `isTruthy(input$filme)` para testar se `input$filme` é válido, retornamos a mensagem `"Nenhum filme selecionado."` caso ele não seja e usamos a função `validate()` para parar a execução e retornar essa mensagem ao usuário. 
 
+.tiny[
 ```{r, eval = FALSE}
 #server
 ouput$orcamento <- renderInfoBox({
@@ -220,13 +225,16 @@ ouput$orcamento <- renderInfoBox({
     need(isTruthy(input$filme), message = "Nenhum filme selecionado.") #<<
   ) #<<
   
+  orcamento <- imdb %>% filter(titulo == input$filme) %>% pull(orcamento)
+  
   infoBox(
     title = "Orçamento",
-    value = input$orcamento
+    value = orcamento
   )
   
 })
 ```
+]
 
 ---
 ## Atividade
@@ -239,7 +247,7 @@ Vamos corrigir os problemas de reatividade do nosso Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: ')`
+`r blue('Ao RStudio: 17-ui-reativa.R')`
 <center>
 
 ---
