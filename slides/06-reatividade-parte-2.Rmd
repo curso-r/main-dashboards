@@ -253,4 +253,16 @@ Vamos corrigir os problemas de reatividade do nosso Shinydashboard.
 ---
 ## Referências e material extra
 
-- [Tutorial do Shiny Dashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+### Tutoriais
+
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
+
+- [Tutorial do Shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+
+### Material avançado
+
+- [Mais sobre reatividade](https://shiny.rstudio.com/articles/#reactivity)
+
+- [Mais sobre debug](https://shiny.rstudio.com/articles/#code-quality)
+
+- [Shiny Server](https://rstudio.com/products/shiny/shiny-server/)
