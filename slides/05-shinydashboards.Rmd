@@ -217,4 +217,6 @@ Vamos acrescentar esses novos elementos ao nosso Shinydashboard.
 ---
 ## Referências e material extra
 
-- [Tutorial do Shiny Dashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+- [Mais sobre layout](https://shiny.rstudio.com/articles/#user-interface)
+
+- [Tutorial do Shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
