@@ -194,6 +194,14 @@ leaflet(height = 300) %>%
 
 - `highcharter::hcmap()`: variação do `highcharter` para mapas, baseada na biblioteca JavaScript [Highcharts](https://www.highcharts.com/maps/demo). **`r blue('[avançado]')`**
 
+#### Tutoriais
+
+- [Documentação geom_sf()](https://ggplot2.tidyverse.org/reference/ggsf.html)
+
+- [Construindo mapas com o highcharter](http://jkunst.com/highcharter/highmaps.html)
+
+- [Documentação Highmaps](https://api.highcharts.com/highmaps/)
+
 ---
 ## Atividade
 
@@ -207,16 +215,6 @@ Vamos construir htmlwidgets no nosso Shinydashboard.
 <br>
 `r blue('Ao RStudio: ')`
 <center>
-
----
-
-#### Tutoriais
-
-- [Documentação geom_sf()](https://ggplot2.tidyverse.org/reference/ggsf.html)
-
-- [Construindo mapas com o highcharter](http://jkunst.com/highcharter/highmaps.html)
-
-- [Documentação Highmaps](https://api.highcharts.com/highmaps/)
 
 ---
 ## Referências e material extra
