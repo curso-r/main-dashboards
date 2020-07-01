@@ -29,8 +29,33 @@ Por usar R Markdown, tudo o que precisaremos aprender para construir um flexdash
 ---
 ## Metadados
 
+```{code}
+---
+title: "Título"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```
+
+- `title`: título que aparecerá no dashboard.
+
+- `orientation`: como os elementos serão posicionados no dashboard (linhas ou colunas).
+
+- `vertical_layout`: como o dashboard vai se comportar com relação ao tamanho vertical da página.
+
 ---
 ## Outputs
+
+Para construir tabelas, gráficos, mapas etc, basta colocamos o código R que gera cada visualização dentro de um chunk abaixo de uma marcação com 3 hashtags: `###`. A visualização será colocada no dashboard dentro de um box, cujo título sejá o texto escrito após as hashtags.
+
+```{code}
+### Uma tabela #<<
+
+{chunk com código de R produzindo tabelas, gráficos, mapas etc}
+```
+
 
 ---
 ## Colunas e linhas

@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## flexdashboard
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Junho de 2020
+### Julho de 2020
 
 ---
 
@@ -35,8 +35,35 @@ Por usar R Markdown, tudo o que precisaremos aprender para construir um flexdash
 ---
 ## Metadados
 
+
+```code
+---
+title: "Título"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```
+
+- `title`: título que aparecerá no dashboard.
+
+- `orientation`: como os elementos serão posicionados no dashboard (linhas ou colunas).
+
+- `vertical_layout`: como o dashboard vai se comportar com relação ao tamanho vertical da página.
+
 ---
 ## Outputs
+
+Para construir tabelas, gráficos, mapas etc, basta colocamos o código R que gera cada visualização dentro de um chunk abaixo de uma marcação com 3 hashtags `###`.
+
+
+```code
+*### Uma tabela
+
+{chunk com código de R produzindo tabelas, gráficos, mapas etc}
+```
+
 
 ---
 ## Colunas e linhas
