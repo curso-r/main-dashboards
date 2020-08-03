@@ -9,7 +9,9 @@ runtime: shiny
 
 ```{r global, include=FALSE}
 library(flexdashboard)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
 imdb <- read_rds("imdb.rds")
 ```
 
@@ -33,7 +35,7 @@ selectInput(
 Column
 -----------------------------------------------------------------------
 
-### Chart B
+### Série
 
 ```{r}
 renderPlot({
