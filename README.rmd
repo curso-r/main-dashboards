@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+# Dashboards
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
@@ -11,35 +13,39 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Baixar ou atualizar material
+Repositório principal do curso Dashboards.
 
-```
-install.packages("remotes")
-remotes::install_github("curso-r/CursoR")
+Inscreva-se no curso: https://www.curso-r.com/cursos/dashboards/
 
-CursoR::atualizar_material()
-```
-
-## Slides
+**Acesse o material completo do curso escolhendo uma das turmas abaixo**.
 
 ```{r, echo = FALSE}
-knitr::kable(
-  tibble::tibble(
-    slide = CursoR:::list_github_files("dashboard-mestre", "slides/", "html"),
-    link = paste0("https://curso-r.github.io/dashboard-mestre/", slide)
-  )
-)
+knitr::kable(CursoR:::listar_turmas_recentes("dashboards"))
 ```
 
-## Scripts com exemplos mostrados em aula
+# Ementa
 
-```{r, echo = FALSE}
-knitr::kable(
-  tibble::tibble(
-    script = list.files("exemplos/", pattern = ".R"),
-    link = paste0("https://curso-r.github.io/dashboard-mestre/exemplos/", script)
-  )
-)
-```
-
+- **Introdução ao Shiny**
+  - Dashboards estáticos e dinâmicos
+  - O que é o Shiny?
+  - UI e server
+  - Inputs e Outputs
+- **Reatividade**
+  - Valores reativos e funções reativas
+  - Construindo UIs reativas
+  - Construindo filtros hierárquicos
+- **Layout**
+  - Costumizando a aparência do dashboard
+  - O pacote `shinydasboard`
+  - O pacote `bs4Dash`
+- **htmlwidgets**
+  - Tabelas com `reactable`
+  - Gráficos com `plotly`
+  - Mapas com `leaflet`
+- **Deploy**
+  - Hospedando um app no `shinyapps.io`
+  - Como colocar senha no seu dashboard com o `auth0`
+- **Dashboards estáticos**
+  - O pacote `flexdashboard`
+  - Integrando `flexdashboard` e `shiny`
 
