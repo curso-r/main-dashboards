@@ -29,61 +29,48 @@ class: middle, center
 <img src="img/professores.png" style=" display: block; margin-left: auto; margin-right: auto;"></img>
 
 ---
-
-## Linha do tempo
-
-<center>
-<img src="img/linha_do_tempo.png" width = 45%></img>
-</center>
-
----
 ## Nossos cursos
 
+```{r, echo = FALSE}
+templatesR6::criar_slide_nossos_cursos(templatesR6::cursos)
+```
+
+---
+## Além da Curso-R
+
 .pull-left[
-<div class="container center">
-  <div class="card">
-    <h2>Programação em R</h2>
-    <hr style = "background-color: #3bb44a;"/>
-    <p><a href = "https://www.curso-r.com/cursos/r4ds-1/">R para Ciência de dados I</a></p>
-        <p><a href = "https://www.curso-r.com/cursos/r4ds-2/">R para Ciência de dados II</a></p>
-  </div>
-</div>
+```{r, echo = FALSE}
+knitr::include_graphics("img/logo_r6.png")
+```
 
-<br>
+<center style = "font-family: Noto Sans KR, sans-serif; color: #f26b61; font-weight: bold;">
+Projetos de análise estatística
+<br><br>
+Modelagem preditiva
+<br><br>
+Aplicativos e dashboards em Shiny
+<br><br>
+Web scraping
+<br><br>
+Treinamentos in-company
+</center>
 
-<div class="container center">
-  <div class="card">
-    <h2>Modelagem</h2>
-    <hr style = "background-color: #996699;"/>
-    <p><a href = "https://www.curso-r.com/cursos/regressao/">Regressão Linear</a></p>
-    <p><a href = "https://www.curso-r.com/cursos/intro-machine-learning/">Machine Learning</a></p>
-    <p><a href = "https://www.curso-r.com/cursos/xgboost/">XGBoost</a></p>
-    <p><a href = "https://www.curso-r.com/cursos/deep-learning/">Deep Learning</a></p>
-  </div>
-</div>
 ]
 
-
 .pull-right[
-<div class="container center">
-  <div class="card">
-    <h2>Extração de dados</h2>
-    <hr style = "background-color: #eeba30;"/>
-    <p><a href = "https://www.curso-r.com/cursos/web-scraping-1/">Web scraping I</a></p>
-        <p><a href = "https://www.curso-r.com/cursos/web-scraping-2/">Web scraping II</a></p>
-  </div>
-</div>
 
-<br>
+<center>
+```{r, echo = FALSE}
+shiny::tags$a(
+  href = "https://www.curso-r.com/produtos/",
+  "Contribuímos ativamente com a comunidade!"
+)
+```
+</center>
 
-<div class="container center">
-  <div class="card">
-    <h2>Comunicação e automação</h2>
-    <hr style = "background-color: #ff6699;"/>
-    <p><a href = "https://www.curso-r.com/cursos/dashboards/">Dashboards com R</a></p>
-        <p><a href = "https://www.curso-r.com/cursos/deploy/">Deploy</a></p>
-  </div>
-</div>
+```{r, echo = FALSE}
+knitr::include_graphics("img/produtos.png")
+```
 ]
 
 ---
@@ -94,24 +81,53 @@ class: middle, center
 ---
 ## Dinâmica curso
 
-- As aulas serão (quase totalmente) expositivas.
+- As aulas serão um espaço de teoria, exemplos e dúvidas.
 
 - Teremos diversos exercícios para serem feitos "em casa".
 
-- Os exercícios não serão avaliações, portanto não terão prazo nem nota. O objetivo deles será gerar dúvidas em vocês, para que os professores possam melhor orientá-las(los) durante o curso.
+- O objetivo dos exercícios é gerar dúvidas. **Com exceção da entrega final, nenhum exercício precisará ser entregue**. Teremos vários níveis de exercícios, e os mais difíceis serão marcados como "Desafio". 
 
-- O certificado será emitido mediante uma **entrega final**. A entrega final será uma composição de todos os exercícios. O prazo da entrega final será de 7 dias após o fim do curso.
+- O certificado será emitido mediante uma **entrega final**. O prazo da entrega final será estabelecido ao longo do curso.
 
-- Todos os exercícios e a entrega final serão um shiny app funcionando e hospedado no shinyapps.io.
+- Todos os exercícios e a entrega final serão shiny apps funcionando e hospedado no [shinyapps.io](https://www.shinyapps.io/).
+
+- Haverá monitoria para esclarecimento de dúvidas sempre 30 minutos antes do início das aulas.
+
+---
+## Tirando dúvidas
+
+ - **Não existe dúvida idiota**.
+ 
+ - Nem sempre é trivial fazer a pergunta certa para que outra pessoa esclareça a sua dúvida. Neste curso, **vamos mostrar melhores práticas na hora de fazer perguntas sobre programação**.
+ 
+ - Fora do horário de aula ou monitoria:
+     - perguntas gerais sobre o curso deverão ser feitas no Classroom.
+     
+     - perguntas sobre R ou Shiny, principalmente as que envolverem código, deverão ser enviadas no [nosso discourse](https://discourse.curso-r.com/).
+     
+- Na dúvida, se você achar que a resposta para a sua dúvida pode ajudar uma pessoa que não está fazendo o curso, ela deve ser feita no discourse.
+
+- [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
+
+---
+## Por que usar o discourse?
+
+- Muito melhor para escrever textos que possuem códigos. Com ele, podemos usar o pacote `{reprex}`!
+
+- Saber pesquisar sobre erros e fazer a pergunta certa é essencial para aprender e resolver problemas de programação.
+
+- No discourse, teremos mais pessoas acompanhando e respondendo as dúvidas.
+
+- Em um ambiente aberto, as suas dúvidas vão contribuir com a comunidade.
 
 ---
 ## Extras
 
-- Teremos monitoria duas vezes pode semana, sempre 1 hora antes do início das aulas (seg e qua, das 18h às 19h)
+- Além das aulas, teremos alguns materiais extras, tanto em texto quanto em vídeo.
 
-- Além das aulas, teremos alguns conteúdos extras, tanto em texto quanto em vídeo.
+- As duas entregas finais mais legais ganharão uma vaga em qualquer curso da Curso-R.
 
-- As três entregas finais mais legais ganharão uma vaga em qualquer curso da Curso-R.
+- A aluna ou aluno que mais participar no discourse, seja com boas perguntas ou respostas, também ganhará uma vaga em qualquer curso da Curso-R.
 
 - A gravação das aulas ficará disponível no Google Classroom por 1 ano após o final do curso.
 
