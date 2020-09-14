@@ -4,7 +4,6 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
@@ -16,7 +15,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Introdução ao Shiny
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### setembro de 2020
+### Setembro de 2020
 
 ---
 
@@ -53,10 +52,10 @@ Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt
 ---
 class: center, middle
 
-## [Exemplo de Shiny app em produção](rseis.shinyapps.io/pesqEle)
+## [Exemplo de Shiny app em produção](https://rseis.shinyapps.io/exemplos/)
 
 ---
-## Exemplo minimal
+## Exemplo mínimo
 
 O código de qualquer aplicativo em Shiny terá a estrutura abaixo:
 
@@ -100,11 +99,12 @@ ui &lt;- fluidPage("Olá, mundo!")
 #&gt; &lt;div class="container-fluid"&gt;Olá, mundo!&lt;/div&gt;
 ```
 
+**Neste contexto, serão sinônimos**: UI, interface de usuário, *front-end*, *front*.
 
 ---
 ## Server: onde a mágica acontece
 
-A função `server()` vai receber nossos usuais códigos de R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
+A função `server()` vai receber nossos usuais códigos R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
 
 A função `server()` sempre terá os parâmetros:
 
@@ -112,9 +112,11 @@ A função `server()` sempre terá os parâmetros:
 
 - `output`: uma lista com todas as visualizações que vamos mostrar para o usuário.
 
-- `session`: uma lista com informações da sessão que está rodando o aplicativo. Embora não seja necessária para o app funcionar, é uma boa prática mantê-la como parâmetro.
+- `session`: uma lista com informações da sessão que está rodando o aplicativo.
 
 O código dentro da função `server()` é executado uma vez quando o app é carregado e **será executado novamente sempre que houver uma interação do usuário**. Por isso precisamos de uma sessão do R rodando por trás para manter um Shiny app funcionando.
+
+**Neste contexto, serão sinônimos**: server, servidor, *back-end*.
 
 ---
 ## Atividade
@@ -323,7 +325,9 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 
 ### Tutoriais
 
-- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/).
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
+
+- [Mastering Shiny](https://mastering-shiny.org/)
 
 #### Galeria de Exemplos
 

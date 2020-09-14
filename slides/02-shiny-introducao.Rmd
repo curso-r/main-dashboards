@@ -46,10 +46,10 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 ---
 class: center, middle
 
-## [Exemplo de Shiny app em produção](https://rseis.shinyapps.io/shinyNetflix/)
+## [Exemplo de Shiny app em produção](https://rseis.shinyapps.io/exemplos/)
 
 ---
-## Exemplo minimal
+## Exemplo mínimo
 
 O código de qualquer aplicativo em Shiny terá a estrutura abaixo:
 
@@ -91,11 +91,12 @@ ui <- fluidPage("Olá, mundo!")
 #> <div class="container-fluid">Olá, mundo!</div>
 ```
 
+**Neste contexto, serão sinônimos**: UI, interface de usuário, *front-end*, *front*.
 
 ---
 ## Server: onde a mágica acontece
 
-A função `server()` vai receber nossos usuais códigos de R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
+A função `server()` vai receber nossos usuais códigos R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
 
 A função `server()` sempre terá os parâmetros:
 
@@ -103,9 +104,11 @@ A função `server()` sempre terá os parâmetros:
 
 - `output`: uma lista com todas as visualizações que vamos mostrar para o usuário.
 
-- `session`: uma lista com informações da sessão que está rodando o aplicativo. Embora não seja necessária para o app funcionar, é uma boa prática mantê-la como parâmetro.
+- `session`: uma lista com informações da sessão que está rodando o aplicativo.
 
 O código dentro da função `server()` é executado uma vez quando o app é carregado e **será executado novamente sempre que houver uma interação do usuário**. Por isso precisamos de uma sessão do R rodando por trás para manter um Shiny app funcionando.
+
+**Neste contexto, serão sinônimos**: server, servidor, *back-end*.
 
 ---
 ## Atividade
@@ -277,7 +280,9 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 
 ### Tutoriais
 
-- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/).
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
+
+- [Mastering Shiny](https://mastering-shiny.org/)
 
 #### Galeria de Exemplos
 
