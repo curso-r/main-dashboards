@@ -46,7 +46,7 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 ---
 class: center, middle
 
-## [Exemplo de Shiny app em produção](https://rseis.shinyapps.io/exemplo-kmeans/)
+## [Exemplo de Shiny app em produção](https://rseis.shinyapps.io/shinyNetflix/)
 
 ---
 ## Exemplo minimal
@@ -95,9 +95,9 @@ ui <- fluidPage("Olá, mundo!")
 ---
 ## Server: onde a mágica acontece
 
-A função `server` vai receber nossos usuais códigos de R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
+A função `server()` vai receber nossos usuais códigos de R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
 
-A função `server` sempre terá os parâmetros:
+A função `server()` sempre terá os parâmetros:
 
 - `input`: uma lista com todos parâmetros que o usuário pode mexer.
 
@@ -105,7 +105,7 @@ A função `server` sempre terá os parâmetros:
 
 - `session`: uma lista com informações da sessão que está rodando o aplicativo. Embora não seja necessária para o app funcionar, é uma boa prática mantê-la como parâmetro.
 
-O código dentro da função `server` é executado uma vez quando o app é carregado e **será executado novamente sempre que houver uma interação do usuário**. Por isso precisamos de uma sessão do R rodando por trás para manter um Shiny app funcionando.
+O código dentro da função `server()` é executado uma vez quando o app é carregado e **será executado novamente sempre que houver uma interação do usuário**. Por isso precisamos de uma sessão do R rodando por trás para manter um Shiny app funcionando.
 
 ---
 ## Atividade
