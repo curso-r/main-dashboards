@@ -120,6 +120,13 @@ class: middle, center
 
 - Em um ambiente aberto, as suas dúvidas vão contribuir com a comunidade.
 
+<center>
+
+### https://discourse.curso-r.com/
+
+</center>
+
+
 ---
 ## Extras
 

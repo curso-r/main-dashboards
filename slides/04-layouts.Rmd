@@ -81,7 +81,7 @@ Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
 <center>
 
 ---
-## Grid system
+## Sistema de grades (Grid system)
 
 O layout de um Shiny app segue o *grid system* do [Bootstrap Framework](https://getbootstrap.com.br/docs/4.1/getting-started/introduction/) do Twitter. Esse layout estabelece que:
 
@@ -341,7 +341,7 @@ ui <- fluidPage(
 ---
 ## Atividade
 
-Vamos fazer um Shiny app com sidebarLayout.
+Vamos fazer um Shiny app com `sidebarLayout()`.
 
 <br>
 
@@ -494,7 +494,7 @@ ui <- navbarPage(
 ---
 ## Atividade
 
-Vamos fazer um Shiny app com navbarLayout.
+Vamos fazer um Shiny app com `navbarLayout()`.
 
 <br>
 
@@ -511,3 +511,5 @@ Vamos fazer um Shiny app com navbarLayout.
 - [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/).
 
 - [Guia de layout do Shiny](https://shiny.rstudio.com/articles/layout-guide.html)
+
+- [`bs4Dash`](https://rinterface.github.io/bs4Dash/)
