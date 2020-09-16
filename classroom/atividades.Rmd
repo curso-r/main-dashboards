@@ -1,0 +1,298 @@
+# Exercícios
+
+## 1. Meu primeiro shiny app
+
+Faça um shiny app para visualizar histogramas da base diamonds e o coloque no shinyapps.io.
+
+Seu shiny deve ter um input e um output.
+
+- Input: variáveis numéricas da base diamonds.
+- Output: histograma da variável selecionada.
+
+Para acessar a base diamonds, carrrege o pacote ggplot2
+
+library(ggplto2)
+
+ou rode 
+
+ggplot2::diamonds
+
+## 2. Meu segundo shiny app (agora importando uma base de dados)
+
+Escolha uma das bases sugeridas ou use uma base própria.
+
+- Crie um shiny app com pelo menos um input e um output para visualizarmos alguma informação interessante da base.
+
+- Suba o app para o shinyapps.io.
+
+Observação: se você usar uma base própria, não se esqueça de descrever as variáveis utilizadas na hora de tirar dúvidas.
+
+## 3. Explorando inputs
+
+- Se você escolheu uma base com séries temporais para a entrega final, use a função shiny::dateInput() para fazer um input de data.
+
+Na base de criminalidade, por exemplo, você pode fazer um Shiny app que, dado um mês escolhido pelo usuário, mostre uma tabela com o número de ocorrências de cada tipo que aconteceram naquele mês. O nível territorial (Estado, região, município ou delegacia) também pode ser um filtro. Na base de Covid, dado um dia escolhido pelo usuário, o app pode mostrar uma tabela com o número de casos e óbitos que ocorreram naquele dia.
+
+Veja um exemplo aqui com a base nycflights13::flights: 
+https://cursodashboards.shinyapps.io/exemplo-dataInput/
+
+- Se você escolheu a base de crédito ou de pokémon, utilize a função shiny::selectInput() com parâmetro multiple = TRUE ou a função shiny::checkboxGroupInput() para possibilitar o usuário escolher uma ou mais opções em um filtro.
+
+Você pode usar esses inputs para fazer um gráfico para cada nível de uma variável.
+
+Veja um exemplo aqui: 
+https://cursodashboards.shinyapps.io/selectMultiple/
+
+## 4. sidebarLayout
+
+Reconstrua o app do exercício 2, agora utilizando o sidebarLayout.
+
+## 5. navbarPage
+
+Utilizando a base de dados escolhida no exercício 2, construa um aplicativo Shiny utilizando com navbarPage que tenha pelo menos duas páginas (abas) com temas diferentes.
+
+Exemplos:
+
+- covid: uma página com números totais do Brasil, outra por estado e outra com dados por município.
+- ssp: uma página com números totais do Estado de SP e outra com informações por município.
+- cetesb: uma página com informações gerais e outra comparando o período da pandemia com períodos anteriores.
+- crédito: uma página com informações demográficas e outra com informações financeiras do cliente.
+- pokémon: uma página mostrando quais são os pokémon (descobri que pokémon não tem plural) com maior status de cada tipo e outra com os mais fortes de cada geração.
+
+## 6. shinydashboard
+
+Transforme o aplicativo construído no exercício 5 em um shinydasbhoard.
+
+## 7. UI Reativa
+
+Construa um aplicativo com pelo menos um elemento de UI reativo (filtros hierárquicos, por exemplo) ou construído dentro do server.
+
+Exemplos:
+
+- covid: filtro de município que depende de um filtro de Estado.
+
+- ssp: filtro de delegacia que depende de um filtro de município que depende de um filtro de região.
+
+- cetesb: filtro de poluente que depende de um filtro de estação de monitoramento.
+
+- crédito: construa filtros para as variáveis categóricas lendo a base apenas dentro do server (isto é, construa os filtros dentro server também utilizando as funções uiOutput e renderOutput),
+
+- pokémon: construa um filtro de pokémon que depende de um filtro de geração.
+
+# Desafios
+
+## 1. Gráfico de dispersão da base mtcars
+
+Faça um Shiny app para mostrar um gráfico de dispersão (pontos) das variáveis da base mtcars.
+
+O seu app deve:
+
+- Ter dois inputs: a variável a ser colocada no eixo e a variável a ser colocada no eixo y
+- Um output: um gráfico de dispersão
+
+## 2. Boxplots da base diamonds
+
+Faça um shiny app para visualizarmos boxplots da base diamonds.
+
+O seu app deve ter dois inputs e um output:
+
+1. o primeiro input deve ser uma caixa de seleção das variáveis numéricas da base (será o eixo y do gráfico).
+
+2. o segundo input deve ser uma caixa de seleção das variáveis categóricas da base (será o eixo x do gráfico).
+
+3. o output deve ser um gráfico com os boxplots da variável escolhida em (1) para cada categoria da variável escolhida em (2).
+
+Para acessar a base diamonds, carrrege o pacote ggplot2
+
+library(ggplto2)
+
+ou rode 
+
+ggplot2::diamonds
+
+## 3. Trabalhando com datas
+
+(a) Reproduza o seguinte shiny app: https://cursodashboards.shinyapps.io/exemplo-dataInput/
+
+(b) Use a função dateRangeInput() para permitir o usuário escolher um intervalo de dias em vez de um dia único.
+
+Base utilizada:
+
+install.packages(nycflights13)
+nycflights13::flights
+
+## 4. Selecionando várias opções
+
+(a) Reproduza o seguinte Shiny app: https://cursodashboards.shinyapps.io/selectMultiple/
+
+(b) Troque o selectInput pelo checkboxGroupInput().
+
+install.packages(nycflights13)
+nycflights13::flights
+
+## 5. Shinydashboard
+
+Teste reproduzir (e melhorar) o seguinte app:
+
+https://cursodashboards.shinyapps.io/dash-pokemon/
+
+Esse app foi construído utilizando a base pkmn.rds, que está na pasta dados.
+Em anexo, coloco o arquivo css e a fonte utilizada para mudar o título (nos próximos dias, vou fazer um vídeo mostrando como incluir atributos css em um app).
+
+# Entrega final
+
+## 1. Bases de dados
+
+A entrega final do curso será uma análise de dados comunicada no formato de um Shiny app. Essa análise de dados deverá utilizar uma das bases abaixo. O objetivo desta atividade é escolher uma base, pensar em uma análise a ser realizada (damos sugestões abaixo), estudar as variáveis da base escolhida e tirar dúvidas com a gente.
+
+As bases estão na pasta "bases", do material do curso. Rode 
+
+CursoR::atualizar_material() 
+
+novamente caso você não tenha todos os arquivos.
+
+** COVID-19 **
+
+Descrição: número de casos e óbitos diários por COVID no Brasil por município.
+
+Principais variáveis:
+
+- Número de casos e óbitos diários por COVID
+- Município, estado e população do município
+- Data
+- Latitude e longitude de cada município (centróide)
+
+Principais características
+
+- Séries temporais
+- Dados geográficos
+- Oportunidade para construção de mapas
+
+Sugestões de análises
+
+- Visualizar as séries de casos e óbitos por município
+- Prever o número de óbitos no próximo mês
+
+________________________________________________________________________
+
+** Secretaria de Segurança Pública (SSP) de São Paulo **
+
+Descrição: número de ocorrências mensais de diversos crimes de 2002 a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.
+
+Principais variáveis:
+
+- Número de ocorrências mensais (furtos, roubos, homicídios etc) 
+- Delegacia onde a ocorrência foi registrada
+- Município e região do estado da delegacia
+- Mês e ano
+
+Principais características
+
+- Séries temporais
+- Dados geográficos
+- Oportunidade para construção de mapas
+
+Sugestões de análises
+
+- Visualizar as séries de criminalidade
+- Avaliar se os níveis de criminalidade mudaram durante a quarentena
+
+________________________________________________________________________
+
+** Companhia Ambiental do Estado de São Paulo (CETESB) **
+
+Descrição: concentração horária de alguns poluentes em algumas estações de monitoramento na Região Metropolitana de São Paulo de jan/2017 a mai/2020.
+
+Principais variáveis:
+
+- Concentração horária de CO, NO, NO2, O3 e MP10
+- Data e hora da medição
+- Estação de monitoramento
+- Latitude e longitude das estações de monitoramento
+
+Principais características
+
+- Séries temporais
+- Oportunidade para construção de mapas
+- Oportunidade para vários tipos de sumarização (dado que as medidas são horárias)
+
+Sugestões de análises
+
+- Visualizar cada uma das séries de poluentes
+- Avaliar se os níveis de poluição mudaram durante a quarentena
+
+________________________________________________________________________
+
+** Análise de Crédito **
+
+Descrição: base com características de clientes que solicitaram empréstimo em uma financeira.
+
+Principais variáveis:
+
+- Classificação de cliente bom/ruim
+- Variáveis demográficas e financeiras do cliente
+- Tempo e valor do empréstimo solicitado
+
+Principais características
+
+- Oportunidade de modelagem preditiva
+- Problema de classificação (cliente bom/cliente ruim)
+- Variáveis explicativas númericas e categóricas
+
+Sugestões de análises
+
+- Avaliar quais características definem um cliente bom ou ruim
+- Construir um modelo para prever clientes bons e ruins
+
+________________________________________________________________________
+
+** Pokémon **
+
+Descrição: base com os status base de todos os pokémon da primeira à sétima geração. 
+
+Principais variáveis:
+
+- Nome, tipo e geração de cada pokémon
+- Status base (altura, peso, hp, ataque, defesa etc)
+- Cor base e imagem de cada pokémon
+
+Principais características
+
+- Tema leve e descontraído (caso o mundo já esteja pesado demais)
+- Oportunidade de trabalhar com cores e imagens
+- Variáveis explicativas númericas e categóricas
+- Você vai ser uma/um dos únicas(os) a escolher essa base
+
+Sugestões de análises
+
+- Análise descritiva dos pokémon, por tipo e/ou geração
+- Analisar quais características estão correlacionadas (por exemplo, pokémon altos e pesados tendem a ter defesa maior?)
+
+________________________________________________________________________
+
+** Sua base **
+
+Você também pode usar uma base sua na entrega final. Só não se esqueça de descrever bem o problema e as variáveis envolvidas.
+
+## 2. Começando a análise
+
+(a) Defina uma análise para fazer com a base escolhida.
+
+(b) Comece a fazer a análise em um script R (ou R Markdown, se preferir). Vá passando para um aplicativo Shiny, aos poucos, os resultados mais interessantes.
+
+Se tiver dúvidas sobre as bases ou sobre que tipo de análise é possível fazer, venha conversar com a gente.
+
+## 3. Entrega final
+
+Construa um shiny app ou um shinydashboard app comunicando os resultados da análise realizada.
+
+O app deve conter: 
+
+- pelo menos dois inputs, isto é, duas formas de o usuário interagir com o app*;
+- pelo menos três visualizações (gráficos, tabelas, mapas);
+- um breve texto com o objetivo da análise;
+- um breve texto com a conclusão da análise.
+
+A entrega deve ser o link do aplicativo no shinyapps.io (não será necessário subir o app com display.mode = showcase). Você também poderá entregar o código por aqui para receber feedback (opcional).
+
+* Não precisa ser inputs diferentes. Pode ser, por exemplo, dois selectInput() que fazem seleções diferentes.

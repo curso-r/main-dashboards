@@ -1,0 +1,23 @@
+# Material extra
+
+https://www.youtube.com/watch?v=jRXubw0kOrg
+
+# Caixas de diálogo
+
+https://shiny.rstudio.com/articles/modal-dialogs.html
+
+# Pacote fresh
+
+https://github.com/dreamRs/fresh
+
+# Seletores de datas no Shiny
+
+https://www.youtube.com/watch?v=TMoIWmvTX4M
+
+# Vídeo shinydashboard, pacote fresh e CSS
+
+https://www.youtube.com/watch?v=s9GKim52E4k
+
+# Módulos
+
+https://www.youtube.com/watch?v=xp5aMvwqEMY&ab_channel=Curso-R
