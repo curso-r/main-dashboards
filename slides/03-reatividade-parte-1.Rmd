@@ -86,10 +86,13 @@ A seguir, discutiremos as funções `render*({})`, `reactive({})` e `eventReacti
 ---
 ## Funções render_()
 
-Para criar um output, precisamos das funções do tipo `render_()`. Essas funções
-criam as visualizações que vamos mostrar na UI e as deixam reativas. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+Para criar um output, precisamos das funções do tipo `render_()`. Essa funções
 
-Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
+- configuram o contexto reativo que automaticamente monitora quais inputs cada output usa;
+
+- convertem as saídas dos nossos códigos em R em um código HTML adequado para ser mostrado na página web.
+
+Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
 
 ```{r, echo = FALSE, eval=TRUE}
 tibble::tribble(~`_Output()`, ~`render_()`,
@@ -99,20 +102,6 @@ tibble::tribble(~`_Output()`, ~`render_()`,
                 "textOutput()", "renderText()") %>%
   knitr::kable(format = "html")
 ```
-
----
-## Atividade
-
-Vamos acrescentar ao nosso app uma tabela com um sumário da amostra normal usada na construção do histograma e um título ao gráfico.
-
-<br>
-
-<center>
-<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
-<br>
-<br>
-`r blue('Ao RStudio: 05-dois-outputs.R')`
-<center>
 
 ---
 ## Gráfico de reatividade
@@ -128,6 +117,20 @@ e então, dentro do app, utilizar o comando `CTRL + F3` (no Mac, `command + F3`)
 <center>
 <img src="img/reaclog_intro.png" width = "100%"
 </center>
+
+---
+## Atividade
+
+Vamos acrescentar ao nosso app um título ao gráfico e uma tabela com um sumário da amostra normal usada na construção do histograma.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 05-dois-outputs.R')`
+<center>
 
 ---
 ## A função reactive()
@@ -217,7 +220,35 @@ A seguir, listamos erros muito comuns que cometemos quando estamos programando e
 
 - Erros de sintaxe no Shiny. Em geral, o app não roda e receberemos a mensagem de erro `unexpected symbol`. Causados principalmente por falta ou excesso de vírgulas, parênteses ou chaves. 
 
-- Usar uma expressão reativo fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Operation not allowed without an active reactive context.`.
+- Usar uma expressão reativa fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Operation not allowed without an active reactive context.`.
+
+---
+<br><br>
+
+- Você só pode *ler* valores da lista `input`. Se você tentar gravar um valor diretamente, será retornado um erro. A lista `input` será sempre uma *cópia* das ações do usuário no navegador.
+
+```{r, eval = FALSE}
+ui <- fluidPage(shiny::numericInput("valor", "Um número", value = 1))
+
+server <- function(input, output, session) {
+  input$valor <- 10
+}
+# Error in `$<-.reactivevalues`(`*tmp*`, valor, value = 10) : 
+#   Attempted to assign value to a read-only reactivevalues object
+```
+
+
+- Você só pode *escrever* valores na lista `output`. Se você tentar ler um valor, será retornado um erro.
+
+```{r, eval = FALSE}
+ui <- fluidPage(shiny::textOutput("valor"))
+
+server <- function(input, output, session) {
+  print("O valor do output é ", output$valor)
+}
+# Error in `$.shinyoutput`(output, valor.) : 
+#   Reading from shinyoutput object is not allowed.
+```
 
 ---
 <br><br>

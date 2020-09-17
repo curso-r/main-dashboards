@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Reatividade (parte 1)
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Junho de 2020
+### Setembro de 2020
 
 ---
 
@@ -94,10 +94,13 @@ A seguir, discutiremos as funções `render*({})`, `reactive({})` e `eventReacti
 ---
 ## Funções render_()
 
-Para criar um output, precisamos das funções do tipo `render_()`. Essas funções
-criam as visualizações que vamos mostrar na UI e as deixam reativas. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+Para criar um output, precisamos das funções do tipo `render_()`. Essa funções
 
-Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
+- configuram o contexto reativo que automaticamente monitora quais inputs cada output usa;
+
+- convertem as saídas dos nossos códigos em R em um código HTML adequado para ser mostrado na página web.
+
+Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
 
 &lt;table&gt;
  &lt;thead&gt;
@@ -127,20 +130,6 @@ Veja a seguir as principais funções `render_()` e como elas se comunicam com a
 &lt;/table&gt;
 
 ---
-## Atividade
-
-Vamos acrescentar ao nosso app uma tabela com um sumário da amostra normal usada na construção do histograma e um título ao gráfico.
-
-&lt;br&gt;
-
-&lt;center&gt;
-&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
-&lt;br&gt;
-&lt;br&gt;
-<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 05-dois-outputs.R</span>
-&lt;center&gt;
-
----
 ## Gráfico de reatividade
 
 Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reaclog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
@@ -155,6 +144,20 @@ e então, dentro do app, utilizar o comando `CTRL + F3` (no Mac, `command + F3`)
 &lt;center&gt;
 &lt;img src="img/reaclog_intro.png" width = "100%"
 &lt;/center&gt;
+
+---
+## Atividade
+
+Vamos acrescentar ao nosso app um título ao gráfico e uma tabela com um sumário da amostra normal usada na construção do histograma.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 05-dois-outputs.R</span>
+&lt;center&gt;
 
 ---
 ## A função reactive()
@@ -248,7 +251,37 @@ A seguir, listamos erros muito comuns que cometemos quando estamos programando e
 
 - Erros de sintaxe no Shiny. Em geral, o app não roda e receberemos a mensagem de erro `unexpected symbol`. Causados principalmente por falta ou excesso de vírgulas, parênteses ou chaves. 
 
-- Usar uma expressão reativo fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Operation not allowed without an active reactive context.`.
+- Usar uma expressão reativa fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Operation not allowed without an active reactive context.`.
+
+---
+&lt;br&gt;&lt;br&gt;
+
+- Você só pode *ler* valores da lista `input`. Se você tentar gravar um valor diretamente, será retornado um erro. A lista `input` será sempre uma *cópia* das ações do usuário no navegador.
+
+
+```r
+ui &lt;- fluidPage(shiny::numericInput("valor", "Um número", value = 1))
+
+server &lt;- function(input, output, session) {
+  input$valor &lt;- 10
+}
+# Error in `$&lt;-.reactivevalues`(`*tmp*`, valor, value = 10) : 
+#   Attempted to assign value to a read-only reactivevalues object
+```
+
+
+- Você só pode *escrever* valores na lista `output`. Se você tentar ler um valor, será retornado um erro.
+
+
+```r
+ui &lt;- fluidPage(shiny::textOutput("valor"))
+
+server &lt;- function(input, output, session) {
+  print("O valor do output é ", output$valor)
+}
+# Error in `$.shinyoutput`(output, valor.) : 
+#   Reading from shinyoutput object is not allowed.
+```
 
 ---
 &lt;br&gt;&lt;br&gt;
