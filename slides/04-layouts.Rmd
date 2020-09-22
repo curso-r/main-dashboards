@@ -18,9 +18,19 @@ output:
 
 ```
 
+## HTML
+
+HTML é uma [linguagem de marcação](https://pt.wikipedia.org/wiki/Linguagem_de_marca%C3%A7%C3%A3o) para construir páginas web. 
+
+Uma linguagem de marcação é apenas um tipo de documento que contem texto simples (como em um bloco de notas) e um conjunto de instruções para formatar (anotar, marcar) parte específicas do conteúdo. Além do HTML, o LaTeX e o (R) Markdown são outros exemplos comuns de linguagem de marcação.
+
+A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação.
+
+---
+
 ## Tags HTML
 
-Tags são utilizadas em HTML para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e inserir imagens. 
+No HTML, as instrução de formatação são chamadas *tags*. Utilizaremos as *tags* para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e inserir imagens. 
 
 O pacote `shiny` traz diversas funções que simulam essas tags, nos permitindo usá-las livremente na UI para melhor formatar o nosso app. As principais são:
 
@@ -55,6 +65,22 @@ fluidPage(
 ```
 
 ```{html}
+<div class="container-fluid">
+  <h1>Meu Primeiro Shiny App</h1>
+  <p>
+    O link para o site do Shiny é 
+    <a href="https://www.rstudio.com/shiny/">rstudio.com/shiny.</a>
+    <strong>Recomendo fortemente que você dê uma olhada!</strong>
+  </p>
+</div>
+```
+
+---
+<br><br>
+
+Que, por sua vez, gera o seguinte documento web:
+
+```{html}
 <!-- HTML -->
 <div class="container-fluid">
   <h1>Meu Primeiro Shiny App</h1>
@@ -64,6 +90,18 @@ fluidPage(
     <strong>Recomendo fortemente que você dê uma olhada!</strong>
   </p>
 </div>
+```
+
+```{r, echo = FALSE, results='asis'}
+#ui
+shiny::tagList(
+  shiny::h1("Meu Primeiro Shiny App"),
+  shiny::p(
+    "O link para o site do Shiny é ",
+    shiny::a(href = "https://www.rstudio.com/shiny/", "rstudio.com/shiny."),
+    shiny::strong("Recomendo fortemente que você dê uma olhada!")
+  )
+)
 ```
 
 ---

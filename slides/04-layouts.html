@@ -4,7 +4,6 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
@@ -16,7 +15,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Layouts
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### setembro de 2020
+### Setembro de 2020
 
 ---
 
@@ -25,9 +24,19 @@ class: center, middle, inverse, title-slide
 
 
 
+## HTML
+
+HTML é uma [linguagem de marcação](https://pt.wikipedia.org/wiki/Linguagem_de_marca%C3%A7%C3%A3o) para construir páginas web. 
+
+Uma linguagem de marcação é apenas um tipo de documento que contem texto simples (como em um bloco de notas) e um conjunto de instruções para formatar (anotar, marcar) parte específicas do conteúdo. Além do HTML, o LaTeX e o (R) Markdown são outros exemplos comuns de linguagem de marcação.
+
+A maior parte do esforço em aprender uma linguagem de marcação está em aprender quais são e como utilizar as instruções de formatação.
+
+---
+
 ## Tags HTML
 
-Tags são utilizadas em HTML para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e inserir imagens. 
+No HTML, as instrução de formatação são chamadas *tags*. Utilizaremos as *tags* para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e inserir imagens. 
 
 O pacote `shiny` traz diversas funções que simulam essas tags, nos permitindo usá-las livremente na UI para melhor formatar o nosso app. As principais são:
 
@@ -94,6 +103,23 @@ fluidPage(
 
 
 ```html
+&lt;div class="container-fluid"&gt;
+  &lt;h1&gt;Meu Primeiro Shiny App&lt;/h1&gt;
+  &lt;p&gt;
+    O link para o site do Shiny é 
+    &lt;a href="https://www.rstudio.com/shiny/"&gt;rstudio.com/shiny.&lt;/a&gt;
+    &lt;strong&gt;Recomendo fortemente que você dê uma olhada!&lt;/strong&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+```
+
+---
+&lt;br&gt;&lt;br&gt;
+
+Que, por sua vez, gera o seguinte documento web:
+
+
+```html
 &lt;!-- HTML --&gt;
 &lt;div class="container-fluid"&gt;
   &lt;h1&gt;Meu Primeiro Shiny App&lt;/h1&gt;
@@ -104,6 +130,13 @@ fluidPage(
   &lt;/p&gt;
 &lt;/div&gt;
 ```
+
+<h1>Meu Primeiro Shiny App</h1>
+<p>
+O link para o site do Shiny é 
+<a href="https://www.rstudio.com/shiny/">rstudio.com/shiny.</a>
+<strong>Recomendo fortemente que você dê uma olhada!</strong>
+</p>
 
 ---
 ## Atividade
