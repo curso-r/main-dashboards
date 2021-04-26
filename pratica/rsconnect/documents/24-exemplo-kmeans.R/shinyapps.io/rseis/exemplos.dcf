@@ -1,0 +1,13 @@
+name: exemplos
+title: exemplos
+username:
+account: rseis
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2805967
+bundleId: 3627957
+url: https://rseis.shinyapps.io/exemplos/
+when: 1600099925.78468
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 01-ola-mundo.R|02-output.R|03-output-input.R|04-hist-normal.R|05-dois-outputs.R|06-reactive.R|07-eventReactive.R|08-debug.R|09-dados.R|10-exemplo-html.html|11-gridsystem.R|12-sidebarLayout.R|13-navbarPage.R|14-shinydashboard-layout.R|15-shinydashboard-menu.R|16-shinydashboard-elementos.R|17-ui-reativa.R|18-htmlwidgets.R|19-nosso-primeiro-flexdashboard.html|19-nosso-primeiro-flexdashboard.Rmd|20-orientacao-e-tabset.html|20-orientacao-e-tabset.Rmd|21-paginas-componentes-temas.html|21-paginas-componentes-temas.Rmd|22-storyboard-htmlwidgets.html|22-storyboard-htmlwidgets.Rmd|23-flexdashboard-com-shiny.Rmd|auth0/exemplo-auth0.R|extra/01-reactiveValues.R|extra/02-fileInput.R|extra/03-dowloadButton.R|shinyapps/.DS_Store|shinyapps/03-output-input.R|shinyapps/23-flexdashboard-com-shiny.Rmd|shinyapps/DESCRIPTION|shinyapps/imdb.rds

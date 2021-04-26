@@ -29,57 +29,48 @@ Observação: se você usar uma base própria, não se esqueça de descrever as 
 
 ## 3. Explorando inputs
 
-- Se você escolheu uma base com séries temporais para a entrega final, use a função shiny::dateInput() para fazer um input de data.
+3.1 - Utilizando a base de crédito, faça um Shiny app que permite escolher
+o estado civil, tipo de moradia e/ou trabalho e mostra uma visualização
+representando a proporção de clientes "bons" e "ruins" da base.
 
-Na base de criminalidade, por exemplo, você pode fazer um Shiny app que, dado um mês escolhido pelo usuário, mostre uma tabela com o número de ocorrências de cada tipo que aconteceram naquele mês. O nível territorial (Estado, região, município ou delegacia) também pode ser um filtro. Na base de Covid, dado um dia escolhido pelo usuário, o app pode mostrar uma tabela com o número de casos e óbitos que ocorreram naquele dia.
+3.2 - Utilizando a base de pokemon, faça um Shiny app que permite escolher
+um tipo (tipo_1) e faça um gráfico de dispersão do ataque vs defesa
+para os pokemon desse tipo.
 
-Veja um exemplo aqui com a base nycflights13::flights: 
-https://cursodashboards.shinyapps.io/exemplo-dataInput/
+3.3 - Utilizando a base de criminalidade, faça um Shiny app que, dado um
+mês/ano escolhido pelo usuário, mostre uma tabela com o número de ocorrências
+de cada tipo que aconteceram naquele mês.
+O nível territorial (Estado, região, município ou delegacia) também pode
+ser um filtro.
 
-- Se você escolheu a base de crédito ou de pokémon, utilize a função shiny::selectInput() com parâmetro multiple = TRUE ou a função shiny::checkboxGroupInput() para possibilitar o usuário escolher uma ou mais opções em um filtro.
-
-Você pode usar esses inputs para fazer um gráfico para cada nível de uma variável.
-
-Veja um exemplo aqui: 
-https://cursodashboards.shinyapps.io/selectMultiple/
 
 ## 4. sidebarLayout
 
-Reconstrua o app do exercício 2, agora utilizando o sidebarLayout.
+Reconstrua os apps dos exercícios 3.1, 3.2 e 3.3, agora utilizando o sidebarLayout.
 
 ## 5. navbarPage
 
-Utilizando a base de dados escolhida no exercício 2, construa um aplicativo Shiny utilizando com navbarPage que tenha pelo menos duas páginas (abas) com temas diferentes.
+Utilizando a base cetesb, faça um shiny app que tenha duas abas:
 
-Exemplos:
+- a primeira com uma série temporal da média diária do ozônio (O3),
+permitindo a escolha do intervalo de dias em que o gráfico é gerado
 
-- covid: uma página com números totais do Brasil, outra por estado e outra com dados por município.
-- ssp: uma página com números totais do Estado de SP e outra com informações por município.
-- cetesb: uma página com informações gerais e outra comparando o período da pandemia com períodos anteriores.
-- crédito: uma página com informações demográficas e outra com informações financeiras do cliente.
-- pokémon: uma página mostrando quais são os pokémon (descobri que pokémon não tem plural) com maior status de cada tipo e outra com os mais fortes de cada geração.
+- a segunda com a série temporal da média diária do último mês da base
+permitindo a escolha do poluente.
 
 ## 6. shinydashboard
 
-Transforme o aplicativo construído no exercício 5 em um shinydasbhoard.
+Transforme o aplicativo construído no exercício 5 (050-navbarPage.R) em um shinydasbhoard.
 
 ## 7. UI Reativa
 
-Construa um aplicativo com pelo menos um elemento de UI reativo (filtros hierárquicos, por exemplo) ou construído dentro do server.
+7.1 - Construa um shiny app que possua um filtro de poluente que depende de um filtro de estação de monitoramento.
 
-Exemplos:
+7.2 - Construa um shiny app que possua um filtro de poluente que depende de um filtro de estação de monitoramento.
 
-- covid: filtro de município que depende de um filtro de Estado.
+7.3 - Construa um shiny app que possua um filtro de delegacia que depende de um filtro de município que depende de um filtro de região.
 
-- ssp: filtro de delegacia que depende de um filtro de município que depende de um filtro de região.
-
-- cetesb: filtro de poluente que depende de um filtro de estação de monitoramento.
-
-- crédito: construa filtros para as variáveis categóricas lendo a base apenas dentro do server (isto é, construa os filtros dentro server também utilizando as funções uiOutput e renderOutput),
-
-- pokémon: construa um filtro de pokémon que depende de um filtro de geração.
-
-# Desafios
+# Exercícios extras
 
 ## 1. Gráfico de dispersão da base mtcars
 
@@ -110,18 +101,7 @@ ou rode
 
 ggplot2::diamonds
 
-## 3. Trabalhando com datas
-
-(a) Reproduza o seguinte shiny app: https://cursodashboards.shinyapps.io/exemplo-dataInput/
-
-(b) Use a função dateRangeInput() para permitir o usuário escolher um intervalo de dias em vez de um dia único.
-
-Base utilizada:
-
-install.packages(nycflights13)
-nycflights13::flights
-
-## 4. Selecionando várias opções
+## 3. Selecionando várias opções
 
 (a) Reproduza o seguinte Shiny app: https://cursodashboards.shinyapps.io/selectMultiple/
 
@@ -130,48 +110,38 @@ nycflights13::flights
 install.packages(nycflights13)
 nycflights13::flights
 
-## 5. Shinydashboard
-
-Teste reproduzir (e melhorar) o seguinte app:
-
-https://cursodashboards.shinyapps.io/dash-pokemon/
-
-Esse app foi construído utilizando a base pkmn.rds, que está na pasta dados.
-Em anexo, coloco o arquivo css e a fonte utilizada para mudar o título (nos próximos dias, vou fazer um vídeo mostrando como incluir atributos css em um app).
 
 # Entrega final
 
-## 1. Bases de dados
+## Opção 1
 
-A entrega final do curso será uma análise de dados comunicada no formato de um Shiny app. Essa análise de dados deverá utilizar uma das bases abaixo. O objetivo desta atividade é escolher uma base, pensar em uma análise a ser realizada (damos sugestões abaixo), estudar as variáveis da base escolhida e tirar dúvidas com a gente.
+Construa um shiny app ou um shinydashboard app comunicando os resultados de 
+uma análise de dados.
 
-As bases estão na pasta "bases", do material do curso. Rode 
+O app deve conter: 
 
-CursoR::atualizar_material() 
+- pelo menos dois inputs, isto é, duas formas de o usuário interagir com o app*;
+- pelo menos três visualizações (gráficos, tabelas, mapas);
+- um breve texto com o objetivo da análise;
+- um breve texto com a conclusão da análise.
 
-novamente caso você não tenha todos os arquivos.
+A entrega deve ser o link do aplicativo no shinyapps.io (não será necessário subir o app com display.mode = showcase). Você também poderá entregar o código por aqui para receber feedback (opcional).
 
-** COVID-19 **
+* Não precisa ser inputs diferentes. Pode ser, por exemplo, dois selectInput() que fazem seleções diferentes.
 
-Descrição: número de casos e óbitos diários por COVID no Brasil por município.
+## Opção 2
 
-Principais variáveis:
+Reproduzir o seguinte app:
 
-- Número de casos e óbitos diários por COVID
-- Município, estado e população do município
-- Data
-- Latitude e longitude de cada município (centróide)
+https://cursodashboards.shinyapps.io/dash-pokemon/
 
-Principais características
+O resultado não precisa ficar idêntico e você não precisa replicar todos os elementos. A entrega mínima deve conter pelo menos uma aba completa, isto é, todos os inputs e outputs de pelo menos uma aba.
 
-- Séries temporais
-- Dados geográficos
-- Oportunidade para construção de mapas
+Esse app foi construído utilizando a base pkmn.rds, que está na pasta dados,
+no material do curso.
 
-Sugestões de análises
 
-- Visualizar as séries de casos e óbitos por município
-- Prever o número de óbitos no próximo mês
+# Bases de dados
 
 ________________________________________________________________________
 
@@ -274,25 +244,3 @@ ________________________________________________________________________
 
 Você também pode usar uma base sua na entrega final. Só não se esqueça de descrever bem o problema e as variáveis envolvidas.
 
-## 2. Começando a análise
-
-(a) Defina uma análise para fazer com a base escolhida.
-
-(b) Comece a fazer a análise em um script R (ou R Markdown, se preferir). Vá passando para um aplicativo Shiny, aos poucos, os resultados mais interessantes.
-
-Se tiver dúvidas sobre as bases ou sobre que tipo de análise é possível fazer, venha conversar com a gente.
-
-## 3. Entrega final
-
-Construa um shiny app ou um shinydashboard app comunicando os resultados da análise realizada.
-
-O app deve conter: 
-
-- pelo menos dois inputs, isto é, duas formas de o usuário interagir com o app*;
-- pelo menos três visualizações (gráficos, tabelas, mapas);
-- um breve texto com o objetivo da análise;
-- um breve texto com a conclusão da análise.
-
-A entrega deve ser o link do aplicativo no shinyapps.io (não será necessário subir o app com display.mode = showcase). Você também poderá entregar o código por aqui para receber feedback (opcional).
-
-* Não precisa ser inputs diferentes. Pode ser, por exemplo, dois selectInput() que fazem seleções diferentes.
