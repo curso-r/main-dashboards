@@ -10,13 +10,6 @@
   bottom: inherit;
 }
 
-.title-slide{
-  background-image: url("../img/trio-sticker.png");
-  background-position: 53% 98%;
-  background-size: 330px;
-  padding-left: 100px;
-}
-
 body{
 font-family: 'Futura Serif', Palatino, serif;
 }

@@ -16,4 +16,6 @@ colorido <- function(x, cor) {
 }
 
 options(width = 85)
+
+knitr::opts_chunk$set(fig.align = "center")
 ```
