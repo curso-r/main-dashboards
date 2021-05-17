@@ -120,7 +120,6 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-No RStudio, para rodar um aplicativo shiny localmente (o seu computador é o servidor), clique no botão **Run app** logo acima do script.
 ---
 
 ## UI: o que o usuário vai ver
@@ -155,9 +154,51 @@ A função `server()` sempre terá os parâmetros:
 
 - `session`: uma lista com informações da sessão que está rodando o aplicativo.
 
-O código dentro da função `server()` é executado uma vez quando o app é carregado e **será executado novamente sempre que houver uma interação do usuário**. Por isso precisamos de uma sessão do R rodando por trás para manter um Shiny app funcionando.
-
 **Neste contexto, serão sinônimos**: server, servidor, *back-end*.
+
+---
+## Rodando um aplicativo
+
+Normalmente, enquanto estamos desenvolvendo um aplicativo Shiny, queremos testá-lo localmente para verificar se tudo funciona corretamente, se está ficando bonito ou simplesmente para gastar alguns minutos apreciando a nossa obra de arte. Testar localmente significa que **o seu próprio computador fará as vezes de servidor**, embora isso não signifique que seu app ficará disponível na internet.
+
+Quando servimos um app localmente, isto é, quando *rodamos um app*, ganhamos um endereço que será acessível apenas do nosso computador. A partir desse endereço, podemos testar nosso app no navegador, como se ele já estivesse em produção. 
+
+No RStudio, podemos rodar nossos apps:
+
+- rodando o script que contém o nosso app (atalho: `CTRL + SHIFT + ENTER`);
+
+- clicando no botão **Run App**;
+
+- rodando no console a função `runApp("caminho/ate/app.R)`.
+
+
+---
+## O botão Run App
+
+```{r, echo = FALSE, fig.alt="Botão Run App no Rstudio. Fica logo acima do script."}
+knitr::include_graphics("img/botao_run_app.png")
+```
+
+Ao clicar nesse botão, o seu navegador padrão será aberto e você verá a UI do nosso modesto app com apenas a frase "Olá, mundo!".
+
+---
+## Sessão ocupada
+
+Se você voltar ao RStudio, eventualmente vai notar algo muito importante: a sua sessão de R estará ocupada! Isso acontece porque todo Shiny app precisa de uma sessão de R rodando por trás.
+
+Essa sessão fornece a comunicação da UI (ou do nosso navegador) com o servidor e é responsável por atualizar as visualizações apresentadas na UI, sempre que alguém interagir com o app. Embora o nosso app *Olá, mundo* não possuir interatividade, a estrutura necessária para que a interatividade aconteça ainda assim é criada pelo Shiny.
+
+---
+## Liberando a sessão e endereço do app
+
+Para liberar a sessão, basta clicar no botão "*stop*", na parte de cima do Console, ou pressionar a tecla `Esc`. Veja que, ao fazer isso, a tela do app ficará acizentada, indicando que ele foi desconectado do servidor e não funcionará mais corretamente.
+
+```{r, echo = FALSE, fig.alt="Console do RStudio com sinal de ocupado (stop).", out.width="60%"}
+knitr::include_graphics("img/console_sessao_ocupada.png")
+```
+
+Reparem que a mensagem no Console representa o *endereço* do nosso aplicativo. Nesse caso, será um IP (`http://127.0.0.1`) com alguma porta que esteja disponível escolhida aleatoriamente (`:4028`). Esse endereço aparecerá no nosso navegador e poderemos copiá-lo e colá-lo em qualquer outra aba ou navegador que quisermos rodar o app.
+
 
 ---
 ## Atividade
@@ -174,11 +215,11 @@ Vamos criar e rodar o exemplo minimal do slide anterior.
 ---
 ## Inputs e Outputs
 
-Fazer um shiny app tem duas grandes tarefas: a construção do layout (veremos mais a frente) e a construção dos inputs e outputs.
+Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e construção dos inputs e outputs. São esses elementos que permitem quem estiver usando a interagir com o app.
 
-<center>
-<img src="img/inputs_outputs.png" width = "100%">
-</center>
+```{r, echo = FALSE}
+knitr::include_graphics("img/app_penguins_disp.png")
+```
 
 ---
 ## Outputs: tabelas, gráficos e muito mais!
@@ -214,21 +255,6 @@ tibble::tribble(~`_Output()`, ~`render_()`,
 
 
 ---
-
-## Atividade
-
-Vamos criar e rodar um shiny app com um gráfico como output.
-
-<br>
-
-<center>
-<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
-<br>
-<br>
-`r blue('Ao RStudio: 02-output.R')`
-<center>
-
----
 ## Acessando outputs no server
 
 O argumento `outputId` das funções `_Output()` é utilizado para nos referirmos aos outputs dentro do server. Todos os outputs criados ficarão dentro da lista `output`.
@@ -252,6 +278,20 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+---
+
+## Atividade
+
+Vamos criar e rodar um shiny app com um gráfico como output.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 02-output.R')`
+<center>
 
 ---
 ## Inputs: dê controle ao usuário
@@ -262,20 +302,6 @@ Inputs permitem que o usuário interaja com o seu aplicativo. Eles são criados 
 <img src="img/inputs.png", width = "85%">
 <br>
 Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
-</center>
-
----
-## Atividade
-
-Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o usuário escolha qual variável será exibida no histograma.
-
-<br>
-
-<center>
-<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
-<br>
-<br>
-`r blue('Ao RStudio: 03-output-input.R')`
 </center>
 
 ---
@@ -298,6 +324,20 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 - `input$num` é um valor reativo, isto é, ele muda conforme ações do usuário.
 
 - Valores reativos só podem ser utilizados dentro de funções reativas.
+
+---
+## Atividade
+
+Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o usuário escolha qual variável será exibida no histograma.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 03-output-input.R')`
+</center>
 
 ---
 ## Shinyapps.io
