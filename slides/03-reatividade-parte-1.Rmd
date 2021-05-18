@@ -35,7 +35,7 @@ Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da d
 ---
 ## Valores e funções reativas
 
-**Valores reativos** são aqueles que podem mudar de valor conforme uma ação do usuário. **Funções reativas** são funções que recebem valores reativos e, portanto, mudam seus resultados conforme uma ação do usuário.
+**Valores reativos** são aqueles que podem mudar de valor conforme ações vindas da UI. **Funções reativas** são funções que recebem valores reativos e, portanto, mudam seus resultados conforme ações vindas da UI.
 
 Valores reativos só podem ser usados dentro de funções reativas ou um **contexto reativo**.
 
