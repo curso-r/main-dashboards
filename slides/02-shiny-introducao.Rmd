@@ -61,7 +61,7 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 ---
 ## Componentes básicos
 
-Um aplicativo Shiny tem dois componentes básicos: a interface de usuário e o servidor.
+Um aplicativo Shiny tem dois componentes básicos: a **interface de usuário** e o **servidor**.
 
 O primeiro componente se refere à construção do código HTML que compõe o app. Podemos pensar na programação desse código HTML como a construção daquilo que será mostrado na tela, a cara do seu app, a interface de usuário ou **UI** (sigla para o termo *user interface*, em inglês).
 

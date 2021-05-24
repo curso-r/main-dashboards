@@ -122,6 +122,17 @@ class: middle, center
 - Haverá monitoria para esclarecimento de dúvidas sempre 30 minutos antes do início das aulas.
 
 ---
+## Dinâmica das aulas
+
+- Mande dúvidas e comentários no chat em qualquer momento.
+
+- Para falar, levante a mão.
+
+- Algumas dúvidas serão respondidas na hora. Outras serão respondidas mais tarde na própria aula ou em aulas futuras.
+
+- Só interrompa quem estiver falando em caso de emergência.
+
+---
 ## Tirando dúvidas
 
 - **Não existe dúvida idiota**.
