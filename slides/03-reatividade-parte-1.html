@@ -4,6 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
@@ -15,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Reatividade (parte 1)
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Setembro de 2020
+### Maio de 2021
 
 ---
 
@@ -41,9 +42,9 @@ Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da d
 ---
 ## Valores e funções reativas
 
-**Valores reativos** são aqueles que podem mudar de valor conforme uma ação do usuário. **Funções reativas** são funções que recebem valores reativos e, portanto, mudam seus resultados conforme uma ação do usuário.
+**Valores reativos** são aqueles que podem mudar de valor conforme ações vindas da UI. **Funções reativas** são funções que recebem valores reativos e, portanto, são recalculadas sempre que um valor reativo muda.
 
-Valores reativos só podem ser usados dentro de funções reativas ou um **contexto reativo**.
+Valores reativos só podem ser usados dentro de funções reativas ou em um **contexto reativo**.
 
 <span style="color:green; font-weight: bold;">Certo</span>
 
@@ -132,7 +133,7 @@ Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisuali
 ---
 ## Gráfico de reatividade
 
-Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reaclog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
+Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reactlog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
 
 
 ```r
@@ -510,6 +511,7 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 - [Mais sobre debug](https://shiny.rstudio.com/articles/#code-quality)
 
 - [Shiny Server](https://rstudio.com/products/shiny/shiny-server/)
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

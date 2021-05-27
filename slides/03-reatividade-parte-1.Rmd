@@ -35,9 +35,9 @@ Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da d
 ---
 ## Valores e funções reativas
 
-**Valores reativos** são aqueles que podem mudar de valor conforme ações vindas da UI. **Funções reativas** são funções que recebem valores reativos e, portanto, mudam seus resultados conforme ações vindas da UI.
+**Valores reativos** são aqueles que podem mudar de valor conforme ações vindas da UI. **Funções reativas** são funções que recebem valores reativos e, portanto, são recalculadas sempre que um valor reativo muda.
 
-Valores reativos só podem ser usados dentro de funções reativas ou um **contexto reativo**.
+Valores reativos só podem ser usados dentro de funções reativas ou em um **contexto reativo**.
 
 `r colorido('Certo', 'green')`
 
@@ -106,7 +106,7 @@ tibble::tribble(~`_Output()`, ~`render_()`,
 ---
 ## Gráfico de reatividade
 
-Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reaclog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
+Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reactlog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
 
 ```{r, eval=FALSE}
 options(shiny.reactlog = TRUE) 
