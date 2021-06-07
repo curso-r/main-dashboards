@@ -21,8 +21,6 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  imdb <- read_rds(path = "../dados/imdb.rds")
-  
   output$hist <- renderPlot({
     amostra <- rnorm(input$num)
     hist(amostra)
