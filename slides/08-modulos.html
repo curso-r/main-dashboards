@@ -52,7 +52,7 @@ Isso é feito garantindo-se que os IDs de cada módulo são únicos.
 
 O primeiro conceito que precisamos guardar é que **módulos são funções**. Então, todas as regras válidas para a criação de uma função, valem para a criação de módulos.
 
-O segundo conceito fala sobre como enxergamos os módulos na prática. Cada módulo do nosso aplicativo será um mini Shiny app. Quando modularizamos um aplicativo, o resultado final será um app composto por diversos pequenos aplicativos que funcionam conjuntamente. Assim, todo módulo possui uma UI e (opcionalmente) um `server`.
+O segundo conceito fala sobre como enxergamos os módulos na prática. Cada módulo será uma parte do nosso aplicativo, um mini Shiny app que não pode ser rodado diretamente Quando modularizamos um aplicativo, o resultado final será um app composto por diversos pequenos aplicativos que funcionam conjuntamente. Assim, todo módulo possui uma UI e (opcionalmente) um `server`.
 
 O terceiro conceito diz respeito à unicidade dos IDs. Para cada módulo criado precisamos passar um `id`. No desenvolvimento do app, precisamos garantir que o `id` de cada módulo seja único e que os `inputId` e `outputId` dentro de cada módulo sejam únicos e estejam dentro da função `ns()`. Fazendo isso, garantimos a unicidade dos IDs entre módulos, isto é, no app como um todo.
 
@@ -89,7 +89,7 @@ histograma_server &lt;- function(id) {
 ---
 ## A UI de um módulo
 
-A UI de um módulo é apenas uma função de R. Essa função deve receber um `id` e devolver código HTML (um objeto com classe `shiny.tag.list`). A única diferença para a construção usual do objeto `ui` que vimos até agora é a utilização da função `ns()`. Essa função é criada pelo código `ns &lt;- NS(id)` e deve ser usada para embrulhar todos os `inputId` e `outputId` presentes no módulo. 
+A UI de um módulo é apenas uma função de R. Essa função deve receber um `id` e devolver código HTML (um objeto com classe `shiny.tag.list`). A única diferença para a construção usual do objeto `ui` que vimos até agora é a utilização da função `ns()`. Essa função é criada pelo código `ns &lt;- NS(id)` e deve ser usada para embrulhar todos os `inputId` e `outputId` presentes no módulo.
 
 A função `NS()` cria uma função que cola o `id` passado para o módulo no começo de cada `inputId` e `outputId` dentro do módulo. Como o `id` de cada módulo é único, isso garante a unicidade dos IDs entre módulos.
 
@@ -112,6 +112,20 @@ Assim como a UI, o servidor também é uma função que recebe um `id`. A difere
 A função `moduleServer()` recebe como primeiro argumento o `id` e como segundo a nossa função `server` habitual, isto é, a declaração de uma função com os argumentos `input`, `output` e `session` e que possua toda a lógica do servidor.
 
 ---
+## Observações
+
+- Um módulo grande o suficiente pode (e deve) ser dividido em módulos menores, isto é, você pode criar módulos dentro de módulos.
+
+- Módulos são parametrizáveis e podem ser utilizados diversas vezes dentro de um mesmo app. Você pode passar quantos parâmetros quiser (além do parâmetro `id`) para a UI e server de um módulo.
+
+- A UI e o servidor de um módulo não consegue acessar objetos, inputs, outputs ou valores reativos de outros módulos. Para acessar valores da `ui` ou da função `server`, cada valor deve ser passado explicitamente aos módulos como argumentos das funções.
+
+- Toda função UI de um módulo deve começar com `ns &lt;- NS(id)`.
+
+- É uma boa prática nomear igualmente as funções da UI e do servidor, trocando apenas o sufixo "ui" ou "server".
+
+
+---
 ## Atividade
 
 Vamos construir um aplicativo Shiny modularizado.
@@ -122,11 +136,13 @@ Vamos construir um aplicativo Shiny modularizado.
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
 &lt;br&gt;
-<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 21-modulos/app.R</span>
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 21-modulos-1/app.R e 22-modulos-2/app.R</span>
 &lt;center&gt;
 
 ---
 ## Referências e material extra
+
+- [Artigo sobre módulos da RStudio](https://shiny.rstudio.com/articles/modules.html)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

@@ -123,7 +123,7 @@ Vamos construir um aplicativo Shiny modularizado.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 21-modulos-1/app.R')`
+`r blue('Ao RStudio: 21-modulos-1/app.R e 22-modulos-2/app.R')`
 <center>
 
 ---
