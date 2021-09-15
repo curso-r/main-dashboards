@@ -5,7 +5,10 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -21,7 +24,7 @@ output:
 
 ## Atividade
 
-Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da distribuição normal.
+Vamos fazer um Shiny app que mostre o resultado do sorteio de `n` números entre 1 e 10, sendo `n` um valor escolhido na UI.
 
 <br>
 
@@ -29,15 +32,109 @@ Vamos fazer um Shiny app que mostre um histograma de uma amostra aleatória da d
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 04-hist-normal.R')`
+`r blue('Ao RStudio: 04-amostra-sem-reactive.R')`
 <center>
 
 ---
-## Valores e funções reativas
+## Reatividade: outro paradigma
 
-**Valores reativos** são aqueles que podem mudar de valor conforme ações vindas da UI. **Funções reativas** são funções que recebem valores reativos e, portanto, são recalculadas sempre que um valor reativo muda.
+Quando escrevemos código R, dois paradigmas estão sempre presentes:
 
-Valores reativos só podem ser usados dentro de funções reativas ou em um **contexto reativo**.
+- podemos avaliar uma linha de código assim que a escrevermos; e
+
+- se decidirmos rodar todo o script de uma vez, as linhas de código serão avaliadas sequencialmente.
+
+Isso faz com que as nossas tarefas de análise de dados geralmente virem scripts sequenciais, cujo código não pode ser executado fora de ordem.
+
+A reatividade é um outro paradigma de programação.
+
+---
+## Exemplo de script sequencial
+
+O código abaixo, que executa a corriqueira tarefa de importar, manipular e visualizar uma base. Se o código for rodado fora de ordem, nada vai funcionar.
+
+```{r, eval = FALSE}
+tab_starwars <- dplyr::starwars
+
+tab_grafico <- tab_starwars |>
+  tidyr::unnest(films) |> 
+  tidyr::drop_na(species) |> 
+  dplyr::group_by(films) |>
+  dplyr::summarise(total_especies = dplyr::n_distinct(species)) |> 
+  dplyr::mutate(
+    films = forcats::fct_reorder(films, total_especies)
+  )
+
+tab_grafico |> 
+  ggplot2::ggplot(ggplot2::aes(y = films, x = total_especies)) +
+  ggplot2::geom_col() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Total de espécies", y = "Filme")
+```
+
+---
+## Programação reativa
+
+A ideia da programação reativa é **especificar um fluxo de reatividade**, isto é, um diagrama de dependências que será utilizado para definir o que deve ser executado e quando. No contexto do Shiny, o fluxo de reatividade é quem decide quais outputs devem ser recalculados quando um input muda.
+
+O fluxo de reatividade de um shiny app possui 3 estruturas principais: os valores reativos, as expressões reativas e os *observers*.
+
+---
+## Valores reativos
+
+Os valores reativos são **a origem do fluxo reativo**. Eles guardam as informações que vêm da UI (a partir dos inputs) e disparam o *sinal de alerta* sempre que essas informações mudam. 
+
+Os valores reativos mais comuns são aqueles dentro da lista `input`.
+
+---
+## Observers
+
+O *sinal de alerta* disparado por um valor reativo é um aviso dizendo que todos os outputs que dependem dele precisam ser recalculados. Quem recebe esse sinal são os *observers*, isto é, estruturas dentro do Shiny que guardam o código de cada output. Eles são o **ponto final do fluxo de reatividade**. 
+
+Os *observers* mais comuns são as funções `render*()`.
+
+<br>
+
+```{r, echo = FALSE, out.width="70%"}
+knitr::include_graphics("img/reactive1.png")
+```
+
+---
+## Expressões reativas
+
+Muitas vezes, um aplicativo shiny precisa de passos intermediários, entre o input de origem e o output final. Isto é, precisamos de uma estrutura que receba um valor reativo, faça alguma conta e devolva um resultado, um valor também reativo que será utilizado posteriormente em um *observer*. 
+
+Essas estruturas são as **expressões reativas**. Para criá-las, podemos utilizar as funções `reactive({})` e `eventReactive({})`.
+
+---
+## A função reactive()
+
+A função `reactive()` pode ser utilizada para criar **expressões reativas**, cujos valores funcionam como um valor reativo. Essa função é muito utilizada para a construção de expressões intermediárias, que podem ser usadas na construção de outputs diferentes.
+
+```{r, eval=FALSE}
+# server
+amostra <- reactive({
+  sample(1:10, input$tamanho, replace = TRUE)
+})
+```
+
+Para acessar o valor dessa expressão reativa, devemos usar parênteses após o nome, como se fosse uma função sem argumentos.
+
+```{r, eval=FALSE}
+# server
+output$summary <- renderPrint({
+  amostra() |> 
+    table() |> 
+    barplot()
+})
+```
+
+---
+## Contexto reativo
+
+**Valores reativos** e **expressões reativas** só podem ser utilizadas dentro de um **contexto reativo**. 
+
+No exemplo abaixo, a função `renderPlot()` cria um contexto reativo e, por isso, podemos utilizar o valor reativo `input$num` dentro dela.
 
 `r colorido('Certo', 'green')`
 
@@ -55,53 +152,18 @@ output$hist <- hist(rnorm(input$num))
 ```
 
 ---
-## Reatividade
+## Atividade
 
-Reatividade é a relação entre **valores reativos** e **funções reativas**. 
+Vamos reconstruir nosso app anterior utilizando a função `reactive()` para resolver o problema da amostra.
 
-- Valores reativos notificam mudanças (valores desatualizados).
+<br>
 
-- Funções reativas reagem às mudanças (geram as visualizações com os novos valores).
-
-<img src="img/reactive1.png" width= "85%">
-
----
-
-## Trabalhando com reatividade
-
-Listamos abaixo as principais funções para trabalhar com reatividade no Shiny:
-
-- **`render*({})`**
-
-- **`reactive({})`**
-
-- **`eventReactive({})`**
-
-- **`observe({})`**
-
-- **`oberveEvent({})`**
-
-A seguir, discutiremos as funções `render*({})`, `reactive({})` e `eventReactive({})`. As demais serão discutidas na parte II do tópico de reatividade.
-
----
-## Funções render_()
-
-Para criar um output, precisamos das funções do tipo `render_()`. Essa funções
-
-- configuram o contexto reativo que automaticamente monitora quais inputs cada output usa;
-
-- convertem as saídas dos nossos códigos em R em um código HTML adequado para ser mostrado na página web.
-
-Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
-
-```{r, echo = FALSE, eval=TRUE}
-tibble::tribble(~`_Output()`, ~`render_()`,
-                "imageOutput()", "renderImage()",
-                "plotOutput()", "renderPlot()",
-                "tableOutput()", "renderTable()",
-                "textOutput()", "renderText()") %>%
-  knitr::kable(format = "html")
-```
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 05-amostra-com-reactive.R')`
+<center>
 
 ---
 ## Gráfico de reatividade
@@ -117,41 +179,6 @@ e então, dentro do app, utilizar o comando `CTRL + F3` (no Mac, `command + F3`)
 <center>
 <img src="img/reaclog_intro.png" width = "100%"
 </center>
-
----
-## Atividade
-
-Vamos acrescentar ao nosso app um título ao gráfico e uma tabela com um sumário da amostra normal usada na construção do histograma.
-
-<br>
-
-<center>
-<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
-<br>
-<br>
-`r blue('Ao RStudio: 05-dois-outputs.R')`
-<center>
-
----
-## A função reactive()
-
-A função `reactive()` pode ser utilizada para criar **expressões reativas**, que funcionam exatamente igual a um valor reativo. É muito utilizada para gerar valores reativos que são utilizados na construção de vários outputs.
-
-```{r, eval=FALSE}
-# server
-data <- reactive({
-  rnorm(input$num)
-})
-```
-
-É usado como uma função qualquer do R:
-
-```{r, eval=FALSE}
-# server
-output$summary <- renderPrint({
-  summary(data())
-})
-```
 
 ---
 ## Atividade

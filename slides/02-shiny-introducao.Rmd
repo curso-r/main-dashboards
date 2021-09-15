@@ -15,7 +15,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
-# knit: pagedown::chrome_print
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
