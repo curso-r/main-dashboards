@@ -1,25 +1,22 @@
 
-Dashboards
-==========
+# Dashboards
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 Repositório principal do curso Dashboards.
 
-Inscreva-se no curso:
-<a href="https://www.curso-r.com/cursos/dashboards/" class="uri">https://www.curso-r.com/cursos/dashboards/</a>
+Inscreva-se no curso: <https://www.curso-r.com/cursos/dashboards/>
 
 **Acesse o material completo do curso escolhendo uma das turmas
 abaixo**.
 
-| Turma            | Material                                                                                                          | Github                                                                                                              |
-|:-----------------|:------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|
-| setembro de 2020 | <a href="https://curso-r.github.io/202009-dashboards" class="uri">https://curso-r.github.io/202009-dashboards</a> | <a href="https://github.com/curso-r/202009-dashboards" class="uri">https://github.com/curso-r/202009-dashboards</a> |
-| junho de 2020    | <a href="https://curso-r.github.io/202006-dashboards" class="uri">https://curso-r.github.io/202006-dashboards</a> | <a href="https://github.com/curso-r/202006-dashboards" class="uri">https://github.com/curso-r/202006-dashboards</a> |
-| novembro de 2019 | <a href="https://curso-r.github.io/201911-dashboards" class="uri">https://curso-r.github.io/201911-dashboards</a> | <a href="https://github.com/curso-r/201911-dashboards" class="uri">https://github.com/curso-r/201911-dashboards</a> |
+| Turma            | Material                                      | Github                                         |
+|:-----------------|:----------------------------------------------|:-----------------------------------------------|
+| setembro de 2021 | <https://curso-r.github.io/202109-dashboards> | <https://github.com/curso-r/202109-dashboards> |
+| maio de 2021     | <https://curso-r.github.io/202105-dashboards> | <https://github.com/curso-r/202105-dashboards> |
+| setembro de 2020 | <https://curso-r.github.io/202009-dashboards> | <https://github.com/curso-r/202009-dashboards> |
 
-Ementa
-======
+# Ementa
 
 -   **Introdução ao Shiny**
     -   Dashboards estáticos e dinâmicos
