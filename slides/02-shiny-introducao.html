@@ -4,14 +4,14 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
     <script src="libs/react-17.0.0/react.min.js"></script>
     <script src="libs/react-17.0.0/react-dom.min.js"></script>
     <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
-    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
     <script src="libs/reactable-binding-0.2.3/reactable.js"></script>
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Introdução ao Shiny
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Setembro de 2021
+### setembro de 2021
 
 ---
 
@@ -45,7 +45,7 @@ Um aplicativo Shiny pode ser reduzido a vários elementos:
 
 - uma página web: ele será acessado por um navegador, possuirá um endereço (URL) e será constituído por HTML, CSS e JavaScript.
 
-- um aplicativo web: permetirá que quem estiver acessando intereja com as visualizações apresentadas.
+- um aplicativo web: permitirá que quem estiver acessando intereja com as visualizações apresentadas.
 
 - um código (ou uma coleção de códigos) em linguagem R: construídos, sobretudo, com o pacote `{shiny}`.
 
@@ -243,8 +243,8 @@ Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos
 
 Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
-<div id="htmlwidget-f43b2beba840d04c79d4" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f43b2beba840d04c79d4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"5741b422c2aaa75e56aea745c8ce9a22","key":"5741b422c2aaa75e56aea745c8ce9a22"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-11296fafe5410c56440f" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-11296fafe5410c56440f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"5741b422c2aaa75e56aea745c8ce9a22","key":"5741b422c2aaa75e56aea745c8ce9a22"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Funções render
@@ -253,8 +253,8 @@ Para criar um output, precisamos das funções do tipo `render*()`. Essas funç�
 
 Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
-<div id="htmlwidget-83c98b0ab162569e14f3" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-83c98b0ab162569e14f3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-832fce230f79529bbee4" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-832fce230f79529bbee4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 
 ---
