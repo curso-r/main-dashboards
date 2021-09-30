@@ -38,11 +38,11 @@ conteudoUI <- function(id) {
 conteudoServer <- function(id, tipo) {
   moduleServer(id, function(input, output, session) {
 
-    tab_pokemon <- pokemon |>
+    tab_pokemon <- pokemon %>% 
         filter(tipo_1 == tipo)
 
-    cor <- tab_pokemon |>
-      pull(cor_1) |>
+    cor <- tab_pokemon %>% 
+      pull(cor_1) %>% 
       unique()
 
     output$titulo <- renderUI({
@@ -53,8 +53,8 @@ conteudoServer <- function(id, tipo) {
     })
 
     observe({
-      pkmns <- tab_pokemon |>
-        pull(pokemon) |>
+      pkmns <- tab_pokemon %>% 
+        pull(pokemon) %>% 
         unique()
 
       updateSelectInput(
@@ -66,8 +66,8 @@ conteudoServer <- function(id, tipo) {
 
     output$img_pokemon <- renderUI({
       req(input$pokemon)
-      url <- pokemon |>
-        filter(pokemon == input$pokemon) |>
+      url <- pokemon %>% 
+        filter(pokemon == input$pokemon) %>% 
         pull(url_imagem)
 
       img(src = url, width = "300px")
@@ -79,20 +79,20 @@ conteudoServer <- function(id, tipo) {
 
       req(input$pokemon)
 
-      tab_pokemon_escolhido <- tab_pokemon |>
-        filter(pokemon == input$pokemon) |>
+      tab_pokemon_escolhido <- tab_pokemon %>% 
+        filter(pokemon == input$pokemon) %>% 
         tidyr::pivot_longer(
           names_to = "habilidade",
           values_to = "valor",
           cols = ataque:velocidade
         )
 
-      tab_pokemon |>
+      tab_pokemon %>% 
         tidyr::pivot_longer(
           names_to = "habilidade",
           values_to = "valor",
           cols = ataque:velocidade
-        ) |>
+        ) %>% 
         ggplot(aes(y = habilidade, x = valor, fill = habilidade)) +
         ggridges::geom_density_ridges(
           show.legend = FALSE,
@@ -111,8 +111,8 @@ conteudoServer <- function(id, tipo) {
     })
 
     output$grafico_freq <- renderPlot({
-      tab_pokemon |>
-        count(id_geracao) |>
+      tab_pokemon %>% 
+        count(id_geracao) %>% 
         ggplot(aes(x = id_geracao, y = n)) +
         geom_col(fill = cor) +
         labs(x = "Geração", y = "Número de pokémon") +
