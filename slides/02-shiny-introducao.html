@@ -4,10 +4,16 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
+    <script src="libs/core-js-2.5.3/shim.min.js"></script>
+    <script src="libs/react-17.0.0/react.min.js"></script>
+    <script src="libs/react-17.0.0/react-dom.min.js"></script>
+    <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/reactable-binding-0.2.3/reactable.js"></script>
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -16,7 +22,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Introdução ao Shiny
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Maio de 2021
+### Setembro de 2021
 
 ---
 
@@ -24,6 +30,12 @@ class: center, middle, inverse, title-slide
 
 
 
+
+class: center, middle
+
+## Nosso primeiro Shiny app
+
+---
 
 ## O que é o Shiny?
 
@@ -179,7 +191,7 @@ No RStudio, podemos rodar nossos apps:
 ---
 ## O botão Run App
 
-&lt;img src="img/botao_run_app.png" width="1176" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/botao_run_app.png" title="Botão Run App no Rstudio. Fica logo acima do script." alt="Botão Run App no Rstudio. Fica logo acima do script." width="1176" style="display: block; margin: auto;" /&gt;
 
 Ao clicar nesse botão, o seu navegador padrão será aberto e você verá a UI do nosso modesto app com apenas a frase "Olá, mundo!".
 
@@ -195,7 +207,7 @@ Essa sessão fornece a comunicação da UI (ou do nosso navegador) com o servido
 
 Para liberar a sessão, basta clicar no botão "*stop*", na parte de cima do Console, ou pressionar a tecla `Esc`. Veja que, ao fazer isso, a tela do app ficará acizentada, indicando que ele foi desconectado do servidor e não funcionará mais corretamente.
 
-&lt;img src="img/console_sessao_ocupada.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/console_sessao_ocupada.png" title="Console do RStudio com sinal de ocupado (stop)." alt="Console do RStudio com sinal de ocupado (stop)." width="60%" style="display: block; margin: auto;" /&gt;
 
 Reparem que a mensagem no Console representa o *endereço* do nosso aplicativo. Nesse caso, será um IP (`http://127.0.0.1`) com alguma porta que esteja disponível escolhida aleatoriamente (`:4028`). Esse endereço aparecerá no nosso navegador e poderemos copiá-lo e colá-lo em qualquer outra aba ou navegador que quisermos rodar o app.
 
@@ -213,9 +225,14 @@ Vamos criar e rodar o exemplo minimal do slide anterior.
 &lt;center&gt;
 
 ---
+class: center, middle
+
+## Adicionando interatividade
+
+---
 ## Inputs e Outputs
 
-Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e construção dos inputs e outputs. São esses elementos que permitem quem estiver usando a interagir com o app.
+Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e construção dos inputs e outputs. São esses elementos que nos permitem interagir com o app.
 
 &lt;img src="img/app_penguins_disp.png" width="1685" style="display: block; margin: auto;" /&gt;
 
@@ -224,68 +241,20 @@ Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e
 
 Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos que nosso código R retorne para o usuário. Essas saídas podem ser tabelas, gráficos, mapas, texto, imagens ou qualquer outro elemento em HTML.
 
-Os outputs são definidos no UI e criados no server. Cada tipo de output é definido por uma função do tipo `_Output()`. Veja as principais:
+Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Função &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Output &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; imageOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; imagens &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; plotOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; gráficos &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; tableOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; tabelas &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; textOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; textos &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+<div id="htmlwidget-f43b2beba840d04c79d4" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f43b2beba840d04c79d4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"5741b422c2aaa75e56aea745c8ce9a22","key":"5741b422c2aaa75e56aea745c8ce9a22"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Funções render
 
-Para criar um output, precisamos das funções do tipo `render_()`. Essas funções são responsáveis por conectar as nossas visualizações criadas pelo R com o código HTML do UI. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+Para criar um output, precisamos das funções do tipo `render*()`. Essas funções são responsáveis por conectar as nossas visualizações criadas pelo R com o código HTML do UI. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
 
-Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
+Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; _Output() &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; render_() &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; imageOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; renderImage() &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; plotOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; renderPlot() &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; tableOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; renderTable() &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; textOutput() &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; renderText() &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+<div id="htmlwidget-83c98b0ab162569e14f3" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-83c98b0ab162569e14f3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -298,13 +267,13 @@ O argumento `outputId` das funções `_Output()` é utilizado para nos referirmo
 library(shiny)
 
 ui &lt;- fluidPage(
-  "Um histograma",
-* plotOutput(outputId = "hist")
+  "Histograma da variável mpg",
+  plotOutput(outputId = "histograma")
 )
 
 server &lt;- function(input, output, session) {
   
-* output$hist &lt;- renderPlot({
+  output$histograma &lt;- renderPlot({
     hist(mtcars$mpg)
   })
   
@@ -312,6 +281,19 @@ server &lt;- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
+
+---
+## Acessando outputs no server
+
+No código do slide anterior:
+
+- a função `plotOutput()` especifica o lugar na UI será colocado o histograma (no caso, logo abaixo do texto `"Histograma da variável mpg"`);
+
+- para criar o histograma, atribuímos o resultado da função `renderPlot()` ao valor `histograma` da lista `output`, mesmo nome dado ao argumento `outputId` na função `plotOutput()`;
+
+- a função `renderPlot()`, assim com qualquer outra função da família `render*()`, recebe como primeiro argumento o código para gerar o output;
+
+- o histograma é gerado com o código `hist(mtcars$mpg)`.
 
 ---
 
@@ -331,18 +313,27 @@ Vamos criar e rodar um shiny app com um gráfico como output.
 ---
 ## Inputs: dê controle ao usuário
 
-Inputs permitem que o usuário interaja com o seu aplicativo. Eles são criados no UI com funções (geralmente) do tipo `_Input()` e são utilizados dentro do server para alterar as visualizações. Veja alguns exemplos abaixo e acesse [este link](https://shiny.rstudio.com/gallery/widget-gallery.html) para testar como eles funcionam no navegador.
+Inputs representam as entradas do nosso aplicativo, isto é, a maneira como informações são transmitidas entre a pessoa usando o app e o servidor. Essas informações podem ser valores, textos, datas, arquivos ou até mesmo cliques em um botão.
 
-&lt;center&gt;
-&lt;img src="img/inputs.png", width = "85%"&gt;
-&lt;br&gt;
-Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt;
-&lt;/center&gt;
+Para facilitar a escolha desses valores, o pacote `shiny` possibilita diversas opções de *widgets*, a depender do tipo de valor a ser passado.
+
+Você pode conferir a lista de widgets do pacote `shiny` [nesta página](https://shiny.rstudio.com/gallery/widget-gallery.html). Repare que no campo `Current Value(s)` é mostrado qual valor será levado para dentro da função `server` em cada caso.
+
+---
+## Criando inputs
+
+Para criar esses widgets utilizamos as famílias de funções `*Input()` ou `*Button`.
+
+De forma análoga ao `outputId` das funções `*Output()`, todas essas funções possuem `inputId` como primeiro argumento, que recebe uma string e será utilizado para acessar cada input dentro da função `server`.
+
+Isso implica que **dois inputs não podem ter o mesmo `inputId`**. Apenas o primeiro input funcionará caso você crie dois ou mais `inputId` repetidos.
 
 ---
 ## Acessando os inputs no server
 
 Para acessar os inputs dentro da função server, utilizamos a lista `input`. Essa lista guardará todos os inputs criados no UI.
+
+&lt;br&gt;
 
 .pull-left[
 &lt;img src="img/inputvalues.png" width= "100%"&gt;
@@ -356,10 +347,6 @@ Para acessar os inputs dentro da função server, utilizamos a lista `input`. Es
 Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt;
 &lt;/center&gt;
 
-- `input$num` é um valor reativo, isto é, ele muda conforme ações do usuário.
-
-- Valores reativos só podem ser utilizados dentro de funções reativas.
-
 ---
 ## Atividade
 
@@ -371,7 +358,21 @@ Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o u
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
 &lt;br&gt;
-<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 03-output-input.R</span>
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 031-output-input.R</span>
+&lt;/center&gt;
+
+---
+## Atividade
+
+Vamos fazer um app com dois pares input/output independentes e ver como o server se comporta nessa situação.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 032-output-input.R</span>
 &lt;/center&gt;
 
 ---

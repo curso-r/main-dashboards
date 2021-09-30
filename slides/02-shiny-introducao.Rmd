@@ -5,19 +5,28 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
-# knit: pagedown::chrome_print
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
 
 ```
+
+class: center, middle
+
+## Nosso primeiro Shiny app
+
+---
 
 ## O que é o Shiny?
 
@@ -213,9 +222,14 @@ Vamos criar e rodar o exemplo minimal do slide anterior.
 <center>
 
 ---
+class: center, middle
+
+## Adicionando interatividade
+
+---
 ## Inputs e Outputs
 
-Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e construção dos inputs e outputs. São esses elementos que permitem quem estiver usando a interagir com o app.
+Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e construção dos inputs e outputs. São esses elementos que nos permitem interagir com o app.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("img/app_penguins_disp.png")
@@ -226,31 +240,33 @@ knitr::include_graphics("img/app_penguins_disp.png")
 
 Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos que nosso código R retorne para o usuário. Essas saídas podem ser tabelas, gráficos, mapas, texto, imagens ou qualquer outro elemento em HTML.
 
-Os outputs são definidos no UI e criados no server. Cada tipo de output é definido por uma função do tipo `_Output()`. Veja as principais:
+Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
-```{r, echo = FALSE, eval=TRUE}
-tibble::tribble(~Função, ~Output,
-                "imageOutput()", "imagens",
-                "plotOutput()", "gráficos",
-                "tableOutput()", "tabelas",
-                "textOutput()", "textos") %>%
-  knitr::kable(format = "html")
+```{r, echo = FALSE, eval=TRUE, out.width="100%"}
+tibble::tribble(~Função, ~`Saída`,
+                "plotOutput()", "Gráficos",
+                "tableOutput()", "Tabelas",
+                "textOutput()", "Textos") %>%
+  reactable::reactable(
+    sortable = FALSE
+  )
 ```
 
 ---
 ## Funções render
 
-Para criar um output, precisamos das funções do tipo `render_()`. Essas funções são responsáveis por conectar as nossas visualizações criadas pelo R com o código HTML do UI. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+Para criar um output, precisamos das funções do tipo `render*()`. Essas funções são responsáveis por conectar as nossas visualizações criadas pelo R com o código HTML do UI. Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
 
-Veja a seguir as principais funções `render_()` e como elas se comunicam com as funções `_Output()`.
+Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
 ```{r, echo = FALSE, eval=TRUE}
-tibble::tribble(~`_Output()`, ~`render_()`,
-                "imageOutput()", "renderImage()",
+tibble::tribble(~`*Output()`, ~`render*()`,
                 "plotOutput()", "renderPlot()",
                 "tableOutput()", "renderTable()",
                 "textOutput()", "renderText()") %>%
-  knitr::kable(format = "html")
+  reactable::reactable(
+    sortable = FALSE
+  )
 ```
 
 
@@ -263,13 +279,13 @@ O argumento `outputId` das funções `_Output()` é utilizado para nos referirmo
 library(shiny)
 
 ui <- fluidPage(
-  "Um histograma",
-  plotOutput(outputId = "hist") #<<
+  "Histograma da variável mpg",
+  plotOutput(outputId = "histograma")
 )
 
 server <- function(input, output, session) {
   
-  output$hist <- renderPlot({ #<<
+  output$histograma <- renderPlot({
     hist(mtcars$mpg)
   })
   
@@ -277,6 +293,19 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
+
+---
+## Acessando outputs no server
+
+No código do slide anterior:
+
+- a função `plotOutput()` especifica o lugar na UI será colocado o histograma (no caso, logo abaixo do texto `"Histograma da variável mpg"`);
+
+- para criar o histograma, atribuímos o resultado da função `renderPlot()` ao valor `histograma` da lista `output`, mesmo nome dado ao argumento `outputId` na função `plotOutput()`;
+
+- a função `renderPlot()`, assim com qualquer outra função da família `render*()`, recebe como primeiro argumento o código para gerar o output;
+
+- o histograma é gerado com o código `hist(mtcars$mpg)`.
 
 ---
 
@@ -296,18 +325,27 @@ Vamos criar e rodar um shiny app com um gráfico como output.
 ---
 ## Inputs: dê controle ao usuário
 
-Inputs permitem que o usuário interaja com o seu aplicativo. Eles são criados no UI com funções (geralmente) do tipo `_Input()` e são utilizados dentro do server para alterar as visualizações. Veja alguns exemplos abaixo e acesse [este link](https://shiny.rstudio.com/gallery/widget-gallery.html) para testar como eles funcionam no navegador.
+Inputs representam as entradas do nosso aplicativo, isto é, a maneira como informações são transmitidas entre a pessoa usando o app e o servidor. Essas informações podem ser valores, textos, datas, arquivos ou até mesmo cliques em um botão.
 
-<center>
-<img src="img/inputs.png", width = "85%">
-<br>
-Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
-</center>
+Para facilitar a escolha desses valores, o pacote `shiny` possibilita diversas opções de *widgets*, a depender do tipo de valor a ser passado.
+
+Você pode conferir a lista de widgets do pacote `shiny` [nesta página](https://shiny.rstudio.com/gallery/widget-gallery.html). Repare que no campo `Current Value(s)` é mostrado qual valor será levado para dentro da função `server` em cada caso.
+
+---
+## Criando inputs
+
+Para criar esses widgets utilizamos as famílias de funções `*Input()` ou `*Button`.
+
+De forma análoga ao `outputId` das funções `*Output()`, todas essas funções possuem `inputId` como primeiro argumento, que recebe uma string e será utilizado para acessar cada input dentro da função `server`.
+
+Isso implica que **dois inputs não podem ter o mesmo `inputId`**. Apenas o primeiro input funcionará caso você crie dois ou mais `inputId` repetidos.
 
 ---
 ## Acessando os inputs no server
 
 Para acessar os inputs dentro da função server, utilizamos a lista `input`. Essa lista guardará todos os inputs criados no UI.
+
+<br>
 
 .pull-left[
 <img src="img/inputvalues.png" width= "100%">
@@ -321,10 +359,6 @@ Para acessar os inputs dentro da função server, utilizamos a lista `input`. Es
 Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 </center>
 
-- `input$num` é um valor reativo, isto é, ele muda conforme ações do usuário.
-
-- Valores reativos só podem ser utilizados dentro de funções reativas.
-
 ---
 ## Atividade
 
@@ -336,7 +370,21 @@ Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o u
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 03-output-input.R')`
+`r blue('Ao RStudio: 031-output-input.R')`
+</center>
+
+---
+## Atividade
+
+Vamos fazer um app com dois pares input/output independentes e ver como o server se comporta nessa situação.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 032-output-input.R')`
 </center>
 
 ---
