@@ -15,19 +15,32 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  amostra <- sample(1:10, input$tamanho, replace = TRUE)
-  
   output$grafico <- renderPlot({
-    amostra |> 
+    sample(1:10, input$tamanho, replace = TRUE) |> 
       table() |> 
       barplot()
   })
   
   output$resultado <- renderText({
+    amostra <- sample(1:10, input$tamanho, replace = TRUE)
     contagem <- table(amostra)
     mais_freq <- names(contagem[which.max(contagem)])
     glue::glue("O valor mais sorteado foi o {mais_freq}.")
   })
+  
+  # amostra <- sample(1:10, input$tamanho, replace = TRUE)
+  # 
+  # output$grafico <- renderPlot({
+  #   amostra |> 
+  #     table() |> 
+  #     barplot()
+  # })
+  # 
+  # output$resultado <- renderText({
+  #   contagem <- table(amostra)
+  #   mais_freq <- names(contagem[which.max(contagem)])
+  #   glue::glue("O valor mais sorteado foi o {mais_freq}.")
+  # })
 }
 
 shinyApp(ui, server)

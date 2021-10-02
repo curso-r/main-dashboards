@@ -1,5 +1,5 @@
 library(shiny)
-library(tidyverse)
+library(dplyr)
 
 ui <- fluidPage(
   sliderInput(
@@ -16,7 +16,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  imdb <- read_rds("../dados/imdb.rds")
+  imdb <- readr::read_rds("../dados/imdb.rds")
   
   output$table <- renderTable({
     imdb %>% 

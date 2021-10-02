@@ -15,6 +15,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -32,7 +33,7 @@ Vamos fazer um Shiny app que mostre o resultado do sorteio de `n` números entre
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 04-amostra-sem-reactive.R')`
+`r blue('Ao RStudio: 05-amostra-sem-reactive.R')`
 <center>
 
 ---
@@ -46,12 +47,12 @@ Quando escrevemos código R, dois paradigmas estão sempre presentes:
 
 Isso faz com que as nossas tarefas de análise de dados geralmente virem scripts sequenciais, cujo código não pode ser executado fora de ordem.
 
-A reatividade é um outro paradigma de programação.
+No Shiny, utilizamos um outro paradigma de programação.
 
 ---
 ## Exemplo de script sequencial
 
-O código abaixo, que executa a corriqueira tarefa de importar, manipular e visualizar uma base. Se o código for rodado fora de ordem, nada vai funcionar.
+O código abaixo, que executa a corriqueira tarefa de importar, manipular e visualizar uma base. Se o código for rodado fora de ordem, nada vai funcionar. Esse paradigma é conhecido como **programação imperativa**.
 
 ```{r, eval = FALSE}
 tab_starwars <- dplyr::starwars
@@ -73,23 +74,31 @@ tab_grafico |>
 ```
 
 ---
-## Programação reativa
+## Programação declarativa
 
-A ideia da programação reativa é **especificar um fluxo de reatividade**, isto é, um diagrama de dependências que será utilizado para definir o que deve ser executado e quando. No contexto do Shiny, o fluxo de reatividade é quem decide quais outputs devem ser recalculados quando um input muda.
+Na programação declarativa, os comandos não são executados imediatamente. Nosso código funciona como uma receita, que só será utilizada quando necessário.
 
-O fluxo de reatividade de um shiny app possui 3 estruturas principais: os valores reativos, as expressões reativas e os *observers*.
+No contexto do Shiny, a nossa receita será um **um diagrama de reatividade**, isto é, um conjunto de dependências que decide quais outputs devem ser recalculados quando um input muda.
+
+O diagrama de reatividade de um shiny app possui 3 estruturas principais: 
+
+- **valores reativos**
+
+- **expressões reativas**
+
+- **observers**
 
 ---
 ## Valores reativos
 
-Os valores reativos são **a origem do fluxo reativo**. Eles guardam as informações que vêm da UI (a partir dos inputs) e disparam o *sinal de alerta* sempre que essas informações mudam. 
+Os valores reativos são **a origem do diagrama de reatividade**. Eles guardam as informações que vêm da UI (a partir dos inputs) e disparam *sinais de alerta* sempre que essas informações mudam. 
 
 Os valores reativos mais comuns são aqueles dentro da lista `input`.
 
 ---
 ## Observers
 
-O *sinal de alerta* disparado por um valor reativo é um aviso dizendo que todos os outputs que dependem dele precisam ser recalculados. Quem recebe esse sinal são os *observers*, isto é, estruturas dentro do Shiny que guardam o código de cada output. Eles são o **ponto final do fluxo de reatividade**. 
+Os *sinais de alerta* disparados por um valor reativo são um aviso dizendo que todos os outputs que dependem dele precisam ser recalculados. O destino desses sinais são os *observers*. Eles guardam o código de cada output e são o **ponto final do fluxo de reatividade**. 
 
 Os *observers* mais comuns são as funções `render*()`.
 
@@ -130,6 +139,20 @@ output$summary <- renderPrint({
 ```
 
 ---
+## Atividade
+
+Vamos reconstruir nosso app anterior utilizando a função `reactive()` para resolver o problema da amostra.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 06-amostra-com-reactive.R')`
+<center>
+
+---
 ## Contexto reativo
 
 **Valores reativos** e **expressões reativas** só podem ser utilizadas dentro de um **contexto reativo**. 
@@ -148,13 +171,21 @@ output$hist <- renderPlot({hist(rnorm(input$num))})
 ```{r, echo = TRUE, eval=FALSE}
 # server
 output$hist <- hist(rnorm(input$num))
-#>  Operation not allowed without an active reactive context. #<<
+#> Error : Can't access reactive value 'tamanho' outside of #<<
+# reactive consumer. #<<
 ```
+
+---
+## Disparo de reatividade
+
+O envio de sinais por parte dos valores reativos, avisando que seus valores estão desatualizados para que as expressões reativas e observers recalculem seus resultados, só acontece se o **diagrama de reatividade estiver completo**.
+
+Podemos chamar esse envio de **disparo de reatividade**. Ele só acontece para os caminhos do diagrama de reatividade que começam com um valor reativo e terminam com um observer. **Caminhos que terminam com expressões reativas não causam o disparo de reatividade**.
 
 ---
 ## Atividade
 
-Vamos reconstruir nosso app anterior utilizando a função `reactive()` para resolver o problema da amostra.
+Vamos olhar mais de perto o contexto reativo e o disparo de reatividade.
 
 <br>
 
@@ -162,7 +193,7 @@ Vamos reconstruir nosso app anterior utilizando a função `reactive()` para res
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 05-amostra-com-reactive.R')`
+`r blue('Ao RStudio: 07-disparo-reatividade.R')`
 <center>
 
 ---
@@ -183,7 +214,7 @@ e então, dentro do app, utilizar o comando `CTRL + F3` (no Mac, `command + F3`)
 ---
 ## Atividade
 
-Vamos utilizar a função `reactive()` para fazer o histograma e a tabela sumário serem criadas a partir da mesma amostra.
+Vamos olhar o gráfico de reatividade do nosso app `06-amostra-com-reactive.R`.
 
 <br>
 
@@ -191,7 +222,7 @@ Vamos utilizar a função `reactive()` para fazer o histograma e a tabela sumár
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 06-reactive.R')`
+`r blue('Ao RStudio: 06-amostra-com-reactive.R')`
 <center>
 
 ---
@@ -235,7 +266,7 @@ Vamos criar um botão para atualizar o título do gráfico apenas quando clicarm
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 07-eventReactive.R')`
+`r blue('Ao RStudio: 08-eventReactive.R')`
 <center>
 
 ---
@@ -247,10 +278,10 @@ A seguir, listamos erros muito comuns que cometemos quando estamos programando e
 
 - Erros de sintaxe no Shiny. Em geral, o app não roda e receberemos a mensagem de erro `unexpected symbol`. Causados principalmente por falta ou excesso de vírgulas, parênteses ou chaves. 
 
-- Usar uma expressão reativa fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Operation not allowed without an active reactive context.`.
+- Usar uma expressão reativa fora de uma função reativa. O app não vai rodar e você verá a seguinte mensagem de erro `Can't access reactive value 'tamanho' outside of reactive consumer..`.
 
 ---
-<br><br>
+## Corrigindo erros (debug)
 
 - Você só pode *ler* valores da lista `input`. Se você tentar gravar um valor diretamente, será retornado um erro. A lista `input` será sempre uma *cópia* das ações do usuário no navegador.
 
@@ -264,6 +295,8 @@ server <- function(input, output, session) {
 #   Attempted to assign value to a read-only reactivevalues object
 ```
 
+---
+## Corrigindo erros (debug)
 
 - Você só pode *escrever* valores na lista `output`. Se você tentar ler um valor, será retornado um erro.
 
@@ -278,13 +311,16 @@ server <- function(input, output, session) {
 ```
 
 ---
-<br><br>
+## Corrigindo erros (debug)
 
 - Não fazer a correspondência certa entre as funções `_Output()` e `render_()`. O app vai rodar, mas a visualização não ser mostrada. Em algumas situações, uma mensagem de erro será retornada. Em outras, o erro será silencioso.
 
 - Errar o nome de um input (usar um input que não existe). O app vai rodar e, geralmente, retornar um erro relacionado a uma função receber um valor que não deveria ser NULL.
 
 - Errar o nome de um output. O app vai rodar e não vai retornar erro. O output não será gerado.
+
+---
+## Corrigindo erros (debug)
 
 - Usar o mesmo ID para dois outputs. O app vai rodar e não vai retornar erro. Os outputs não serão gerados.
 
@@ -293,7 +329,14 @@ server <- function(input, output, session) {
 ---
 ## A função browser()
 
-Quando as mensagens de erro não nos ajudarem, podemos usar a função `browser()` para espiarmos o que está acontecendo dentro do server. Basta colocar essa função onde você suspeita que o erro está acontecendo e, ao rodar o app, você poderá utilizar o Console para avaliar os objetos que estiverem no Environment. Enquanto a função `browser()` estiver ativa, o app ficará congelado.
+Quando as mensagens de erro não nos ajudarem, podemos usar a função `browser()` para espiarmos o que está acontecendo dentro do server. 
+
+Basta colocar essa função onde você suspeita que o erro está acontecendo e, ao rodar o app, você poderá utilizar o Console para avaliar os objetos que estiverem no Environment. 
+
+Enquanto a função `browser()` estiver ativa, o app ficará congelado.
+
+---
+## A função browser()
 
 ```{r, eval=FALSE}
 # server
@@ -316,20 +359,27 @@ output$plot <- renderPlot({
 ```
 
 ---
-<br><br>
+## A função browser()
 
-Embora você possa colocar a função browser em qualquer lugar no server, é melhor colocá-la dentro de uma função reativa. Caso contrário, você não conseguirá avaliar valores reativos.
+Embora você possa colocar a função browser em qualquer lugar no server, é melhor colocá-la dentro de uma função reativa. Caso contrário, o `browser()` só será chamado na inicialização do app e você não conseguirá avaliar valores reativos.
+
+Veja o exemplo no slide a seguir.
+
+---
+## A função browser()
 
 ```{r, eval=FALSE}
 # server
-valor_reativo <- reactive({
-  sample(1:10, 1)
+amostra <- reactive({
+  sample(1:10, input$n)
 })
 
 browser() #<<
 
 output$plot <- renderPlot({
-  hist(rnorm(100, valor_reativo, 1))
+  amostra() |> 
+    table() |> 
+    barplot()
 })
 
 ```
@@ -337,17 +387,14 @@ output$plot <- renderPlot({
 ```{r}
 # No console
 
-# Browse[1]> valor_reativo()
-# Error in .getReactiveEnvironment()$currentContext() : 
-#  Operation not allowed without an active reactive context. 
-# (You tried to do # something that can only be done from 
-# inside a reactive expression or observer.) 
+# Browse[1]> amostra()
+#Error : Can't access reactive value 'amostra' outside of reactive consumer.
 ```
 
 ---
 ## Atividade
 
-Vamos criar um novo Shiny app que importa uma base de dados.
+Vamos tentar corrigir os erros de um script e fazer o app rodar.
 
 <br>
 
@@ -355,23 +402,22 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 08-debug.R')`
+`r blue('Ao RStudio: 09-debug.R')`
 <center>
 
 ---
 ## Carregando bases de dados
 
-Você pode importar uma base de dados normalmente dentro da função server. Em geral, importar bases não envolve um contexto reativo, portanto essa operação pode ser feita fora de funções reativas.
+Você pode importar uma base de dados normalmente dentro da função server. Em geral, importar bases não envolve um contexto reativo, portanto essa operação pode ser feita fora de expressões reativas ou observers.
 
-Se essa operação não depender de um valor reativo, a importação poderá ser feita sem um contexto reativo.
 
 ```{r, eval=FALSE}
 # server
 imdb <- read_rds("dados/imdb.rds") #<<
-  
+
 output$table <- renderTable({
-  imdb %>%  #<<
-    top_n(20, receita) %>% 
+  imdb |>  #<<
+    top_n(20, receita) |> 
     select(titulo, ano, diretor)
 })
 ```
@@ -401,7 +447,7 @@ Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
 Novas instâncias e sessões são abertas para administrar eficientemente fluxos maiores de usuários.
 
 Para saber mais, veja a página no [Shiny Server](https://rstudio.com/products/shiny/shiny-server/).
- 
+
 ---
 ## Onde carregar a nossa base de dados?
 
@@ -411,58 +457,68 @@ Carregando fora do server, a base será importada apenas uma vez, assim que cada
 
 ```{r, eval=FALSE}
 library(shiny)
-imdb <- read_rds("dados/imdb.rds") #<<
+dados <- funcao_que_le_os_dados() #<<
 
-ui <- fluidPage()
+ui <- fluidPage(
+  # o objeto dados pode ser utilizado aqui
+)
 
 server <- function(input, output, session) {
-  
+  # o objeto dados pode ser utilizado aqui
 }
 
 shinyApp(ui, server)
 ```
 
 ---
-<br><br>
+## Onde carregar a nossa base de dados?
 
-Carregando dentro do server, mas fora de um contexo reativo, a base será importada sempre que um usuário abrir o app. No entanto, não importa qual ação o usuário fizer, ela não será importada novamente enquanto ele estiver usando app.
-
-```{r, eval=FALSE}
-library(shiny)
-
-ui <- fluidPage()
-
-server <- function(input, output, session) {
-  imdb <- read_rds("dados/imdb.rds") #<<
-}
-
-shinyApp(ui, server)
-```
-
----
-<br><br>
-
-Carregando dentro do server, mas fora de um contexo reativo, a base será importada sempre que o usuário fizer uma ação gatilho do contexo reativo.
+Carregando dentro do server, mas fora de um contexto reativo, a base será importada sempre que um usuário abrir o app. No entanto, não importa qual ação o usuário fizer, ela não será importada novamente enquanto ele estiver usando app.
 
 ```{r, eval=FALSE}
 library(shiny)
 
 ui <- fluidPage(
-  selectInput(
-    inputId = "diretor",
-    label = "Selecione um diretor",
-    diretor = c("Steven Spielberg", "Quentin Tarantino")
-  )
+  # o objeto dados NÃO pode ser utilizado aqui
 )
 
 server <- function(input, output, session) {
-  imdb <- reactive({
-    
-    tab <- read_rds("dados/imdb.rds") #<<
-    
-    tab %>% dplyr::filter(diretor == input$diretor)
+  dados <- funcao_que_le_os_dados() #<<
+}
+
+shinyApp(ui, server)
+```
+
+---
+## Onde carregar a nossa base de dados?
+
+Carregando dentro do server, mas dentro de um contexto reativo, a base será importada sempre que o usuário fizer a ação gatilho desse contexto. Se o objeto `dados` for uma expressão reativa, ele só poderá ser utilizado dentro de um contexto reativo.
+
+Veja o exemplo no próximo slide.
+
+---
+## Onde carregar a nossa base de dados?
+
+```{r, eval=FALSE}
+library(shiny)
+
+ui <- fluidPage(
+  actionButton(
+    inputId = "ler_base",
+    label = "Atualizar a base"
+  )
+  # o objeto dados NÃO pode ser utilizado aqui
+)
+
+server <- function(input, output, session) {
+  
+  dados <- eventReactive(input$ler_base{
+    importar_versao_mais_recente_dos_dados() #<<
   })
-    
+  
+  # o objeto dados pode ser utilizado aqui, mas apenas dentro
+  # de um contexto reativo
+  
 }
 
 shinyApp(ui, server)
@@ -479,7 +535,7 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 09-dados.R')`
+`r blue('Ao RStudio: 10-dados.R')`
 <center>
 
 ---

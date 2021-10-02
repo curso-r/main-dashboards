@@ -370,7 +370,7 @@ Vamos colocar um seletor de variáveis no exemplo anterior para permitir que o u
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 031-output-input.R')`
+`r blue('Ao RStudio: 03-output-input.R')`
 </center>
 
 ---
@@ -384,7 +384,7 @@ Vamos fazer um app com dois pares input/output independentes e ver como o server
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 032-output-input.R')`
+`r blue('Ao RStudio: 04-dois-inputs-outputs.R')`
 </center>
 
 ---
@@ -409,7 +409,7 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: shinyapps/03-output-input.R')`
+`r blue('Ao RStudio: shinyapps/04-dois-inputs-outputs.R')`
 </center>
 
 ---
