@@ -36,7 +36,7 @@ Um aplicativo Shiny pode ser reduzido a vários elementos:
 
 - uma página web: ele será acessado por um navegador, possuirá um endereço (URL) e será constituído por HTML, CSS e JavaScript.
 
-- um aplicativo web: permetirá que quem estiver acessando intereja com as visualizações apresentadas.
+- um aplicativo web: permitirá que quem estiver acessando intereja com as visualizações apresentadas.
 
 - um código (ou uma coleção de códigos) em linguagem R: construídos, sobretudo, com o pacote `{shiny}`.
 

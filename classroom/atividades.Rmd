@@ -135,10 +135,9 @@ Reproduzir o seguinte app:
 
 https://cursodashboards.shinyapps.io/dash-pokemon/
 
-O resultado não precisa ficar idêntico e você não precisa replicar todos os elementos. A entrega mínima deve conter pelo menos uma aba completa, isto é, todos os inputs e outputs de pelo menos uma aba.
+O resultado não precisa ficar idêntico e você não precisa replicar todos os elementos. A entrega mínima deve conter pelo menos uma aba completa, isto é, todos os inputs e outputs de pelo menos uma aba. Tente reproduzir e corrigir os erros de layout (fluidRow/column) que o app possui.
 
-Esse app foi construído utilizando a base pkmn.rds, que está na pasta dados,
-no material do curso.
+Esse app foi construído utilizando a base pkmn.rds, que está na pasta dados, no material do curso.
 
 
 # Bases de dados

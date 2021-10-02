@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Introdução ao curso"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -17,9 +17,16 @@ output:
       ratio: "4:3"
 knit: pagedown::chrome_print
 ---
-
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+
+link <- function(href, ...) {
+  htmltools::a(
+    href = href,
+    target = "_blank",
+    ...
+  )
+}
 ```
 
 class: middle, center
@@ -27,51 +34,100 @@ class: middle, center
 # Sobre a Curso-R
 
 ---
-## Nossos cursos
 
-```{r, echo = FALSE}
-templatesR6::criar_slide_nossos_cursos()
+## A empresa
+
+<br>
+
+```{r, echo = FALSE, out.width="50%", fig.align="center"}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/295643c6243701ae6a9bac3fb8ad467ff0ce3c84/d1785/img/logo/cursor1-41.png")
 ```
 
----
-## Além da Curso-R
+<br>
+<br>
 
-.pull-left[
-```{r, echo = FALSE}
+```{r, echo = FALSE, out.width="40%", fig.align="center"}
 knitr::include_graphics("img/logo_r6.png")
 ```
 
-<center style = "font-family: Noto Sans KR, sans-serif; color: #f26b61; font-weight: bold;">
-Projetos de análise estatística
-<br><br>
-Modelagem preditiva
-<br><br>
-Aplicativos e dashboards em Shiny
-<br><br>
-Web scraping
-<br><br>
-Treinamentos in-company
-</center>
+---
 
-]
+## Filosofia de código aberto!
 
---
-
-.pull-right[
-
-<center>
+.pull-left[
 ```{r, echo = FALSE}
-shiny::tags$a(
-  href = "https://www.curso-r.com/produtos/",
-  "Contribuímos ativamente com a comunidade!"
+htmltools::h3("Livros")
+
+link(
+  href = "https://livro.curso-r.com/",
+  htmltools::img(src = "img/hex-livro.png", width = "100px")
+)
+
+link(
+  href = "https://curso-r.github.io/zen-do-r/index.html",
+  htmltools::img(
+    src = "img/zen-do-r.png",
+    width = "100px",
+    style = "margin-left: 20px;"
+  )
 )
 ```
-</center>
+
+<br>
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/produtos.png")
+htmltools::h3("Lives")
+link(
+  href = "https://www.youtube.com/c/CursoR6",
+  htmltools::img(src = "img/youtube.png", width = "200px")
+)
 ```
 ]
+
+.pull-right[
+```{r, echo = FALSE}
+htmltools::h3("Material dos cursos")
+link(
+  href = "https://github.com/curso-r",
+  htmltools::img(src = "img/github.png", width = "230px")
+)
+```
+
+<br>
+
+```{r, echo = FALSE}
+htmltools::h3("Blog")
+link(
+  href = "https://blog.curso-r.com/",
+  htmltools::img(src = "img/blog.png", width = "400px")
+)
+```
+]
+
+<br>
+
+.center[
+### [www.curso-r.com](https://www.curso-r.com)
+]
+
+
+---
+## Nossos cursos
+
+```{css, echo = FALSE}
+.remark-slide-content .cursos h2 {
+   font-size: 15px;
+}
+```
+
+
+```{r, echo = FALSE}
+htmltools::div(
+  class = "cursos",
+  style = "font-size: 0.8em;",
+  templatesR6::criar_slide_nossos_cursos()
+)
+```
 
 ---
 class: middle, center
@@ -82,47 +138,51 @@ class: middle, center
 ## Cronograma
 
 .pull-left[
-- **Aula 1**: 24 de maio
+- **Aula 1**: 30 de setembro
   - Introdução e conceitos básicos
 
-- **Aula 2**: 27 de maio
+- **Aula 2**: 4 de outubro
   - Reatividade - parte 1
 
-- **Aula 3**: 31 de maio
+- **Aula 3**: 7 de outubro
   - Layouts e boostrap
+  
+- **NÃO HAVERÁ AULA DIA 11 DE OUTUBRO**
 
-- **Aula 4**: 7 de junho
-  - Shinydashboard
 ]
 
 .pull-right[
-- **Aula 5**: 10 de junho
+- **Aula 4**: 14 de outubro
+  - Shinydashboard
+
+- **Aula 5**: 18 de outubro
   - Reatividade - parte 2
 
-- **Aula 6**: 14 de junho
+- **Aula 6**: 21 de outubro
   - htmlwidgets e auth0
 
-- **Aula 7**: 17 de junho
+- **Aula 7**: 25 de outubro
   - módulos
   
-<br>
-
-**NÃO HAVERÁ AULA DIA 3 DE JUNHO**
 ]
 
 
 ---
 ## Dinâmica do curso
 
+- As aulas serão em maior parte expositivas.
+
 - As aulas terão uma seção teórica, de exposição de conceitos, e prática, de aplicação de conceitos.
 
-- Teremos diversos exercícios para serem feitos "em casa".
+- O objetivo dos exercícios é gerar dúvidas. **Com exceção do trabalho final, nenhum exercício precisa ser entregue**.
 
-- O objetivo dos exercícios é gerar dúvidas. **Com exceção da entrega final, nenhum exercício precisará ser entregue**.
-
-- O certificado será emitido mediante uma **entrega final**. O prazo da entrega final será de pelo menos 2 semanas após a última aula.
+- O certificado será emitido mediante uma **entrega final**, a ser especificada nas últimas aulas do curso. 
 
 - Haverá monitoria para esclarecimento de dúvidas sempre 30 minutos antes do início das aulas.
+
+- Usaremos os últimos minutos de cada aula para tirar dúvidas do conteúdo apresentado. Não haverá plantão de dúvidas pós aula.
+
+- A gravação das aulas ficará disponível no Google Classroom por 1 ano após o final do curso.
 
 ---
 ## Dinâmica das aulas
@@ -138,36 +198,11 @@ class: middle, center
 ---
 ## Tirando dúvidas
 
-- **Não existe dúvida idiota**.
- 
-- Nem sempre é trivial fazer a pergunta certa para que outra pessoa esclareça a sua dúvida. Neste curso, **vamos mostrar melhores práticas na hora de fazer perguntas sobre programação**.
+- **Não fique com dúvida**.
  
 - Fora do horário de aula ou monitoria:
-  - perguntas gerais sobre o curso deverão ser feitas no Classroom.
-  - perguntas sobre R ou Shiny, principalmente as que envolverem código, deverão ser enviadas no [nosso discourse](https://discourse.curso-r.com/).
+    - envie suas perguntas gerais **sobre o curso** no Classroom.
      
-- [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
+    - envie preferencialmente suas perguntas **sobre R** no [nosso discourse](https://discourse.curso-r.com/).
 
----
-## Pratique
-
-- Não se preocupe com estilos de estudo. Use o que te deixar mais confortável.
-
-- Estude um pouco todo dia. Se você tem apenas uma hora para estudar na semana, faça 3 sessões de 20 minutos em dias diferentes.
-
-- Se teste! Coloque em prática o que você aprendeu resolvendo exercícios ou inserindo o R no seu dia-a-dia.
-
-<br>
-<br>
-
-### Referência
-
-[Nahurhodo 205 - Powerpoint é útil para a aprendizagem?](https://www.b9.com.br/shows/naruhodo/naruhodo-205-powerpoint-e-util-para-a-aprendizagem/)
-
----
-## Extras
-
-- As duas entregas finais mais legais ganharão uma vaga em qualquer curso da Curso-R.
-
-- A gravação das aulas ficará disponível no Google Classroom por 1 ano após o final do curso.
-
+- Saber fazer a pergunta certa vai te ajudar bastante nos estudos de programação. [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).

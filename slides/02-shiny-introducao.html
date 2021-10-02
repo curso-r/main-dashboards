@@ -45,7 +45,7 @@ Um aplicativo Shiny pode ser reduzido a vários elementos:
 
 - uma página web: ele será acessado por um navegador, possuirá um endereço (URL) e será constituído por HTML, CSS e JavaScript.
 
-- um aplicativo web: permetirá que quem estiver acessando intereja com as visualizações apresentadas.
+- um aplicativo web: permitirá que quem estiver acessando intereja com as visualizações apresentadas.
 
 - um código (ou uma coleção de códigos) em linguagem R: construídos, sobretudo, com o pacote `{shiny}`.
 
@@ -243,8 +243,8 @@ Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos
 
 Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
-<div id="htmlwidget-ffbfb2831feece0877cb" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ffbfb2831feece0877cb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"5741b422c2aaa75e56aea745c8ce9a22","key":"5741b422c2aaa75e56aea745c8ce9a22"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8cef886ce58b272d17e5" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8cef886ce58b272d17e5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"5741b422c2aaa75e56aea745c8ce9a22","key":"5741b422c2aaa75e56aea745c8ce9a22"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Funções render
@@ -253,8 +253,8 @@ Para criar um output, precisamos das funções do tipo `render*()`. Essas funç�
 
 Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
-<div id="htmlwidget-1ae8114eba661c735b41" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1ae8114eba661c735b41">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bfe96a1baa893437df61" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bfe96a1baa893437df61">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 
 ---

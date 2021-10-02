@@ -20,7 +20,7 @@ Inscreva-se no curso: https://www.curso-r.com/cursos/dashboards/
 **Acesse o material completo do curso escolhendo uma das turmas abaixo**.
 
 ```{r, echo = FALSE}
-knitr::kable(CursoR:::listar_turmas_recentes("dashboards"))
+knitr::kable(CursoRutils:::listar_turmas_recentes("dashboards"))
 ```
 
 # Ementa
