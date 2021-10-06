@@ -5,7 +5,10 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -32,7 +35,7 @@ A maior parte do esforço em aprender uma linguagem de marcação está em apren
 
 No HTML, as instrução de formatação são chamadas *tags*. Utilizaremos as *tags* para formatar qualquer elemento da página web que estamos criando. Com elas, podemos, por exemplo, transformar um texto em negrito ou itálico, criar títulos e inserir imagens. 
 
-O pacote `shiny` traz diversas funções que simulam essas tags, nos permitindo usá-las livremente na UI para melhor formatar o nosso app. As principais são:
+O pacote `shiny` traz diversas funções que simulam essas tags. As principais são:
 
 ```{r, echo = FALSE, eval=TRUE}
 tibble::tribble(~`função`, ~`para que serve`,
@@ -44,11 +47,13 @@ tibble::tribble(~`função`, ~`para que serve`,
                 "p()", "cria um parágrafo",
                 "em()", "formata o texto em itálico",
                 "strong()", "formata o texto em negrito") %>%
-  knitr::kable(format = "html")
+  reactable::reactable(
+    sortable = FALSE
+  )
 ```
 
 ---
-<br><br>
+## Tags HTML
 
 O código Shiny abaixo, por exemplo, gera o código HTML a seguir.
 
@@ -56,11 +61,9 @@ O código Shiny abaixo, por exemplo, gera o código HTML a seguir.
 #ui
 fluidPage(
   h1("Meu Primeiro Shiny App"),
-  p(
-    "O link para o site do Shiny é ",
+  p("O link para o site do Shiny é ",
     a(href = "https://www.rstudio.com/shiny/", "rstudio.com/shiny."),
-    strong("Recomendo fortemente que você dê uma olhada!")
-  )
+    strong("Recomendo fortemente que você dê uma olhada!"))
 )
 ```
 
@@ -76,7 +79,7 @@ fluidPage(
 ```
 
 ---
-<br><br>
+## Tags HTML
 
 Que, por sua vez, gera o seguinte documento web:
 
@@ -115,11 +118,11 @@ Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 10-exemplo-html.html')`
+`r blue('Ao RStudio: 11-exemplo-html.html')`
 <center>
 
 ---
-## Sistema de grades (Grid system)
+## Bootstrap
 
 O layout de um Shiny app segue o *grid system* do [Bootstrap Framework](https://getbootstrap.com.br/docs/4.1/getting-started/introduction/) do Twitter. Esse layout estabelece que:
 
@@ -156,7 +159,7 @@ Vamos fazer um Shiny app para observar o grid system na prática.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 11-gridsystem.R')`
+`r blue('Ao RStudio: 12-gridsystem.R')`
 <center>
 
 
@@ -168,6 +171,12 @@ O pacote `shiny` fornece alguns layouts padrão. Os principais são:
 - `sidebarLayout()`: para criar um aplicativo com uma barra lateral.
 
 - `navbarPage()`: para criar um aplicativo com um menu de navegação no topo da tela.
+
+Alguns pacotes trazem funções que nos permitem construir outros tipos de layouts, como dashboards. Veremos aqui
+
+- `shinydashboard`
+
+- `bs4Dash`
 
 ---
 ## sidebarLayout
@@ -195,14 +204,14 @@ ui <- fluidPage(
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 Esse código geraria um app com a seguinte UI:
 
 <img src = "img/sidebarLayout.png">
 
 ---
-<br><br>
+## sidebarLayout
 
 Todos os elementos do layout são colocados dentro da função `fluidPage()`.
 
@@ -227,7 +236,7 @@ ui <- fluidPage( #<<
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 A função `titlePanel()` é utilizada para inserirmos um título no app.
 
@@ -252,7 +261,7 @@ ui <- fluidPage(
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 Especificamos o layout com a função `sidebarLayout()`.
 
@@ -277,7 +286,7 @@ ui <- fluidPage(
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 Criamos uma barra lateral com a função `sidebarPanel()`.
 
@@ -302,7 +311,7 @@ ui <- fluidPage(
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 Dentro do `sidebarPanel()`, colocamos tudo o que queremos que apareça na barra lateral. No exemplo, teremos um slider.
 
@@ -327,7 +336,7 @@ ui <- fluidPage(
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 Por fim, utilizamos a função `mainPanel()` para especificar tudo o que aparecerá na área principal do app. No exemplo, teremos apenas um gráfico.
 
@@ -352,7 +361,7 @@ ui <- fluidPage(
 ```
 
 ---
-<br><br>
+## sidebarLayout
 
 No exemplo, teremos apenas um gráfico na área principal do app.
 
@@ -387,7 +396,7 @@ Vamos fazer um Shiny app com `sidebarLayout()`.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 12-sidebarLayout.R')`
+`r blue('Ao RStudio: 13-sidebarLayout.R')`
 <center>
 
 ---
@@ -411,14 +420,14 @@ ui <- navbarPage(
 ```
 
 ---
-<br><br>
+## navbarPage
 
 Essa estrutura vai originar o seguinte layout. Cada opção da barra superior mostra uma página diferente do aplicativo.
 
 <img src = "img/navbarpage.png">
 
 ---
-<br><br>
+## navbarPage
 
 O argumento `title` da função `navbarPage()` determina o título que aparecerá na barra superior.
 
@@ -438,7 +447,7 @@ ui <- navbarPage(
 ```
 
 ---
-<br><br>
+## navbarPage
 
 Com a função `tabPanel()` as criamos diferentes páginas do aplicativo, que são acessadas pela barra superior. O `title` indica o título que aparecerá em cada botão. 
 
@@ -458,7 +467,7 @@ ui <- navbarPage(
 ```
 
 ---
-<br><br>
+## navbarPage
 
 A função `navbarMenu()` nos permite agrupar opções de página em uma caixinha de seleção.
 
@@ -478,7 +487,7 @@ ui <- navbarPage(
 ```
 
 ---
-<br><br>
+## navbarPage
 
 Os itens desse menu também são criados pela função `tabPanel()`, colocadas dentro da função `navbarMenu()`.
 
@@ -498,7 +507,7 @@ ui <- navbarPage(
 ```
 
 ---
-<br><br>
+## navbarPage
 
 Os inputs e outputs (e qualquer outro elemento da página) são colocados dentro de cada `tabPanel()`.
 
@@ -517,14 +526,7 @@ ui <- navbarPage(
     ), #<<
     plotOutput("hist") #<<
   ), #<<
-  tabPanel(title = "Painel 2"),
-  tabPanel(title = "Painel 3"),
-  navbarMenu(
-    title = "Mais opções", 
-    tabPanel(title = "Item 1"),
-    tabPanel(title = "Item 2"), 
-    tabPanel(title = "Item 3") 
-  )
+  #...
 )
 ```
 ]
@@ -540,14 +542,243 @@ Vamos fazer um Shiny app com `navbarLayout()`.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 13-navbarPage.R')`
+`r blue('Ao RStudio: 14-navbarPage.R')`
+<center>
+
+---
+class: middle, center
+
+## Dashboards
+
+---
+## Shinydashboard
+
+O `shinydasboard` é um pacote de R que introduz diversas ferramentas para o Shiny. A principal é o layout de dashboard. Com um simples template, conseguimos gerar uma UI naturalmente bonita e organizada.
+
+.pull-left[
+
+```{r, eval=FALSE}
+ui <- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+```
+
+]
+
+.pull-right[
+
+<img src="img/shinydashboard.png">
+
+]
+
+---
+## Elementos do shinydashboard
+
+.pull-left[
+- A função `dashboardPage()` é responsável por criar o layout de dashboard. Ela recebe três funções como argumentos: `dashboardHeader()`, `dashboardSidebar()` e `dashboardBody()`.
+
+- A função `dashboardHeader()` é responsável por elementos da barra superior (azul).
+]
+
+.pull-right[
+
+<img src="img/shinydashboard.png">
+
+]
+
+- A função `dashboardSidebar()` é responsável por elementos da barra lateral (preta). Geralmente colocamos nelas um menu para criar várias páginas no nosso dashboard.
+
+- A função `dashboardBody()` controla os elementos da área principal do dashboard (cinza). É nela que colocaremos as nossas visualizações.
+
+---
+## Atividade
+
+Vamos construir um app com o layout do Shinydashboard.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 15-shinydashboard-layout.R')`
+<center>
+
+---
+## Menu lateral
+
+Para construir um menu na barra lateral, utilizamos a função `sidebarMenu()` dentro da função `dashboardSidebar()`. Cada item do menu é criado pela função `menuItem()`. Além do nome dado ao menu, essa função recebe um argumento chamado `tabName`, que será utilizado para nos referirmos a esse item dentro do `dashboardBody`.
+
+```{r, eval=FALSE}
+# ui
+dashboardSidebar(
+  sidebarMenu(
+    menuItem("Item 1", tabName = "item1"),
+    menuItem("Item 2", tabName = "item2")
+  )
+)
+```
+
+---
+## Menu lateral
+
+Dentro do `dashboardBody()` usamos a função `tabItems()` para listar os itens do menu. A página é criada utilizando a função `tabItem()`. Também passamos a essa função o argumento `tabName`, para podermos nos referir a cada um dos itens criados no `sidebarMenu()`. No código abaixo, substituiríamos o `...` pelos inputs e outputs que quisermos construir em cada item (página) do dashboard.
+
+```{r, eval=FALSE}
+# ui
+dashboardBody(
+  tabItems(
+    tabItem(tabName = "item1",...),
+    tabItem(tabName = "item2",...)
+  )
+)
+```
+
+---
+## Menu lateral
+
+Assim, o código da ui ficaria:
+
+```{r, eval=FALSE}
+ui <- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Item 1", tabName = "item1"), #<<
+      menuItem("Item 2", tabName = "item2")
+    )
+  ),
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "item1",...), #<<
+      tabItem(tabName = "item2",...)
+    )
+  )
+)
+```
+
+---
+## Atividade
+
+Vamos construir um menu lateral no nosso Shinydashboard.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 16-shinydashboard-menu.R')`
+<center>
+
+---
+## Outros elementos: box e tabbox
+
+Além do layout de dashboard, o pacote `flexdashboard` trás novos elementos para a UI: o `box()` e o `tabBox()`.
+
+.pull-left[
+```{r, eval=FALSE}
+box(
+  title = "Histograma", ...
+),
+box(
+  title = "Inputs", ...
+)
+```
+
+<img src="img/box.png">
+
+]
+
+.pull-right[
+
+```{r, eval=FALSE}
+tabBox(
+  tabPanel("Aba 1",...),
+  tabPanel("Aba 2",...),
+  tabPanel("Aba 3",...)
+)
+```
+
+
+<img src="img/tabbox.png">
+
+]
+
+---
+## Outros elementos: valueBox e infoBox
+
+E novos outputs: 
+
+.pull-left[
+
+### valueBox
+
+<img src="img/valuebox.png">
+
+**`renderValueBox({}) + valueBoxOutput()`**
+
+]
+
+.pull-right[
+
+
+### infoBox
+
+<img src="img/infobox.png">
+
+**`renderInfoBox({}) + infoBoxOutput()`**
+
+]
+
+---
+## Atividade
+
+Vamos acrescentar esses novos elementos ao nosso Shinydashboard.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 17-shinydashboard-elementos.R')`
+<center>
+
+---
+## bs4Dash
+
+Todos os conceitos que vimos para o `shinydashboard` valem para o pacote `bs4Dash`. A ideia desse pacote é construir o layout de dashboard do `shinydashboard`, mas utilizando a versão 4 do Bootstrap (em vez da 3).
+
+Com o `bs4Dash`, teremos um dashboard com o visual mais moderno e com mais opções prontas de interface. A partir da versão 2.0 do pacote, você pode pegar um app feito em `shinydashboard` e simplesmente mudar `library(shinydashboard)` para `library(bs4Dash)` que seu app estará "traduzido" para essa nova biblioteca.
+
+A contrapartida é que o pacote `shinydashboard` é mais simples, organizado e consistente. Se você está começando agora no Shiny, sugerimos começar por ele.
+
+---
+## Atividade
+
+Vamos transformar um `shinydashboard` em um `bs4Dash`.
+
+<br>
+
+<center>
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
+<br>
+<br>
+`r blue('Ao RStudio: 18-bs4Dash.R')`
 <center>
 
 ---
 ## Referências e material extra
 
-- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/).
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
 
 - [Guia de layout do Shiny](https://shiny.rstudio.com/articles/layout-guide.html)
 
-- [`bs4Dash`](https://rinterface.github.io/bs4Dash/)
+- [Mais sobre layout](https://shiny.rstudio.com/articles/#user-interface)
+
+- [Tutorial do Shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+
+- [Bootstrap](https://getbootstrap.com/)
