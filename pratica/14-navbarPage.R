@@ -3,45 +3,31 @@ library(shiny)
 ui <- navbarPage(
   title = "Shiny com navbarPage",
   tabPanel(
-    title = "Análise descritiva",
-    selectInput(
-      inputId = "var",
-      label = "Selecione uma variável",
-      choices = names(mtcars[,-1])
-    ),
-    selectInput(
-      inputId = "var2",
-      label = "Selecione uma variável",
-      choices = names(mtcars[,-1])
-    ),
-    plotOutput("grafico_disp")
+    title = "Tela 1",
+    h2("Conteúdo da tela 1")
+  ),
+  tabPanel(
+    title = "Tela 2",
+    h2("Conteúdo da tela 2")
   ),
   navbarMenu(
-    title = "Resultado dos modelos",
+    title = "Várias telas",
     tabPanel(
-      title = "Regressão linear",
-      h2("Resultados do modelo de regressão linear")
+      title = "Tela 3",
+      h2("Conteúdo da tela 3")
     ),
     tabPanel(
-      title = "Árvores de decisão",
-      h2("Resultados das árvores de decisão")
+      title = "Tela 4",
+      h2("Conteúdo da tela 4")
     ),
     tabPanel(
-      title = "Floresta aleatória",
-      h2("Resultados das floresta aleatória")
+      title = "Tela 5",
+      h2("Conteúdo da tela 5")
     )
   )
 )
 
 server <- function(input, output, session) {
-  
-  output$grafico_disp <- renderPlot({
-    mtcars %>% 
-      select(mpg, xvar = input$var) %>% 
-      ggplot(aes(x = xvar, y = mpg)) +
-      geom_point() +
-      labs(x = input$var)
-  })
   
 }
 
