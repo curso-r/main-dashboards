@@ -1,21 +1,31 @@
 library(shiny)
 library(shinydashboard)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+
+imdb <- basesCursoR::pegar_base("imdb")
+
+generos <- imdb |> 
+  pull(genero) |> 
+  stringr::str_split(", ") |> 
+  purrr::flatten_chr() |> 
+  unique() |> 
+  sort()
 
 ui <- dashboardPage(
   dashboardHeader(title = "IMDB"),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Informações gerais", tabName = "info"),
-      menuItem("Orçamentos", tabName = "orcamentos"),
-      menuItem("Receitas", tabName = "receitas")
+      menuItem("Financeiro", tabName = "financeiro"),
+      menuItem("Elenco", tabName = "elenco")
     )
   ),
   dashboardBody(
     tabItems(
       tabItem(
         tabName = "info",
-        h1("Informações gerais dos filmes"),
+        h2("Informações gerais dos filmes"),
         br(),
         fluidRow(
           infoBoxOutput(
@@ -23,48 +33,68 @@ ui <- dashboardPage(
             width = 4
           ),
           infoBoxOutput(
-            outputId = "num_diretores",
+            outputId = "num_dir",
             width = 4
           ),
           infoBoxOutput(
-            outputId = "num_atores",
+            outputId = "num_atr",
             width = 4
+          ),
+        ),
+        br(),
+        fluidRow(
+          column(
+            width = 12,
+            plotOutput("grafico_filmes_ano")
           )
         )
       ),
       tabItem(
-        tabName = "orcamentos",
-        h1("Analisando os orçamentos"),
-        br(),
-        box(
-          width = 12,
-          selectInput(
-            inputId = "genero_orcamento",
-            label = "Selecione um genero",
-            choices = c("Action", "Comedy", "Romance"),
-            width = "25%"
+        tabName = "financeiro",
+        fluidRow(
+          column(
+            width = 12,
+            h2("Visão geral")
           )
         ),
-        box(
-          width = 6,
-          title = "Série do orçamento",
-          solidHeader = TRUE,
-          status = "primary",
-          plotOutput("serie_orcamento")
+        br(),
+        fluidRow(
+          box(
+            width = 4,
+            selectInput(
+              inputId = "fin_genero",
+              label = "Selecione um ou mais gêneros",
+              multiple = TRUE,
+              choices = generos,
+              selected = generos[1],
+              width = "100%"
+            )
+          ),
+          box(
+            width = 8,
+            title = "Orçamento vs Receita",
+            solidHeader = TRUE,
+            status = "primary",
+            plotOutput("orc_vs_receita")
+          )
         )
-        
       ),
       tabItem(
-        tabName = "receitas",
-        h1("Analisando as receitas")
+        tabName = "elenco",
+        fluidRow(
+          column(
+            width = 12,
+            h2("Elenco")
+          )
+        )
+        # Lição de casa: dado um ator/atriz (ou diretor(a)), mostrar um
+        # gráfico com os filmes feitos por essa pessoa e a nota desses filmes.
       )
     )
   )
 )
 
 server <- function(input, output, session) {
-  
-  imdb <- read_rds("../dados/imdb.rds")
   
   output$num_filmes <- renderInfoBox({
     infoBox(
@@ -75,39 +105,56 @@ server <- function(input, output, session) {
     )
   })
   
-  output$num_diretores <- renderInfoBox({
+  output$num_dir <- renderInfoBox({
+    
+    num_dir <- imdb |> 
+      pull(direcao) |> 
+      stringr::str_split(", ") |> 
+      purrr::flatten_chr() |> 
+      unique() |> 
+      length()
+    
     infoBox(
-      title = "Número de diretores",
-      value = n_distinct(imdb$diretor),
+      title = "Número de diretoras(es)",
+      value = num_dir,
       fill = TRUE,
       icon = icon("hand-point-right")
     )
   })
   
-  output$num_atores <- renderInfoBox({
+  output$num_atr <- renderInfoBox({
     
-    num_atores <- imdb %>% 
-      select(starts_with("ator")) %>% 
-      pivot_longer(cols = ator_1:ator_3) %>% 
-      distinct(value) %>% 
-      nrow()
+    num_atr <- imdb |> 
+      pull(elenco) |> 
+      stringr::str_split(", ") |> 
+      purrr::flatten_chr() |> 
+      unique() |> 
+      length()
     
     infoBox(
-      title = "Número de atores",
-      value = num_atores,
+      title = "Número de atores/atrizes diferentes",
+      value = num_atr,
       fill = TRUE,
       icon = icon("user-friends")
     )
   })
   
-  output$serie_orcamento <- renderPlot({
-    imdb %>% 
-      filter(str_detect(generos, input$genero_orcamento)) %>% 
-      group_by(ano) %>% 
-      summarise(orcamento_medio = mean(orcamento)) %>% 
-      filter(!is.na(orcamento_medio)) %>% 
-      ggplot(aes(x = ano, y = orcamento_medio)) +
-      geom_line()
+  output$grafico_filmes_ano <- renderPlot({
+    imdb |> 
+      count(ano, sort = TRUE) |> 
+      ggplot(aes(x = ano, y = n)) +
+      geom_col(color = "black", fill = "black") +
+      ggtitle("Número de filmes por ano")
+  })
+  
+  output$orc_vs_receita <- renderPlot({
+    imdb |> 
+      mutate(genero = stringr::str_split(genero, ", ")) |> 
+      tidyr::unnest(genero) |> 
+      filter(genero %in% input$fin_genero) |>
+      distinct(titulo, .keep_all = TRUE) |> 
+      ggplot(aes(x = orcamento, y = receita)) +
+      geom_point()
   })
   
   

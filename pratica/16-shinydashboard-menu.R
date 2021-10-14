@@ -5,24 +5,24 @@ ui <- dashboardPage(
   dashboardHeader(title = "IMDB"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Informações gerais", tabName = "info"),
-      menuItem("Orçamentos", tabName = "orcamentos"),
-      menuItem("Receitas", tabName = "receitas")
+      menuItem("Página 1", tabName = "pag1"),
+      menuItem("Página 2", tabName = "pag2"),
+      menuItem("Página 3", tabName = "pag3")
     )
   ),
   dashboardBody(
     tabItems(
       tabItem(
-        tabName = "info",
-        h1("Informações gerais dos filmes")
+        tabName = "pag1",
+        h2("Conteúdo da página 1")
       ),
       tabItem(
-        tabName = "orcamentos",
-        h1("Analisando os orçamentos")
+        tabName = "pag2",
+        h2("Conteúdo da página 2")
       ),
       tabItem(
-        tabName = "receitas",
-        h1("Analisando as receitas")
+        tabName = "pag3",
+        h2("Conteúdo da página 3")
       )
     )
   )
