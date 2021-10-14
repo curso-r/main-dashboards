@@ -100,6 +100,7 @@ server <- function(input, output, session) {
     infoBox(
       title = "Número de filmes",
       value = nrow(imdb),
+      color = "orange",
       icon = icon("film"),
       fill = TRUE
     )
@@ -118,6 +119,7 @@ server <- function(input, output, session) {
       title = "Número de diretoras(es)",
       value = num_dir,
       fill = TRUE,
+      color = "teal",
       icon = icon("hand-point-right")
     )
   })
@@ -135,6 +137,7 @@ server <- function(input, output, session) {
       title = "Número de atores/atrizes diferentes",
       value = num_atr,
       fill = TRUE,
+      color = "navy",
       icon = icon("user-friends")
     )
   })
