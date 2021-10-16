@@ -1,18 +1,16 @@
 library(shiny)
 
+imdb <- readRDS("../dados/imdb.rds")
+
 ui <- fluidPage(
-  textInput("entrada", "texto"),
-  textOutput("texto")
+  textInput("email", "Informe seu e-mail"),
+  actionButton("enviar", "Enviar dados")
 )
 
 server <- function(input, output, session) {
-  a <- reactive({
-    print("TESTE")
-    input$entrada
-  })
   
-  output$texto <- renderText({
-    a()
+  observeEvent(input$enviar, {
+    write(input$email, "emails.txt", append = TRUE)
   })
 }
 

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards com R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Dashboards com R
+## Reatividade (parte 2)
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+### Outubro de 2021
+
+---
+
+
+
+
+
+
+## observers
+
+Já vimos que os observers são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de observer. Mas eles não são os únicos.
+
+Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas a geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
+
+Nesses casos, podemos utilizar as funções `observer()` e `oberverEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são observers.
+
+---
+
+## A função `observe()`
+
+A função `observe({codigo})` monitora os valores e expressões reativas que estão dentro dela e roda seu código quando algum desses valores são modificados.
+
+A diferença do `observe()` para a função `reactive()` é que a primeira não gera expressões reativas, servindo apenas para códigos que têm efeitos colaterais.
+
+Essa função é muito utilizada com as funções da família `update*()`, que servem para atualizar valores de um input na UI.
+
+Veja um exemplo no próximo slide.
+
+---
+
+## A função `observe()`
+
+Queremos, na segunda caixa de seleção, selecionar apenas os filmes do(a) diretor(a) que selecionamos na primeira. Veja que usamos o texto `Carregando...` como um *placeholder* para o segundo `selectInput()`.
+
+
+```r
+ui &lt;- fluidPage(
+  selectInput(
+    "dir",
+    "Selecione um(a) diretor(a)",
+    choices = sort(unique(imdb$diretor))
+  ),
+  selectInput(
+    "filme",
+    "Selecione um filme",
+    choices = "Carregando..."
+  )
+)
+```
+
+---
+
+## A função `observe()`
+
+No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de um observer, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
+
+
+```r
+server &lt;- function(input, output, session) {
+  
+  observe({
+    opcoes &lt;- imdb |&gt; 
+      dplyr::filter(diretor == input$dir) |&gt; 
+      dplyr::pull(titulo)
+    updateSelectInput(
+      session,
+      inputId = "filme",
+      choices = opcoes
+    )
+  })
+}
+```
+
+---
+## A função `observeEvent()`
+
+A função `observeEvent()` funciona assim como a `observe()`, mas ela escuta apenas um valor ou expressão reativa, que é definido em seu primeiro argumento, assim como na função `eventReactive()`.
+
+Ela é muito utiliza para disparar ações, como gravar informações em uma base de dados, a partir de botões.
+
+Veja um exemplo no slide a seguir.
+
+---
+## A função `observeEvent()`
+
+Queremos salvar o e-mail de uma pessoa quando ela clicar no botão "Enviar dados". A função `observeEvent()` roda o código definido dentro dela quando o botão é clicado, salvando o e-mail em um arquivo.
+
+
+```r
+ui &lt;- fluidPage(
+  textInput("email", "Informe seu e-mail"),
+  actionButton("enviar", "Enviar dados")
+)
+
+server &lt;- function(input, output, session) {
+  
+  observeEvent(input$enviar, {
+    write(input$email, "emails.txt", append = TRUE)
+  })
+}
+```
+
+
+---
+## Atividade
+
+Vamos treinar a utilização dessas funções.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 19-observers.R</span>
+&lt;center&gt;
+
+---
+## Validação
+
+O pacote `shiny` possui algumas funções que nos ajudam a validar valores reativos antes de rodarmos um código que gera uma visualização (output). Isso impede que mensagens de erros internas do R apareçam para o usuário, envia mensagens e avisos personalizados quando o usuário faz algo que não devia, controla pontas soltas de reatividade e deixa o nosso aplicativo mais eficiente.
+
+- `isTruthy(x)`: teste se x é válido. `FALSE`, `NULL`, `""`, entre outros, são considerados valores inválidos. Veja `help(isTruthy)` para ver a lista de valores considerados inválidos.
+
+- `req(x)`: retorna um erro silencioso caso `x` seja inválido.
+
+- `validate()`: transforma uma mensagem personalizada em uma mensagem de erro para o usuário. Geralmente utilizada junto da função `need()`.
+
+- `need(teste, mensagem)`: retorna uma mensagem personalizada caso o resultado do teste seja falso.
+
+---
+## Função req()
+
+Veja um exemplo de utilização da função `req()`. No código abaixo, a infoBox só será criada se o valor reativo `input$filme` tiver um valor válido (no caso, uma string não nula). Caso o valor seja inválido, a infoBox não será mostrada no app. Nenhuma mensagem de erro ou aviso será retornado ao usuário.
+
+
+```r
+#server
+ouput$orcamento &lt;- renderInfoBox({
+  
+  req(input$filme)
+  
+  orcamento &lt;- imdb %&gt;% 
+    filter(titulo == input$filme) %&gt;% 
+    pull(orcamento)
+  
+  infoBox(
+    title = "Orçamento",
+    value = orcamento
+  )
+  
+})
+```
+
+
+---
+##  Mensagem de erro personalizada
+
+Neste caso, além de o aplicativo não mostrar a infoBox, uma mensagem é enviada ao usuário explicando o porquê. No código, utilizamos `isTruthy(input$filme)` para testar se `input$filme` é válido, retornamos a mensagem `"Nenhum filme selecionado."` caso ele não seja e usamos a função `validate()` para parar a execução e retornar essa mensagem ao usuário. 
+
+.tiny[
+
+```r
+#server
+ouput$orcamento &lt;- renderInfoBox({
+  validate(
+    need(isTruthy(input$filme), message = "Nenhum filme selecionado.")
+  )
+  orcamento &lt;- imdb %&gt;% filter(titulo == input$filme) %&gt;% pull(orcamento)
+  infoBox(
+    title = "Orçamento",
+    value = orcamento
+  )
+})
+```
+]
+
+---
+## Atividade
+
+Vamos usar essas funções para melhorar a experiência de uso do nosso app.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 19-observers.R</span>
+&lt;center&gt;
+
+---
+## Referências e material extra
+
+### Tutoriais
+
+- [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
+
+- [Tutorial do Shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+
+### Material avançado
+
+- [Mais sobre reatividade](https://shiny.rstudio.com/articles/#reactivity)
+
+- [Mais sobre debug](https://shiny.rstudio.com/articles/#code-quality)
+
+- [Shiny Server](https://rstudio.com/products/shiny/shiny-server/)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

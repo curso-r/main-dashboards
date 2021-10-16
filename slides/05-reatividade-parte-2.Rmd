@@ -5,165 +5,119 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
 
 ```
 
-## UIs reativas
+## observers
 
-Muitas vezes, precisamos construir elementos da interface do usuário (inputs) que dependem de valores que estão no server.
+Já vimos que os observers são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de observer. Mas eles não são os únicos.
 
-Nesses casos, utilizamos as funções `uiOutput()` e `renderUI()`. Essas funções funcionam assim como qualquer outro par output/render, a diferença é que não retornaremos uma visualização, mas sim um elemento da UI.
+Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas a geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
 
-As funções `uiOutput()` e `renderUI()` nos permitem:
-
-- quando nossa base de dados está apenas no server, usar elementos da base para construir inputs (usar os nomes das colunas para gerar um caixa de seleção, por exemplo);
-
-- construir filtros hierárquicos (o filtro 2 depende da escolha feita no filtro 1)
+Nesses casos, podemos utilizar as funções `observer()` e `oberverEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são observers.
 
 ---
-<br><br>
 
-Veja que construir um `selectInput` reativo é igual a construir um output qualquer. No exemplo, utilizamos os nomes das colunas da base para gerar um filtro de variáveis.
+## A função `observe()`
+
+A função `observe({codigo})` monitora os valores e expressões reativas que estão dentro dela e roda seu código quando algum desses valores são modificados.
+
+A diferença do `observe()` para a função `reactive()` é que a primeira não gera expressões reativas, servindo apenas para códigos que têm efeitos colaterais.
+
+Essa função é muito utilizada com as funções da família `update*()`, que servem para atualizar valores de um input na UI.
+
+Veja um exemplo no próximo slide.
+
+---
+
+## A função `observe()`
+
+Queremos, na segunda caixa de seleção, selecionar apenas os filmes do(a) diretor(a) que selecionamos na primeira. Veja que usamos o texto `Carregando...` como um *placeholder* para o segundo `selectInput()`.
 
 ```{r, eval = FALSE}
-#ui
-uiOutput(outputId = "ui_variaveis") #<<
-
-#server
-imdb <- read_rds("../dados/imdb.rds")
-
-output$ui_variaveis <- renderUI({ #<<
-  
-  variaveis <- names(imdb)
-  
+ui <- fluidPage(
   selectInput(
-    inputId = "variaveis",
-    label = "Selecione a variável",
-    choices = variaveis
+    "dir",
+    "Selecione um(a) diretor(a)",
+    choices = sort(unique(imdb$diretor))
+  ),
+  selectInput(
+    "filme",
+    "Selecione um filme",
+    choices = "Carregando..."
   )
-  
-}) #<<
+)
 ```
 
 ---
-<br><br>
 
-Agora, utilizamos para construir filtros hierárquicos. O `selectInput` de filmes vai depender do valor `input$ano`, isto é, a caixa de seleção só vai mostrar filmes do ano escolhido no `sliderInput`.
+## A função `observe()`
 
-.tiny[
+No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de um observer, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
+
 ```{r, eval = FALSE}
-#ui
-sliderInput(
-    inputId = "ano",
-    label = "Selecione um ano",
-    min = 1916, max = 2016, value = 2000
-  ),
-uiOutput(outputId = "ui_filmes") #<<
-
-#server
-imdb <- read_rds("../dados/imdb.rds")
-
-output$ui_filmes <- renderUI({
-  filmes <- imdb %>% 
-    filter(ano == input$ano) %>%  #<<
-    pull(titulo)
+server <- function(input, output, session) {
   
-  selectInput(
-    inputId = "filmes",
-    label = "Selecione um filme",
-    choices = filmes #<<
-  )
-})
+  observe({
+    opcoes <- imdb |> 
+      dplyr::filter(diretor == input$dir) |> 
+      dplyr::pull(titulo)
+    updateSelectInput(
+      session,
+      inputId = "filme",
+      choices = opcoes
+    )
+  })
+}
 ```
-]
 
 ---
-## Funções update
+## A função `observeEvent()`
 
-Outra forma de inserir reatividade na sua UI é utilizar as funções `update_()`. Essas funções atualizam aspectos de um input, conforme as mudanças de um valor reativo.
+A função `observeEvent()` funciona assim como a `observe()`, mas ela escuta apenas um valor ou expressão reativa, que é definido em seu primeiro argumento, assim como na função `eventReactive()`.
 
-Utilizamos as funções update dentro das funções `observe()` ou `observeEvent()`. Essas funções funcionam de forma muito parecida que a função `eventReactive()`. A diferença é essas funções não criam expressões reativas. 
+Ela é muito utiliza para disparar ações, como gravar informações em uma base de dados, a partir de botões.
 
-A função `observe()` vai rodar o seu pedaço de código sempre que qualquer valor reativo dentro dela mudar.
-
-Se você quiser que o pedaço de código rode apenas se um de seus valores reativos mudar, você pode usar a função `observeEvent()`. Ela permite determinar qual valor reativo será o gatilho da reatividade.
+Veja um exemplo no slide a seguir.
 
 ---
-<br><br>
+## A função `observeEvent()`
 
-Podemos reconstruir o nosso filtro hierárquico utilizando a função update `updateSelectInput()`.
+Queremos salvar o e-mail de uma pessoa quando ela clicar no botão "Enviar dados". A função `observeEvent()` roda o código definido dentro dela quando o botão é clicado, salvando o e-mail em um arquivo.
 
-.tiny[
 ```{r, eval = FALSE}
-#ui
-sliderInput(
-    inputId = "ano",
-    label = "Selecione um ano",
-    min = 1916, max = 2016, value = 2000
-  ),
-selectInput( 
-  inputId = "filmes",
-  label = "Selecione um filme",
-  choices = "" #<<
+ui <- fluidPage(
+  textInput("email", "Informe seu e-mail"),
+  actionButton("enviar", "Enviar dados")
 )
 
-#server
-imdb <- read_rds("../dados/imdb.rds")
-
-observe({
-  filmes <- imdb %>% filter(ano == input$ano) %>% pull(titulo) 
+server <- function(input, output, session) {
   
-  updateSelectInput( #<< 
-    session, #<<
-    inputId = "filmes", #<<
-    choices = filmes #<<
-  ) #<<
-})
+  observeEvent(input$enviar, {
+    write(input$email, "emails.txt", append = TRUE)
+  })
+}
 ```
-]
 
----
-<br><br>
-
-Se no exemplo anterior tivéssemos dois ou mais valores reativos usados para filtrar a base, poderíamos usar a função `observeEvent()` para especificar qual deles seria o gatilho da reatividade. No exemplo abaixo, embora tenhamos 3 valores reativos dentro da função `observeEvent()`, apenas mudanças no `input$ano` faria o pedaço de código dentro dela rodar novamente (isto é, atualizar o filtro de filmes).
-
-.tiny[
-```{r, eval = FALSE}
-#server
-imdb <- read_rds("../dados/imdb.rds")
-
-observeEvent(input$ano, { #<<
-  filmes <- imdb %>% 
-    filter(
-      ano == input$ano, #<<
-      diretor = input$diretor,  #<<
-      str_detect(generos, "Action") #<<
-    ) %>% 
-    pull(titulo) 
-  
-  updateSelectInput(
-    session,
-    inputId = "filmes",
-    choices = filmes 
-  )
-})
-```
-]
 
 ---
 ## Atividade
 
-Vamos construir UIs reativas no nosso Shinydashboard.
+Vamos treinar a utilização dessas funções.
 
 <br>
 
@@ -171,7 +125,7 @@ Vamos construir UIs reativas no nosso Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 17-ui-reativa.R')`
+`r blue('Ao RStudio: 19-observers.R')`
 <center>
 
 ---
@@ -196,7 +150,7 @@ Veja um exemplo de utilização da função `req()`. No código abaixo, a infoBo
 #server
 ouput$orcamento <- renderInfoBox({
   
-  req(input$filme) #<<
+  req(input$filme)
   
   orcamento <- imdb %>% 
     filter(titulo == input$filme) %>% 
@@ -212,7 +166,7 @@ ouput$orcamento <- renderInfoBox({
 
 
 ---
-## Retornando uma mensagem de erro personalizada
+##  Mensagem de erro personalizada
 
 Neste caso, além de o aplicativo não mostrar a infoBox, uma mensagem é enviada ao usuário explicando o porquê. No código, utilizamos `isTruthy(input$filme)` para testar se `input$filme` é válido, retornamos a mensagem `"Nenhum filme selecionado."` caso ele não seja e usamos a função `validate()` para parar a execução e retornar essa mensagem ao usuário. 
 
@@ -220,18 +174,14 @@ Neste caso, além de o aplicativo não mostrar a infoBox, uma mensagem é enviad
 ```{r, eval = FALSE}
 #server
 ouput$orcamento <- renderInfoBox({
-  
-  validate( #<<
-    need(isTruthy(input$filme), message = "Nenhum filme selecionado.") #<<
-  ) #<<
-  
+  validate(
+    need(isTruthy(input$filme), message = "Nenhum filme selecionado.")
+  )
   orcamento <- imdb %>% filter(titulo == input$filme) %>% pull(orcamento)
-  
   infoBox(
     title = "Orçamento",
     value = orcamento
   )
-  
 })
 ```
 ]
@@ -239,7 +189,7 @@ ouput$orcamento <- renderInfoBox({
 ---
 ## Atividade
 
-Vamos corrigir os problemas de reatividade do nosso Shinydashboard.
+Vamos usar essas funções para melhorar a experiência de uso do nosso app.
 
 <br>
 
@@ -247,7 +197,7 @@ Vamos corrigir os problemas de reatividade do nosso Shinydashboard.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 17-ui-reativa.R')`
+`r blue('Ao RStudio: 19-observers.R')`
 <center>
 
 ---
