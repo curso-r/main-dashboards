@@ -125,7 +125,7 @@ Vamos treinar a utilização dessas funções.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 19-observers.R')`
+`r blue('Ao RStudio: 19-observers.R')` e `r blue('Ao RStudio: 19-observeEvent.R')`
 <center>
 
 ---
