@@ -5,13 +5,17 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -57,13 +61,15 @@ ouput$tabela <- reactable::renderReactable({
 ```
 
 ---
-<br><br>
+## Tabelas com reactable
 
 A interatividade dos `htmlwidgets` não depende de uma sessão R rodando por trás. Você pode utilizá-los em qualquer documento `.html`.
 
 ```{r}
-reactable::reactable(mtcars, compact = TRUE, defaultPageSize = 4, 
-                     striped = TRUE)
+reactable::reactable(
+  mtcars, compact = TRUE, defaultPageSize = 4, 
+  striped = TRUE
+)
 ```
 
 
@@ -96,7 +102,7 @@ Embora seja possível criar um plotly do zero usando a função `plot_ly()`, um 
 - [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/)
 
 ---
-<br><br>
+## Gráficos com plotly
 
 ```{r}
 p <- ggplot(mtcars) +
@@ -105,9 +111,9 @@ plotly::ggplotly(p, height = 400)
 ```
 
 ---
-<br><br> 
+## Gráficos com plotly
 
-Para colocarmos um plotly no nosso app, basta utilizarmos as funções `plotlyOutput()` e `renderPlotly()`.
+Para colocar um plotly no nosso app, basta utilizar as funções `plotlyOutput()` e `renderPlotly()`.
 
 ```{r, eval = FALSE}
 # ui
@@ -150,7 +156,7 @@ Para criar um mapa leaflet, utilizamos a função `leaflet::leaflet()` e diversa
 A seguir, mostramos um exemplo simples de como criar um mapa leaflet.
 
 ---
-<br><br>
+## Mapas com leaflet
 
 .tiny[
 ```{r}
@@ -160,13 +166,13 @@ leaflet(height = 300) %>%
   addTiles() %>%  # Adiciona a camada gráfica do OpenStreetMap (padrão)
   addMarkers(
     lng = -46.6623969, lat = -23.5581664, 
-    popup = "A Curso-R mora aqui :)"
+    popup = "A Curso-R morava aqui. Agora ela mora na internet e nos nossos corações ❤️"
   )
 ```
 ]
 
 ---
-<br><br> 
+## Mapas com leaflet
 
 Para colocarmos um leaflet no nosso app, basta utilizarmos as funções `leafletOutput()` e `renderLeaflet()`.
 
@@ -193,6 +199,9 @@ leaflet(height = 300) %>%
 - `ggplot2::geom_sf`: não é um htmlwidget (não possui interatividade), mas é uma boa solução para construção de mapas utilizando o framework do pacote `ggplot2()` em conjunto do pacote `sf`.
 
 - `highcharter::hcmap()`: variação do `highcharter` para mapas, baseada na biblioteca JavaScript [Highcharts](https://www.highcharts.com/maps/demo). **`r blue('[avançado]')`**
+
+- `{tmap}`: Pacote focado em mapas temáticos: [Thematic Maps](https://r-tmap.github.io/tmap/). 
+
 
 #### Tutoriais
 
@@ -264,10 +273,15 @@ Vamos construir htmlwidgets no nosso Shinydashboard.
 
 - [Documentação Highmaps](https://api.highcharts.com/highmaps/)
 
+
 ---
 <br><br>
 
-#### Extra
+#### tmap
+
+- [Thematic Maps](https://r-tmap.github.io/tmap/)
+
+#### Miscelânea
 
 - [Documentação geom_sf()](https://ggplot2.tidyverse.org/reference/ggsf.html)
 
