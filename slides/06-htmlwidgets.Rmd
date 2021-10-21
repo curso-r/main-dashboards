@@ -22,8 +22,8 @@ knit: pagedown::chrome_print
 
 ```
 
-```{r, include=FALSE}
-library(tidyverse)
+```{r, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
 
@@ -105,6 +105,7 @@ Embora seja possível criar um plotly do zero usando a função `plot_ly()`, um 
 ## Gráficos com plotly
 
 ```{r}
+library(ggplot2)
 p <- ggplot(mtcars) +
   geom_point(aes(x = wt, y = mpg))
 plotly::ggplotly(p, height = 400)
@@ -136,13 +137,17 @@ ouput$grafico <- plotly::renderPlotly({
 
 A seguir, uma lista de pacotes/funções alternativos que trazem soluções para visualização de gráficos.
 
-- `highcharter::highcharter()`: pacote gráfico baseado na biblioteca JavaScript [Highcharts](https://www.highcharts.com/). A biblioteca Highcharts é gratuita apenas para fins educacionais e não lucrativos (exceto órgãos governamentais). Para outros usos, você pode precisar de uma licença. **`r blue('[avançado]')`**
+- `highcharter`: pacote gráfico baseado na biblioteca JavaScript [Highcharts](https://www.highcharts.com/). A biblioteca Highcharts é gratuita apenas para fins educacionais e não lucrativos (exceto órgãos governamentais). Para outros usos, você pode precisar de uma licença.
+
+- `echarts4r`: pacote gráfico baseado na biblioteca JavaScript `echarts`. Essa biblioteca é código aberto, podendo ser utilizada gratuitamente para qualquer propósito.
 
 - Procure por pacotes para tipos específicos de gráficos na [galeria de htmlwidgets](http://gallery.htmlwidgets.org/).
 
 #### Tutoriais
 
 - [Tutorial highcharter](http://jkunst.com/highcharter/)
+
+- [Tutorial echarts4r](https://echarts4r.john-coene.com/)
 
 - [Documentação Highcharts](https://api.highcharts.com/highcharts/)
 
@@ -158,18 +163,16 @@ A seguir, mostramos um exemplo simples de como criar um mapa leaflet.
 ---
 ## Mapas com leaflet
 
-.tiny[
 ```{r}
 library(leaflet)
 
 leaflet(height = 300) %>%
-  addTiles() %>%  # Adiciona a camada gráfica do OpenStreetMap (padrão)
+  addTiles() %>%
   addMarkers(
     lng = -46.6623969, lat = -23.5581664, 
     popup = "A Curso-R morava aqui. Agora ela mora na internet e nos nossos corações ❤️"
   )
 ```
-]
 
 ---
 ## Mapas com leaflet
@@ -183,12 +186,12 @@ leaflet::leafletOutput("mapa")
 # server
 ouput$mapa <- leaflet::renderLeaflet({
   
-leaflet(height = 300) %>%
-  addTiles() %>%  # Adiciona a camada gráfica do OpenStreetMap (padrão)
-  addMarkers(
-    lng = -46.6623969, lat = -23.5581664, 
-    popup = "A Curso-R mora aqui :)"
-  )
+  leaflet(height = 300) %>%
+    addTiles() %>%  # Adiciona a camada gráfica do OpenStreetMap (padrão)
+    addMarkers(
+      lng = -46.6623969, lat = -23.5581664, 
+      popup = "A Curso-R mora aqui :)"
+    )
   
 })
 ```
@@ -198,7 +201,7 @@ leaflet(height = 300) %>%
 
 - `ggplot2::geom_sf`: não é um htmlwidget (não possui interatividade), mas é uma boa solução para construção de mapas utilizando o framework do pacote `ggplot2()` em conjunto do pacote `sf`.
 
-- `highcharter::hcmap()`: variação do `highcharter` para mapas, baseada na biblioteca JavaScript [Highcharts](https://www.highcharts.com/maps/demo). **`r blue('[avançado]')`**
+- `highcharter::hcmap()`: variação do `highcharter` para mapas, baseada na biblioteca JavaScript [Highcharts](https://www.highcharts.com/maps/demo).
 
 - `{tmap}`: Pacote focado em mapas temáticos: [Thematic Maps](https://r-tmap.github.io/tmap/). 
 
@@ -248,7 +251,7 @@ Vamos construir htmlwidgets no nosso Shinydashboard.
 - [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/)
 
 ---
-<br><br>
+## Referências e material extra
 
 #### highcharter/highcharts
 
@@ -275,7 +278,7 @@ Vamos construir htmlwidgets no nosso Shinydashboard.
 
 
 ---
-<br><br>
+## Referências e material extra
 
 #### tmap
 
