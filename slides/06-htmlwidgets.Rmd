@@ -67,7 +67,8 @@ A interatividade dos `htmlwidgets` não depende de uma sessão R rodando por tr�
 
 ```{r}
 reactable::reactable(
-  mtcars, compact = TRUE, defaultPageSize = 3, striped = TRUE
+  mtcars, compact = TRUE, defaultPageSize = 4, 
+  striped = TRUE
 )
 ```
 
@@ -113,7 +114,7 @@ plotly::ggplotly(p, height = 400)
 ---
 ## Gráficos com plotly
 
-Para colocarmos um plotly no nosso app, basta utilizarmos as funções `plotlyOutput()` e `renderPlotly()`.
+Para colocar um plotly no nosso app, basta utilizar as funções `plotlyOutput()` e `renderPlotly()`.
 
 ```{r, eval = FALSE}
 # ui
@@ -169,7 +170,7 @@ leaflet(height = 300) %>%
   addTiles() %>%
   addMarkers(
     lng = -46.6623969, lat = -23.5581664, 
-    popup = "A Curso-R mora aqui :)"
+    popup = "A Curso-R morava aqui. Agora ela mora na internet e nos nossos corações ❤️"
   )
 ```
 
@@ -201,6 +202,9 @@ ouput$mapa <- leaflet::renderLeaflet({
 - `ggplot2::geom_sf`: não é um htmlwidget (não possui interatividade), mas é uma boa solução para construção de mapas utilizando o framework do pacote `ggplot2()` em conjunto do pacote `sf`.
 
 - `highcharter::hcmap()`: variação do `highcharter` para mapas, baseada na biblioteca JavaScript [Highcharts](https://www.highcharts.com/maps/demo).
+
+- `{tmap}`: Pacote focado em mapas temáticos: [Thematic Maps](https://r-tmap.github.io/tmap/). 
+
 
 #### Tutoriais
 
@@ -272,10 +276,15 @@ Vamos construir htmlwidgets no nosso Shinydashboard.
 
 - [Documentação Highmaps](https://api.highcharts.com/highmaps/)
 
+
 ---
 ## Referências e material extra
 
-#### Extra
+#### tmap
+
+- [Thematic Maps](https://r-tmap.github.io/tmap/)
+
+#### Miscelânea
 
 - [Documentação geom_sf()](https://ggplot2.tidyverse.org/reference/ggsf.html)
 
