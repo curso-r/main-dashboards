@@ -1,7 +1,7 @@
 # htmlwidgets
 #
 # Reproduza o seguinte Shiny app:
-# https://curso-r-shiny.shinyapps.io/htmlwidgets-1/
+# https://acursor.shinyapps.io/htmlwidgets-1/
 #
 # A base utilizada foi a cetesb, presente no material do curso.
 # Você também pode acessar a base clicando no link abaixo:
