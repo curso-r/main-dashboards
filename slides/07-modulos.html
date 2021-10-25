@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards com R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Dashboards com R
+## Módulos
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+### Outubro de 2021
+
+---
+
+
+
+
+
+
+## Problema
+
+Conforme o nosso aplicativo cresce, fica cada vez mais difícil manter o seu código em um único arquivo. Imaginem corrigir um errinho de digitação no título de um `ggplot` em um arquivo com 10 `ggplots` diferentes e mais de 5000 linhas... Cada alteração nesse arquivo vai exigir um `CTRL+F`.
+
+Além disso, conforme cresce o número de inputs e outputs, garantir que seus IDs são únicos se torna uma tarefa morosa e muito fácil de gerar erros.
+
+---
+## Por que não apenas usar funções?
+
+A nossa experiência com programação em R nos diria separar o código do app em vários arquivos, transformando partes da UI e do server em objetos ou funções. Assim, bastaria colocar esses arquivos dentro de uma pasta chamada `R/` ou fazer `source("arquivo_auxiliar.R)` para cada arquivo auxiliar no início do código.
+
+O problema é que essa solução resolve o problema do tamanho do script, mas ainda assim precisaríamos nos preocupar com a unicidade dos IDs dos inputs e outputs.
+
+---
+## Módulos
+
+Módulos são uma alternativa para gerenciar a complexidade de aplicativos Shiny muito grandes que resolve o problema do tamanho dos scripts e da unicidade dos IDs.
+
+Na prática, módulos são uma **adaptação do uso de funções** que respeita a lógica UI/server de aplicativos Shiny. 
+
+Isso é feito garantindo-se que os IDs de cada módulo são únicos.
+
+---
+## Estrutura de um módulo
+
+O primeiro conceito que precisamos guardar é que **módulos são funções**. Então, todas as regras válidas para a criação de uma função, valem para a criação de módulos.
+
+O segundo conceito fala sobre como enxergamos os módulos na prática. Cada módulo será uma parte do nosso aplicativo, um mini Shiny app que não pode ser rodado isoladamente. Quando modularizamos um aplicativo, o resultado final será um app composto por diversos pequenos aplicativos que funcionam conjuntamente. Assim, todo módulo possui uma UI e (opcionalmente) um `server`.
+
+O terceiro conceito diz respeito à unicidade dos IDs. Para cada módulo criado precisamos passar um `id`. No desenvolvimento do app, precisamos garantir que o `id` de cada módulo seja único e que os `inputId` e `outputId` dentro de cada módulo sejam únicos e estejam dentro da função `ns()`. Fazendo isso, garantimos a unicidade dos IDs entre módulos, isto é, no app como um todo.
+
+
+---
+## O código de um módulo
+
+
+```r
+histograma_ui &lt;- function(id) {
+  ns &lt;- NS(id)
+  tagList(
+    selectInput(
+      ns("variavel_x"),
+      "Selecione uma variável",
+      choices = names(mtcars)
+    ),
+    br(),
+    plotOutput(ns("grafico"))
+  )
+}
+
+histograma_server &lt;- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$grafico &lt;- renderPlot({
+      hist(mtcars[[input$variavel_x]])
+    })
+  })
+}
+```
+
+---
+## A UI de um módulo
+
+A UI de um módulo é apenas uma função de R. Essa função deve receber um `id` e devolver código HTML (um objeto com classe `shiny.tag.list`). A única diferença para a construção usual do objeto `ui` que vimos até agora é a utilização da função `ns()`. Essa função é criada pelo código `ns &lt;- NS(id)` e deve ser usada para embrulhar todos os `inputId` e `outputId` presentes no módulo.
+
+A função `NS()` cria uma função que cola o `id` passado para o módulo no começo de cada `inputId` e `outputId` dentro do módulo. Como o `id` de cada módulo é único, isso garante a unicidade dos IDs entre módulos.
+
+
+```r
+ns &lt;- shiny::NS("meu_modulo")
+ns("id_do_input")
+```
+
+```
+## [1] "meu_modulo-id_do_input"
+```
+
+
+---
+## O server de um módulo
+
+Assim como a UI, o servidor também é uma função que recebe um `id`. A diferença é que essa função deve retornar a chamada da função `moduleServer()`.
+
+A função `moduleServer()` recebe como primeiro argumento o `id` e como segundo a nossa função `server` habitual, isto é, a declaração de uma função com os argumentos `input`, `output` e `session` e que possua toda a lógica do servidor.
+
+---
+## Observações
+
+- Um módulo grande o suficiente pode (e deve) ser dividido em módulos menores, isto é, você pode criar módulos dentro de módulos.
+
+- Módulos são parametrizáveis e podem ser utilizados diversas vezes dentro de um mesmo app. Você pode passar quantos parâmetros quiser (além do parâmetro `id`) para a UI e server de um módulo.
+
+- A UI e o servidor de um módulo não consegue acessar objetos, inputs, outputs ou valores reativos de outros módulos. Para acessar valores da `ui` ou da função `server`, cada valor deve ser passado explicitamente aos módulos como argumentos das funções.
+
+- Toda função UI de um módulo deve começar com `ns &lt;- NS(id)`.
+
+- É uma boa prática nomear igualmente as funções da UI e do servidor, trocando apenas o sufixo "ui" ou "server".
+
+
+---
+## Atividade
+
+Vamos construir um aplicativo Shiny modularizado.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 21-modulos-1/app.R e 22-modulos-2/app.R</span>
+&lt;center&gt;
+
+---
+## Referências e material extra
+
+- [Artigo sobre módulos da RStudio](https://shiny.rstudio.com/articles/modules.html)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

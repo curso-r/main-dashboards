@@ -5,13 +5,17 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: "4:3"
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -25,7 +29,7 @@ Conforme o nosso aplicativo cresce, fica cada vez mais difícil manter o seu có
 Além disso, conforme cresce o número de inputs e outputs, garantir que seus IDs são únicos se torna uma tarefa morosa e muito fácil de gerar erros.
 
 ---
-## Por que não simplesmente funções?
+## Por que não apenas usar funções?
 
 A nossa experiência com programação em R nos diria separar o código do app em vários arquivos, transformando partes da UI e do server em objetos ou funções. Assim, bastaria colocar esses arquivos dentro de uma pasta chamada `R/` ou fazer `source("arquivo_auxiliar.R)` para cada arquivo auxiliar no início do código.
 
@@ -45,7 +49,7 @@ Isso é feito garantindo-se que os IDs de cada módulo são únicos.
 
 O primeiro conceito que precisamos guardar é que **módulos são funções**. Então, todas as regras válidas para a criação de uma função, valem para a criação de módulos.
 
-O segundo conceito fala sobre como enxergamos os módulos na prática. Cada módulo será uma parte do nosso aplicativo, um mini Shiny app que não pode ser rodado diretamente Quando modularizamos um aplicativo, o resultado final será um app composto por diversos pequenos aplicativos que funcionam conjuntamente. Assim, todo módulo possui uma UI e (opcionalmente) um `server`.
+O segundo conceito fala sobre como enxergamos os módulos na prática. Cada módulo será uma parte do nosso aplicativo, um mini Shiny app que não pode ser rodado isoladamente. Quando modularizamos um aplicativo, o resultado final será um app composto por diversos pequenos aplicativos que funcionam conjuntamente. Assim, todo módulo possui uma UI e (opcionalmente) um `server`.
 
 O terceiro conceito diz respeito à unicidade dos IDs. Para cada módulo criado precisamos passar um `id`. No desenvolvimento do app, precisamos garantir que o `id` de cada módulo seja único e que os `inputId` e `outputId` dentro de cada módulo sejam únicos e estejam dentro da função `ns()`. Fazendo isso, garantimos a unicidade dos IDs entre módulos, isto é, no app como um todo.
 
@@ -69,11 +73,9 @@ histograma_ui <- function(id) {
 
 histograma_server <- function(id) {
   moduleServer(id, function(input, output, session) {
-
     output$grafico <- renderPlot({
       hist(mtcars[[input$variavel_x]])
     })
-
   })
 }
 ```
