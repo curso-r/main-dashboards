@@ -39,7 +39,7 @@ ui <- dashboardPage(
           infoBoxOutput(
             outputId = "num_atr",
             width = 4
-          ),
+          )
         ),
         br(),
         fluidRow(
