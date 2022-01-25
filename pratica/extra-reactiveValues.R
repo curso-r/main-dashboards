@@ -43,12 +43,6 @@ server <- function(input, output, session) {
     rv_mtcars(nova_mtcars)
   })
   
-  output$grafico1 <- renderPlot({
-    
-    hist(bases$base1$price)
-    
-  })
-  
   output$tabela <- reactable::renderReactable({
     rv_mtcars() %>% 
       select(1:5) %>% 
