@@ -112,21 +112,22 @@ link(
 
 
 ---
-## Nossos cursos
+class: middle, center
+## [Clique para ver nossos cursos](https://loja.curso-r.com/)
 
-```{css, echo = FALSE}
-.remark-slide-content .cursos h2 {
-   font-size: 15px;
-}
-```
+<!-- ```{css, echo = FALSE} -->
+<!-- .remark-slide-content .cursos h2 { -->
+<!--    font-size: 15px; -->
+<!-- } -->
+<!-- ``` -->
 
 
 ```{r, echo = FALSE}
-htmltools::div(
-  class = "cursos",
-  style = "font-size: 0.8em;",
-  templatesR6::criar_slide_nossos_cursos()
-)
+# htmltools::div(
+#   class = "cursos",
+#   style = "font-size: 0.8em;",
+#   templatesR6::criar_slide_nossos_cursos()
+# )
 ```
 
 ---
@@ -138,34 +139,33 @@ class: middle, center
 ## Cronograma
 
 .pull-left[
-- **Aula 1**: 30 de setembro
+- **Aula 1**: 15 de fevereiro
   - Introdução e conceitos básicos
 
-- **Aula 2**: 4 de outubro
+- **Aula 2**: 22 de fevereiro
   - Reatividade - parte 1
-
-- **Aula 3**: 7 de outubro
-  - Layouts e boostrap
   
-- **NÃO HAVERÁ AULA DIA 11 DE OUTUBRO**
-
+- **Aula 3**: 8 de março
+  - Layouts e boostrap
 ]
 
 .pull-right[
-- **Aula 4**: 14 de outubro
+- **Aula 4**: 15 de março
   - Shinydashboard
 
-- **Aula 5**: 18 de outubro
+- **Aula 5**: 22 de março
   - Reatividade - parte 2
 
-- **Aula 6**: 21 de outubro
+- **Aula 6**: 29 de março
   - htmlwidgets e auth0
 
-- **Aula 7**: 25 de outubro
-  - módulos
-  
 ]
 
+<br>
+
+<center>
+<b>NÃO HAVERÁ AULA DIA 1º DE MARÇO</b>
+</center>
 
 ---
 ## Dinâmica do curso
@@ -182,7 +182,7 @@ class: middle, center
 
 - Usaremos os últimos minutos de cada aula para tirar dúvidas do conteúdo apresentado. Não haverá plantão de dúvidas pós aula.
 
-- A gravação das aulas ficará disponível no Google Classroom por 1 ano após o final do curso.
+- A gravação das aulas ficará disponível por 1 ano após o final do curso.
 
 ---
 ## Dinâmica das aulas
