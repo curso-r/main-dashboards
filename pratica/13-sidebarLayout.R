@@ -39,7 +39,7 @@ server <- function(input, output, session) {
     )
     
     arquivo <- tempfile(fileext = ".png")
-    download.file(url, arquivo)
+    httr::GET(url, httr::write_disk(arquivo, overwrite = TRUE))
     
     list(
       src = arquivo,
