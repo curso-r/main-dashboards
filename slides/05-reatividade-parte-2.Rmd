@@ -67,7 +67,7 @@ ui <- fluidPage(
 
 ## A função `observe()`
 
-No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de um observer, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
+No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de um `observe`, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
 
 ```{r, eval = FALSE}
 server <- function(input, output, session) {
