@@ -4,7 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Reatividade (parte 2)
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### outubro de 2021
+### março de 2022
 
 ---
 
@@ -131,7 +131,84 @@ Vamos treinar a utilização dessas funções.
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
 &lt;br&gt;
-<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 19-observers.R</span> e <span style="color:#6495ed; font-weight: bold;">Ao RStudio: 19-observeEvent.R</span>
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 19-observers.R</span> e <span style="color:#6495ed; font-weight: bold;">Ao RStudio: 20-observeEvent.R</span>
+&lt;center&gt;
+
+---
+## Valores reativos
+
+Também vimos que os valores reativos são o início do diagrama de reatividade e que os valores da lista `input` são o principal tipo de valor reativo em um shiny app.
+
+Em alguns casos, no entanto, vamos precisar de valores reativos que não são inputs, isto é, não estão associados a ações vindas da UI. A lista `input` possui a restrição de não podermos escrever nela, o que nos impede de criar um valor que disparasse o fluxo reativo e que só existisse dentro do server.
+
+Para criar valores reativos com essa característica, podemos usar as funções `reactiveVal()` e `reactiveValues()`. A única diferença entre as duas é que a primeira cria apenas um valor reativo enquanto a segunda permite criar uma lista de valores reativos.
+
+---
+## A função `reactiveVal()`
+
+Para criar um valor reativo:
+
+
+```r
+valor_reativo &lt;- reactiveVal(1)
+```
+
+Para acessar o valor atual:
+
+
+```r
+valor_reativo()
+#&gt; 1
+```
+
+Para atualizar o valor:
+
+
+```r
+valor_reativo(2)
+```
+
+---
+## A função `reactiveValues()`
+
+Para criar um valor reativo:
+
+
+```r
+rv &lt;- reactiveValues(a = 1, b = 2)
+```
+
+Para acessar o valor atual:
+
+
+```r
+rv$a
+#&gt; 1
+
+rv$b
+#&gt; 2
+```
+
+Para atualizar o valor:
+
+
+```r
+rv$a &lt;- 3
+rv$b &lt;- 4
+```
+
+---
+## Atividade
+
+Vamos usar valores reativos para simular a atualização de uma base.
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
+&lt;br&gt;
+&lt;br&gt;
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 21-reactvalues.R</span>
 &lt;center&gt;
 
 ---
