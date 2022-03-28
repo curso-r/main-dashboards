@@ -111,7 +111,7 @@ shiny::tagList(
 ---
 ## Atividade
 
-Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
+Vamos testar as funções geradoras de HTML. 
 
 <br>
 
@@ -119,7 +119,7 @@ Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
 <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300">
 <br>
 <br>
-`r blue('Ao RStudio: 11-exemplo-html.html')`
+`r blue('Ao RStudio: 11-tags-html.r')`
 <center>
 
 ---
