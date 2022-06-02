@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Introdução ao Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -411,6 +411,51 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 <br>
 `r blue('Ao RStudio: shinyapps/04-dois-inputs-outputs.R')`
 </center>
+
+---
+## Exercícios
+
+1) Faça um shiny app para visualizar histogramas da base diamonds
+e o coloque no shinyapps.io.
+
+Seu shiny deve ter um input e um output.
+
+- Input: variáveis numéricas da base diamonds.
+- Output: histograma da variável selecionada.
+
+Para acessar a base diamonds, carrrege o pacote ggplot2
+
+```{r, eval = FALSE}
+library(ggplto2)
+
+ou rode
+
+ggplot2::diamonds
+```
+
+---
+## Exercícios
+
+2) Escolha uma das bases da pasta dados ou use uma base própria.
+
+- Crie um shiny app com pelo menos um input e um output
+para visualizarmos alguma informação interessante da base.
+
+- Suba o app para o shinyapps.io.
+
+---
+## Exercícios
+
+3) Faça um Shiny app para mostrar um gráfico de dispersão (pontos)
+das variáveis da base mtcars.
+
+O seu app deve:
+
+- Ter dois inputs: a variável a ser colocada no eixo e a variável
+    a ser colocada no eixo y
+
+- Um output: um gráfico de dispersão
+
 
 ---
 ## Referências e material extra

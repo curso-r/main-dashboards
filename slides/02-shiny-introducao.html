@@ -4,14 +4,14 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
     <script src="libs/react-17.0.0/react.min.js"></script>
     <script src="libs/react-17.0.0/react-dom.min.js"></script>
     <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
-    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
     <script src="libs/reactable-binding-0.2.3/reactable.js"></script>
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Introdução ao Shiny
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Outubro de 2021
+### junho de 2022
 
 ---
 
@@ -243,8 +243,8 @@ Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos
 
 Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
-<div id="htmlwidget-8cef886ce58b272d17e5" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8cef886ce58b272d17e5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"5741b422c2aaa75e56aea745c8ce9a22","key":"5741b422c2aaa75e56aea745c8ce9a22"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a9390d3c260ca53fc192" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a9390d3c260ca53fc192">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"4138fda87f433280a32943b9c812b4c1","key":"4138fda87f433280a32943b9c812b4c1"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Funções render
@@ -253,8 +253,8 @@ Para criar um output, precisamos das funções do tipo `render*()`. Essas funç�
 
 Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
-<div id="htmlwidget-bfe96a1baa893437df61" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bfe96a1baa893437df61">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ff0ad2ef23f31150cb50" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ff0ad2ef23f31150cb50">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"28989452b04574d14eaed12cc94cce30","key":"28989452b04574d14eaed12cc94cce30"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -399,6 +399,52 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 &lt;br&gt;
 <span style="color:#6495ed; font-weight: bold;">Ao RStudio: shinyapps/04-dois-inputs-outputs.R</span>
 &lt;/center&gt;
+
+---
+## Exercícios
+
+1) Faça um shiny app para visualizar histogramas da base diamonds
+e o coloque no shinyapps.io.
+
+Seu shiny deve ter um input e um output.
+
+- Input: variáveis numéricas da base diamonds.
+- Output: histograma da variável selecionada.
+
+Para acessar a base diamonds, carrrege o pacote ggplot2
+
+
+```r
+library(ggplto2)
+
+ou rode
+
+ggplot2::diamonds
+```
+
+---
+## Exercícios
+
+2) Escolha uma das bases da pasta dados ou use uma base própria.
+
+- Crie um shiny app com pelo menos um input e um output
+para visualizarmos alguma informação interessante da base.
+
+- Suba o app para o shinyapps.io.
+
+---
+## Exercícios
+
+3) Faça um Shiny app para mostrar um gráfico de dispersão (pontos)
+das variáveis da base mtcars.
+
+O seu app deve:
+
+- Ter dois inputs: a variável a ser colocada no eixo e a variável
+    a ser colocada no eixo y
+
+- Um output: um gráfico de dispersão
+
 
 ---
 ## Referências e material extra
