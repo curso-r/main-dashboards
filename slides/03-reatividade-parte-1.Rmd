@@ -539,6 +539,75 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 <center>
 
 ---
+## Exercícios
+
+1) Utilizando a base de crédito, faça um Shiny app que permite escolher o estado civil, tipo de moradia e/ou trabalho e mostra uma visualização representando a proporção de clientes "bons" e "ruins" da base.
+
+2) Utilizando a base de criminalidade, faça um Shiny app que, dado um mês/ano escolhido pelo usuário, mostre uma tabela com o número de ocorrências de cada tipo que aconteceram naquele mês.
+O nível territorial (Estado, região, município ou delegacia) também pode ser um filtro.
+
+---
+## Exercícios
+
+3) Faça um shiny app para visualizarmos boxplots da base diamonds.
+
+O seu app deve ter dois inputs e um output:
+
+  1. o primeiro input deve ser uma caixa de seleção das variáveis
+    numéricas da base (será o eixo y do gráfico).
+
+  2. o segundo input deve ser uma caixa de seleção das variáveis
+   categóricas da base (será o eixo x do gráfico).
+
+  3. o output deve ser um gráfico com os boxplots da variável
+   escolhida em (1) para cada categoria da variável escolhida em (2).
+
+Para acessar a base diamonds, carrrege o pacote ggplot2
+
+```{r, eval = FALSE}
+library(ggplto2)
+```
+
+ou rode
+
+```{r, eval = FALSE}
+ggplot2::diamonds
+```
+
+---
+## Exercícios
+
+4) Selecionando várias opções.
+
+(a) Reproduza o seguinte Shiny app:
+https://cursodashboards.shinyapps.io/select-multiple/
+
+(b) Troque o selectInput pelo checkboxGroupInput().
+
+Para acessar a base utilizada, rode o código abaixo:
+
+```{r, eval = FALSE}
+install.packages(nycflights13)
+nycflights13::flights
+```
+
+---
+## Exercícios
+
+5) Shiny app com date input.
+
+Reproduza o seguinte Shiny app:
+https://cursodashboards.shinyapps.io/select-date/
+
+Para acessar a base utilizada, rode o código abaixo:
+
+```{r, eval = FALSE}
+install.packages(nycflights13)
+nycflights13::flights
+
+```
+
+---
 ## Referências e material extra
 
 ### Tutoriais
