@@ -4,7 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Layouts
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### março de 2022
+### junho de 2022
 
 ---
 
@@ -47,8 +47,8 @@ No HTML, as instrução de formatação são chamadas *tags*. Utilizaremos as *t
 
 O pacote `shiny` traz diversas funções que simulam essas tags. As principais são:
 
-<div id="htmlwidget-63a7e716e0f75e3dd195" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-63a7e716e0f75e3dd195">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"função":["a()","hr()","br()","h1(), ..., h6()","img()","p()","em()","strong()"],"para que serve":["cria um hiperlink","cria uma linha horizontal","insere uma quebra de linha","cria títulos","insere uma imagem","cria um parágrafo","formata o texto em itálico","formata o texto em negrito"]},"columns":[{"accessor":"função","name":"função","type":"character"},{"accessor":"para que serve","name":"para que serve","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"85fe072ac729410fa94bc4df8774a33f","key":"85fe072ac729410fa94bc4df8774a33f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-66a0642098e2c65b093a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-66a0642098e2c65b093a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"função":["a()","hr()","br()","h1(), ..., h6()","img()","p()","em()","strong()"],"para que serve":["cria um hiperlink","cria uma linha horizontal","insere uma quebra de linha","cria títulos","insere uma imagem","cria um parágrafo","formata o texto em itálico","formata o texto em negrito"]},"columns":[{"accessor":"função","name":"função","type":"character"},{"accessor":"para que serve","name":"para que serve","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"85fe072ac729410fa94bc4df8774a33f","key":"85fe072ac729410fa94bc4df8774a33f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Tags HTML
@@ -106,7 +106,7 @@ O link para o site do Shiny é
 ---
 ## Atividade
 
-Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
+Vamos testar as funções geradoras de HTML. 
 
 &lt;br&gt;
 
@@ -114,7 +114,7 @@ Vamos ver um pequeno exemplo de como uma página web é construída em HTML.
 &lt;img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width = "300" height = "300"&gt;
 &lt;br&gt;
 &lt;br&gt;
-<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 11-exemplo-html.html</span>
+<span style="color:#6495ed; font-weight: bold;">Ao RStudio: 11-tags-html.r</span>
 &lt;center&gt;
 
 ---
@@ -785,6 +785,21 @@ Vamos transformar um `shinydashboard` em um `bs4Dash`.
 &lt;br&gt;
 <span style="color:#6495ed; font-weight: bold;">Ao RStudio: 18-bs4Dash.R</span>
 &lt;center&gt;
+
+---
+## Exercícios
+
+1) Reconstrua os apps dos exercícios dos slides de Reatividade (parte 1), agora utilizando o sidebarLayout.
+
+2) Utilizando a base cetesb, faça um shiny app que tenha duas abas:
+
+- a primeira com uma série temporal da média diária do ozônio (O3), permitindo a escolha do intervalo de dias em que o gráfico é gerado
+
+- a segunda com a série temporal da média diária do último mês da base permitindo a escolha do poluente.
+
+3) Transforme o aplicativo construído no exercício anterior em um shinydasbhoard.
+
+4) Transforme o aplicativo construído no exercício anterior em um bs4Dash.
 
 ---
 ## Referências e material extra

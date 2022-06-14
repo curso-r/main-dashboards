@@ -772,6 +772,21 @@ Vamos transformar um `shinydashboard` em um `bs4Dash`.
 <center>
 
 ---
+## Exercícios
+
+1) Reconstrua os apps dos exercícios dos slides de Reatividade (parte 1), agora utilizando o sidebarLayout.
+
+2) Utilizando a base cetesb, faça um shiny app que tenha duas abas:
+
+- a primeira com uma série temporal da média diária do ozônio (O3), permitindo a escolha do intervalo de dias em que o gráfico é gerado
+
+- a segunda com a série temporal da média diária do último mês da base permitindo a escolha do poluente.
+
+3) Transforme o aplicativo construído no exercício anterior em um shinydasbhoard.
+
+4) Transforme o aplicativo construído no exercício anterior em um bs4Dash.
+
+---
 ## Referências e material extra
 
 - [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
