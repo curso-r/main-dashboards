@@ -205,6 +205,19 @@ ouput$mapa <- leaflet::renderLeaflet({
 
 - `{tmap}`: Pacote focado em mapas temáticos: [Thematic Maps](https://r-tmap.github.io/tmap/). 
 
+---
+### Exercícios
+
+1) Reproduza o seguinte Shiny app: https://acursor.shinyapps.io/htmlwidgets-1/
+
+A base utilizada foi a cetesb, presente no material do curso. Você também pode acessar a base clicando no link abaixo:
+
+https://github.com/curso-r/livro-shiny/raw/master/exemplos/data/cetesb.rds
+
+
+2) Utilizando o pacote auth0, coloque tela de login no app feito no exercício anterior.
+
+---
 
 #### Tutoriais
 

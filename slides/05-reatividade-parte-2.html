@@ -4,7 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Dashboards com R
 ## Reatividade (parte 2)
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### março de 2022
+### Junho de 2022
 
 ---
 
@@ -270,6 +270,16 @@ ouput$orcamento &lt;- renderInfoBox({
 })
 ```
 ]
+
+---
+## Exercícios
+
+1) Usando a base da CETESB, construa um shiny app que possua um filtro de
+poluente que depende de um filtro de estação de monitoramento. Como output, faça uma série temporal com a média diária da concentração do poluente.
+
+2) Usando a base da SSP, construa um shiny app que possua um filtro de delegacia que depende de um filtro de município que depende de um filtro de região. Como output, faça uma série temporal do número de furtos.
+
+3) Faça um app que contenha um formulário de cadastro com os campos "nome", "e-mail", "idade" e "cidade" e um botão de salvar dados que faça o app salvar as informações em uma planilha no computador. O app também deve mostrar a tabela mais atualizada de pessoas cadastradas.
 
 ---
 ## Atividade

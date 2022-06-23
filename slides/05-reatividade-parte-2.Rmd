@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Reatividade (parte 2)"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -256,6 +256,16 @@ ouput$orcamento <- renderInfoBox({
 })
 ```
 ]
+
+---
+## Exercícios
+
+1) Usando a base da CETESB, construa um shiny app que possua um filtro de
+poluente que depende de um filtro de estação de monitoramento. Como output, faça uma série temporal com a média diária da concentração do poluente.
+
+2) Usando a base da SSP, construa um shiny app que possua um filtro de delegacia que depende de um filtro de município que depende de um filtro de região. Como output, faça uma série temporal do número de furtos.
+
+3) Faça um app que contenha um formulário de cadastro com os campos "nome", "e-mail", "idade" e "cidade" e um botão de salvar dados que faça o app salvar as informações em uma planilha no computador. O app também deve mostrar a tabela mais atualizada de pessoas cadastradas.
 
 ---
 ## Atividade
