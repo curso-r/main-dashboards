@@ -139,33 +139,27 @@ class: middle, center
 ## Cronograma
 
 .pull-left[
-- **Aula 1**: 15 de fevereiro
+- **Aula 1**: 4 de julho
   - Introdução e conceitos básicos
 
-- **Aula 2**: 22 de fevereiro
+- **Aula 2**: 7 de julho
   - Reatividade - parte 1
   
-- **Aula 3**: 8 de março
+- **Aula 3**: 11 de julho
   - Layouts e boostrap
 ]
 
 .pull-right[
-- **Aula 4**: 15 de março
+- **Aula 4**: 14 de julho
   - Shinydashboard
 
-- **Aula 5**: 22 de março
+- **Aula 5**: 18 de julho
   - Reatividade - parte 2
 
-- **Aula 6**: 29 de março
+- **Aula 6**: 21 de julho
   - htmlwidgets e auth0
 
 ]
-
-<br>
-
-<center>
-<b>NÃO HAVERÁ AULA DIA 1º DE MARÇO</b>
-</center>
 
 ---
 ## Dinâmica do curso
