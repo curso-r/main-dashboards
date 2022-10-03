@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Introdução ao Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -43,13 +43,27 @@ Um aplicativo Shiny pode ser reduzido a vários elementos:
 ---
 ## HTML, CSS, JS... pra que serve?
 
-Se você não conhece essas linguagens, uma boa maneira de entender o papel de cada uma delas na construção de um site é pensar em uma casa. 
+Se você não conhece essas linguagens, uma boa maneira de entender o papel de cada uma delas no desenvolvimento de um site é pensar na construção de um prédio.
 
-- Podemos pensar o HTML como a estrutura física da casa: chão, paredes, colunas, teto, encanamento, fiação etc.
+.pull-left[
+
+- Podemos pensar o HTML como a estrutura física do prédio: chão, paredes, colunas, teto, encanamento, fiação etc.
 
 - O CSS é o responsável pela aparência: pintura, pisos, azulejos, decoração em geral.
 
-- O JavaScript traz funcionalidades a cada cômodo: pia, vaso sanitário, geladeira, cama, televisão e por aí vai.
+- O JavaScript traz elementos de funcionalidade ao prédio: portas, janelas, interruptores, elevadores etc.
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/html_css.jpeg")
+```
+
+
+]
+
 
 ---
 ## Shiny: programando em HTML sem saber HTML
@@ -137,9 +151,9 @@ No objeto `ui`, construímos o que será mostrado na tela para o usuário. Nele,
 
 - Construir o layout do aplicativo.
 
-- Definir quais visualizações serão mostradas (tabelas, gráficos, mapas etc).
+- Definir quais inputs serão utilizados (caixas de seleção, caixas de textos, seletores de data, slides etc).
 
-- Definir elementos de CSS e JavaScript. **`r blue('[avançado]')`**
+- Definir quais visualizações serão mostradas (tabelas, gráficos, mapas etc).
 
 Todas as funções que utilizarmos para criar o `ui` retornarão código HTML. O objeto `ui`, portanto, será um grande código HTML.
 
@@ -153,7 +167,7 @@ ui <- fluidPage("Olá, mundo!")
 ---
 ## Server: onde a mágica acontece
 
-A função `server()` vai receber nossos usuais códigos R de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
+A função `server()` vai receber nossos códigos R usuais de manipular bases, gerar tabelas, gráficos, mapas e qualquer outra visualização que quisermos construir.
 
 A função `server()` sempre terá os parâmetros:
 
@@ -195,7 +209,9 @@ Ao clicar nesse botão, o seu navegador padrão será aberto e você verá a UI 
 
 Se você voltar ao RStudio, eventualmente vai notar algo muito importante: a sua sessão de R estará ocupada! Isso acontece porque todo Shiny app precisa de uma sessão de R rodando por trás.
 
-Essa sessão fornece a comunicação da UI (ou do nosso navegador) com o servidor e é responsável por atualizar as visualizações apresentadas na UI, sempre que alguém interagir com o app. Embora o nosso app *Olá, mundo* não possuir interatividade, a estrutura necessária para que a interatividade aconteça ainda assim é criada pelo Shiny.
+Essa sessão fornece a comunicação da UI (ou do nosso navegador) com o servidor e é responsável por atualizar as visualizações apresentadas na UI, sempre que alguém interagir com o app.
+
+Embora o nosso app *Olá, mundo* não possuir interatividade, a estrutura necessária para que a interatividade aconteça ainda assim é criada pelo Shiny.
 
 ---
 ## Liberando a sessão e endereço do app
@@ -243,10 +259,13 @@ Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos
 Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
 ```{r, echo = FALSE, eval=TRUE, out.width="100%"}
-tibble::tribble(~Função, ~`Saída`,
-                "plotOutput()", "Gráficos",
-                "tableOutput()", "Tabelas",
-                "textOutput()", "Textos") %>%
+tibble::tribble(
+  ~Função, ~`Saída`,
+  "plotOutput()", "Gráficos",
+  "tableOutput()", "Tabelas",
+  "textOutput()", "Textos",
+  "uiOutput()", "Elementos HTML (UI)"
+) |>
   reactable::reactable(
     sortable = FALSE
   )
@@ -260,10 +279,13 @@ Para criar um output, precisamos das funções do tipo `render*()`. Essas funç�
 Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
 ```{r, echo = FALSE, eval=TRUE}
-tibble::tribble(~`*Output()`, ~`render*()`,
-                "plotOutput()", "renderPlot()",
-                "tableOutput()", "renderTable()",
-                "textOutput()", "renderText()") %>%
+tibble::tribble(
+  ~`*Output()`, ~`render*()`,
+  "plotOutput()", "renderPlot()",
+  "tableOutput()", "renderTable()",
+  "textOutput()", "renderText()",
+  "uiOutput()", "renderUI()"
+) |>
   reactable::reactable(
     sortable = FALSE
   )
@@ -415,56 +437,22 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 ---
 ## Exercícios
 
-1) Faça um shiny app para visualizar histogramas da base diamonds
-e o coloque no shinyapps.io.
+1 - Faça os exercícios do [Capítulo 1](https://curso-r.github.io/programando-em-shiny/primeiro-app.html#exerc%C3%ADcios) do livro Programando em Shiny.
 
-Seu shiny deve ter um input e um output.
-
-- Input: variáveis numéricas da base diamonds.
-- Output: histograma da variável selecionada.
-
-Para acessar a base diamonds, carrrege o pacote ggplot2
-
-```{r, eval = FALSE}
-library(ggplto2)
-
-ou rode
-
-ggplot2::diamonds
-```
-
----
-## Exercícios
-
-2) Escolha uma das bases da pasta dados ou use uma base própria.
-
-- Crie um shiny app com pelo menos um input e um output
-para visualizarmos alguma informação interessante da base.
-
-- Suba o app para o shinyapps.io.
-
----
-## Exercícios
-
-3) Faça um Shiny app para mostrar um gráfico de dispersão (pontos)
-das variáveis da base mtcars.
-
-O seu app deve:
-
-- Ter dois inputs: a variável a ser colocada no eixo e a variável
-    a ser colocada no eixo y
-
-- Um output: um gráfico de dispersão
-
+2 - Faça os exercícios do [Capítulo 2](https://curso-r.github.io/programando-em-shiny/add-interatividade.html#exerc%C3%ADcios) do livro Programando em Shiny.
 
 ---
 ## Referências e material extra
 
+### Livros
+
+- [Programando em Shiny](https://curso-r.github.io/programando-em-shiny)
+
+- [Mastering Shiny](https://mastering-shiny.org/)
+
 ### Tutoriais
 
 - [Tutorial de Shiny do Garrett Grolemund](https://shiny.rstudio.com/tutorial/)
-
-- [Mastering Shiny](https://mastering-shiny.org/)
 
 #### Galeria de Exemplos
 

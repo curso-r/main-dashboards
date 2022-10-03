@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Introdução ao curso"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -115,21 +115,6 @@ link(
 class: middle, center
 ## [Clique para ver nossos cursos](https://loja.curso-r.com/)
 
-<!-- ```{css, echo = FALSE} -->
-<!-- .remark-slide-content .cursos h2 { -->
-<!--    font-size: 15px; -->
-<!-- } -->
-<!-- ``` -->
-
-
-```{r, echo = FALSE}
-# htmltools::div(
-#   class = "cursos",
-#   style = "font-size: 0.8em;",
-#   templatesR6::criar_slide_nossos_cursos()
-# )
-```
-
 ---
 class: middle, center
 
@@ -139,24 +124,24 @@ class: middle, center
 ## Cronograma
 
 .pull-left[
-- **Aula 1**: 4 de julho
+- **Aula 1**: 3 de outubro
   - Introdução e conceitos básicos
 
-- **Aula 2**: 7 de julho
+- **Aula 2**: 6 de outubro
   - Reatividade - parte 1
   
-- **Aula 3**: 11 de julho
+- **Aula 3**: 10 de outubro
   - Layouts e boostrap
 ]
 
 .pull-right[
-- **Aula 4**: 14 de julho
+- **Aula 4**: 13 de outubro
   - Shinydashboard
 
-- **Aula 5**: 18 de julho
+- **Aula 5**: 17 de outubro
   - Reatividade - parte 2
 
-- **Aula 6**: 21 de julho
+- **Aula 6**: 20 de outubro
   - htmlwidgets e auth0
 
 ]
