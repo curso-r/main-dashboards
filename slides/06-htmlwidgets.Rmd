@@ -80,7 +80,7 @@ A seguir, uma lista de pacotes/funções alternativos que trazem soluções para
 
 - `knitr::kable()`: não é um htmlwidget (não possui interatividade), mas é uma solução para formatar tabelas quando não precisamos que elas sejam interativas. Funciona em conjunto com o pacote `{kableExtra}`.
 
-- `DT::datatable()`: outro htmlwidget para criar tabelas interativas. Funciona tal como o `reactable()`, mas um pouco mais burocrático para formatar as tabelas. Baseado na biblioteca JavaScript [DataTables](http://datatables.net/).
+- O pacote `DT` embruha a biblioteca JavaScript [DataTables](http://datatables.net/) e é uma alternativa ao `reactable` para a criação de tabelas interativas. Embora seja mais burocrático na customização, essa biblioteca possui um recurso muito útil para a aplicativos Shiny: a edição de tabelas.
 
 #### Tutoriais
 
