@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Introdução ao Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -437,16 +437,16 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 ---
 ## Exercícios
 
-1 - Faça os exercícios do [Capítulo 1](https://curso-r.github.io/programando-em-shiny/primeiro-app.html#exerc%C3%ADcios) do livro Programando em Shiny.
+1 - Faça os exercícios do [Capítulo 1](http://programando-em-shiny.curso-r.com/primeiro-app.html#exerc%C3%ADcios) do livro Programando em Shiny.
 
-2 - Faça os exercícios do [Capítulo 2](https://curso-r.github.io/programando-em-shiny/add-interatividade.html#exerc%C3%ADcios) do livro Programando em Shiny.
+2 - Faça os exercícios do [Capítulo 2](http://programando-em-shiny.curso-r.com/add-interatividade.html#exerc%C3%ADcios) do livro Programando em Shiny.
 
 ---
 ## Referências e material extra
 
 ### Livros
 
-- [Programando em Shiny](https://curso-r.github.io/programando-em-shiny)
+- [Programando em Shiny](http://programando-em-shiny.curso-r.com/)
 
 - [Mastering Shiny](https://mastering-shiny.org/)
 

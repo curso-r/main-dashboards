@@ -4,7 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
@@ -29,7 +29,7 @@ class: center, middle, inverse, title-slide
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
 ]
 .date[
-### Outubro de 2022
+### outubro de 2022
 ]
 
 ---
@@ -74,7 +74,7 @@ Se você não conhece essas linguagens, uma boa maneira de entender o papel de c
 
 .pull-right[
 
-&lt;img src="img/html_css.jpeg" width="907" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/html_css.jpeg" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -110,7 +110,7 @@ O segundo componente se refere àquilo que não será visto por quem utilizar o 
 
 A figura a seguir mostra a UI de um app bem simples, que permite a escolha de duas variáveis e apresenta o gráfico de dispersão delas:
 
-&lt;img src="img/app_penguins_disp.png" width="1685" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/app_penguins_disp.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## O servidor
@@ -211,7 +211,7 @@ No RStudio, podemos rodar nossos apps:
 ---
 ## O botão Run App
 
-&lt;img src="img/botao_run_app.png" title="Botão Run App no Rstudio. Fica logo acima do script." alt="Botão Run App no Rstudio. Fica logo acima do script." width="1176" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/botao_run_app.png" alt="Botão Run App no Rstudio. Fica logo acima do script." style="display: block; margin: auto;" /&gt;
 
 Ao clicar nesse botão, o seu navegador padrão será aberto e você verá a UI do nosso modesto app com apenas a frase "Olá, mundo!".
 
@@ -229,7 +229,7 @@ Embora o nosso app *Olá, mundo* não possuir interatividade, a estrutura necess
 
 Para liberar a sessão, basta clicar no botão "*stop*", na parte de cima do Console, ou pressionar a tecla `Esc`. Veja que, ao fazer isso, a tela do app ficará acizentada, indicando que ele foi desconectado do servidor e não funcionará mais corretamente.
 
-&lt;img src="img/console_sessao_ocupada.png" title="Console do RStudio com sinal de ocupado (stop)." alt="Console do RStudio com sinal de ocupado (stop)." width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/console_sessao_ocupada.png" alt="Console do RStudio com sinal de ocupado (stop)." width="60%" style="display: block; margin: auto;" /&gt;
 
 Reparem que a mensagem no Console representa o *endereço* do nosso aplicativo. Nesse caso, será um IP (`http://127.0.0.1`) com alguma porta que esteja disponível escolhida aleatoriamente (`:4028`). Esse endereço aparecerá no nosso navegador e poderemos copiá-lo e colá-lo em qualquer outra aba ou navegador que quisermos rodar o app.
 
@@ -256,7 +256,7 @@ class: center, middle
 
 Uma das principais tarefas no desenvolvimento de um Shiny app é a definição e construção dos inputs e outputs. São esses elementos que nos permitem interagir com o app.
 
-&lt;img src="img/app_penguins_disp.png" width="1685" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/app_penguins_disp.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Outputs: tabelas, gráficos e muito mais!
@@ -265,8 +265,8 @@ Outputs representam as *saídas* do nosso aplicativo, isto é, tudo que queremos
 
 Os outputs são definidos na UI e criados no server. Cada tipo de output é definido por uma função do tipo `*Output()`. Veja as principais funções dessa família:
 
-<div id="htmlwidget-02f11cc8c2966e7cc195" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-02f11cc8c2966e7cc195">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()","uiOutput()"],"Saída":["Gráficos","Tabelas","Textos","Elementos HTML (UI)"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"fb738dd0856f0c39571848d650b98924"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1a1871c8695737df6207" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1a1871c8695737df6207">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()","uiOutput()"],"Saída":["Gráficos","Tabelas","Textos","Elementos HTML (UI)"]},"columns":[{"accessor":"Função","name":"Função","type":"character"},{"accessor":"Saída","name":"Saída","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"fb738dd0856f0c39571848d650b98924"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Funções render
@@ -275,8 +275,8 @@ Para criar um output, precisamos das funções do tipo `render*()`. Essas funç�
 
 Veja a seguir as principais funções `render*()` e como elas se comunicam com as funções `*Output()`.
 
-<div id="htmlwidget-0f0b69eed3f49d339c48" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-0f0b69eed3f49d339c48">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()","uiOutput()"],"render*()":["renderPlot()","renderTable()","renderText()","renderUI()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"a48ac10b68b61e3086f0990e06af3116"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-81196224f8d8bb0551c0" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-81196224f8d8bb0551c0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()","uiOutput()"],"render*()":["renderPlot()","renderTable()","renderText()","renderUI()"]},"columns":[{"accessor":"*Output()","name":"*Output()","type":"character"},{"accessor":"render*()","name":"render*()","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"a48ac10b68b61e3086f0990e06af3116"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -425,16 +425,16 @@ Vamos conectar o nosso RStudio com o shinyapps.io e subir um app para lá.
 ---
 ## Exercícios
 
-1 - Faça os exercícios do [Capítulo 1](https://curso-r.github.io/programando-em-shiny/primeiro-app.html#exerc%C3%ADcios) do livro Programando em Shiny.
+1 - Faça os exercícios do [Capítulo 1](http://programando-em-shiny.curso-r.com/primeiro-app.html#exerc%C3%ADcios) do livro Programando em Shiny.
 
-2 - Faça os exercícios do [Capítulo 2](https://curso-r.github.io/programando-em-shiny/add-interatividade.html#exerc%C3%ADcios) do livro Programando em Shiny.
+2 - Faça os exercícios do [Capítulo 2](http://programando-em-shiny.curso-r.com/add-interatividade.html#exerc%C3%ADcios) do livro Programando em Shiny.
 
 ---
 ## Referências e material extra
 
 ### Livros
 
-- [Programando em Shiny](https://curso-r.github.io/programando-em-shiny)
+- [Programando em Shiny](http://programando-em-shiny.curso-r.com/)
 
 - [Mastering Shiny](https://mastering-shiny.org/)
 
