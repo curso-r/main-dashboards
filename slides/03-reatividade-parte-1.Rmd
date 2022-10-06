@@ -52,7 +52,7 @@ No Shiny, utilizamos um outro paradigma de programação.
 ---
 ## Exemplo de script sequencial
 
-O código abaixo, que executa a corriqueira tarefa de importar, manipular e visualizar uma base. Se o código for rodado fora de ordem, nada vai funcionar. Esse paradigma é conhecido como **programação imperativa**.
+O código abaixo executa a corriqueira tarefa de importar, manipular e visualizar uma base. Se o código for rodado fora de ordem, nada vai funcionar. Esse paradigma é conhecido como **programação imperativa**.
 
 ```{r, eval = FALSE}
 tab_starwars <- dplyr::starwars
@@ -76,7 +76,7 @@ tab_grafico |>
 ---
 ## Programação declarativa
 
-Na programação declarativa, os comandos não são executados imediatamente. Nosso código funciona como uma receita, que só será utilizada quando necessário.
+Na **programação declarativa**, os comandos não são executados imediatamente. Nosso código funciona como uma receita, que só será utilizada quando necessário.
 
 No contexto do Shiny, a nossa receita será um **um diagrama de reatividade**, isto é, um conjunto de dependências que decide quais outputs devem ser recalculados quando um input muda.
 
@@ -84,9 +84,9 @@ O diagrama de reatividade de um shiny app possui 3 estruturas principais:
 
 - **valores reativos**
 
-- **expressões reativas**
+- **funções observadoras**
 
-- **observers**
+- **expressões reativas**
 
 ---
 ## Valores reativos
@@ -96,11 +96,11 @@ Os valores reativos são **a origem do diagrama de reatividade**. Eles guardam a
 Os valores reativos mais comuns são aqueles dentro da lista `input`.
 
 ---
-## Observers
+## Funções observadoras
 
-Os *sinais de alerta* disparados por um valor reativo são um aviso dizendo que todos os outputs que dependem dele precisam ser recalculados. O destino desses sinais são os *observers*. Eles guardam o código de cada output e são o **ponto final do fluxo de reatividade**. 
+Os *sinais de alerta* disparados por um valor reativo são um aviso dizendo que todos os outputs que dependem dele precisam ser recalculados. O destino desses sinais são as **funções observaroras**. Elas guardam o código de cada output e são o **ponto final do fluxo de reatividade**. 
 
-Os *observers* mais comuns são as funções `render*()`.
+As **funções observaroras** mais comuns são as funções `render*()`.
 
 <br>
 
@@ -111,9 +111,9 @@ knitr::include_graphics("img/reactive1.png")
 ---
 ## Expressões reativas
 
-Muitas vezes, um aplicativo shiny precisa de passos intermediários, entre o input de origem e o output final. Isto é, precisamos de uma estrutura que receba um valor reativo, faça alguma conta e devolva um resultado, um valor também reativo que será utilizado posteriormente em um *observer*. 
+Muitas vezes, um aplicativo shiny precisa de passos intermediários, entre o input de origem e o output final. Isto é, precisamos de uma estrutura que receba um valor reativo, faça alguma conta e devolva um resultado, um valor também reativo que será utilizado posteriormente em uma função observadora. 
 
-Essas estruturas são as **expressões reativas**. Para criá-las, podemos utilizar as funções `reactive({})` e `eventReactive({})`.
+Essas estruturas são as **expressões reativas**. Para criá-las, podemos utilizar as funções `reactive()` e `eventReactive()`.
 
 ---
 ## A função reactive()
@@ -178,9 +178,9 @@ output$hist <- hist(rnorm(input$num))
 ---
 ## Disparo de reatividade
 
-O envio de sinais por parte dos valores reativos, avisando que seus valores estão desatualizados para que as expressões reativas e observers recalculem seus resultados, só acontece se o **diagrama de reatividade estiver completo**.
+O envio de sinais por parte dos valores reativos, avisando que seus valores estão desatualizados para que as expressões reativas e funções observadoras recalculem seus resultados, só acontece se o **diagrama de reatividade estiver completo**.
 
-Podemos chamar esse envio de **disparo de reatividade**. Ele só acontece para os caminhos do diagrama de reatividade que começam com um valor reativo e terminam com um observer. **Caminhos que terminam com expressões reativas não causam o disparo de reatividade**.
+Podemos chamar esse envio de **disparo de reatividade**. Ele só acontece para os caminhos do diagrama de reatividade que começam com um valor reativo e terminam com uma função observadora. **Caminhos que terminam com expressões reativas não causam o disparo de reatividade**.
 
 ---
 ## Atividade
@@ -199,7 +199,7 @@ Vamos olhar mais de perto o contexto reativo e o disparo de reatividade.
 ---
 ## Gráfico de reatividade
 
-Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reactlog`. Com o pacote instalado, basta rodar o seguinte comando antes de rodar o seu app
+Você pode gerar um gráfico de reatividade do seu aplicativo utilizando o pacote `reactlog`. Com o pacote instalado, basta rodar o seguinte comando no Console
 
 ```{r, eval=FALSE}
 options(shiny.reactlog = TRUE) 
@@ -226,18 +226,9 @@ Vamos olhar o gráfico de reatividade do nosso app `06-amostra-com-reactive.R`.
 <center>
 
 ---
-<br><br>
-
-Veja que agora ambos os outputs utilizam a mesma amostra.
-
-<center>
-<img src="img/reaclog_reactive.png" width = "100%"
-</center>
-
----
 ## A função eventReactive()
 
-Cria uma **expressão reativa** que responde às mudanças de um valor reativo específico.
+Enquanto a função `reactive()` observa mudanças em todos os valores reativos presentes no código dela, a função `eventReactive()` observa mudanças em apenas um valor reativo, especificado na chamada da própria função.
 
 ```{r, echo = TRUE, eval=FALSE}
 # ui
@@ -322,9 +313,9 @@ server <- function(input, output, session) {
 ---
 ## Corrigindo erros (debug)
 
-- Usar o mesmo ID para dois outputs. O app vai rodar e não vai retornar erro. Os outputs não serão gerados.
+- Usar o mesmo `Id` para dois outputs. O app vai rodar e não vai retornar erro. Os outputs não serão gerados.
 
-- Esquecer os parênteses ao chamar uma expressão reativa (objeto criado pelas funções `reactive()` e `eventReactive()`). Normalmente receberemos uma mensagem indicando que a classe de algum objeto está errada, como  `'x' must be numeric` ou a famosa mensagem `cannot coerce type 'closure' to vector of type ...`.
+- Esquecer os parênteses ao chamar uma expressão reativa (objeto criado pelas funções `reactive()` e `eventReactive()`). Normalmente receberemos uma mensagem indicando que a classe de algum objeto está errada, como  `'x' must be numeric` ou a mensagem `cannot coerce type 'closure' to vector of type ...`.
 
 ---
 ## A função browser()
@@ -408,7 +399,7 @@ Vamos tentar corrigir os erros de um script e fazer o app rodar.
 ---
 ## Carregando bases de dados
 
-Você pode importar uma base de dados normalmente dentro da função server. Em geral, importar bases não envolve um contexto reativo, portanto essa operação pode ser feita fora de expressões reativas ou observers.
+Você pode importar uma base de dados normalmente dentro da função server. Em geral, importar bases não envolve um contexto reativo, portanto essa operação pode ser feita fora de expressões reativas ou funções observadoras.
 
 
 ```{r, eval=FALSE}
@@ -425,7 +416,7 @@ output$table <- renderTable({
 ---
 ## Arquitetura de um servidor shiny
 
-A estrutura de um servidor shiny está descrita na imagem abaixo:
+A única mudança na tarefa de importar bases de dados que temos dentro do Shiny é decidir onde isso será feito (dentro ou fora do `server`). Para entender melhor, precisamos olhar a estrutura de um servidor shiny.
 
 <center>
 <img src="img/servidor-shiny.png" width = "90%">
@@ -473,7 +464,7 @@ shinyApp(ui, server)
 ---
 ## Onde carregar a nossa base de dados?
 
-Carregando dentro do server, mas fora de um contexto reativo, a base será importada sempre que um usuário abrir o app. No entanto, não importa qual ação o usuário fizer, ela não será importada novamente enquanto ele estiver usando app.
+Carregando dentro do server, mas fora de um contexto reativo, a base será importada sempre que alguém abrir o app. No entanto, não importa qual ação a pessoa fizer, a base não será importada novamente enquanto ela estiver usando app.
 
 ```{r, eval=FALSE}
 library(shiny)
@@ -492,7 +483,7 @@ shinyApp(ui, server)
 ---
 ## Onde carregar a nossa base de dados?
 
-Carregando dentro do server, mas dentro de um contexto reativo, a base será importada sempre que o usuário fizer a ação gatilho desse contexto. Se o objeto `dados` for uma expressão reativa, ele só poderá ser utilizado dentro de um contexto reativo.
+Carregando dentro do server, mas dentro de um contexto reativo, a base será importada sempre que alguém fizer a ação gatilho desse contexto. Se o objeto `dados` for uma expressão reativa, ele só poderá ser utilizado dentro de um contexto reativo.
 
 Veja o exemplo no próximo slide.
 
@@ -541,71 +532,9 @@ Vamos criar um novo Shiny app que importa uma base de dados.
 ---
 ## Exercícios
 
-1) Utilizando a base de crédito, faça um Shiny app que permite escolher o estado civil, tipo de moradia e/ou trabalho e mostra uma visualização representando a proporção de clientes "bons" e "ruins" da base.
+1) Faça os exercícios do [Capítulo 3 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/reatividade-conceitos.html#exerc%C3%ADcios).
 
-2) Utilizando a base de criminalidade, faça um Shiny app que, dado um mês/ano escolhido pelo usuário, mostre uma tabela com o número de ocorrências de cada tipo que aconteceram naquele mês.
-O nível territorial (Estado, região, município ou delegacia) também pode ser um filtro.
-
----
-## Exercícios
-
-3) Faça um shiny app para visualizarmos boxplots da base diamonds.
-
-O seu app deve ter dois inputs e um output:
-
-  1. o primeiro input deve ser uma caixa de seleção das variáveis
-    numéricas da base (será o eixo y do gráfico).
-
-  2. o segundo input deve ser uma caixa de seleção das variáveis
-   categóricas da base (será o eixo x do gráfico).
-
-  3. o output deve ser um gráfico com os boxplots da variável
-   escolhida em (1) para cada categoria da variável escolhida em (2).
-
-Para acessar a base diamonds, carrrege o pacote ggplot2
-
-```{r, eval = FALSE}
-library(ggplto2)
-```
-
-ou rode
-
-```{r, eval = FALSE}
-ggplot2::diamonds
-```
-
----
-## Exercícios
-
-4) Selecionando várias opções.
-
-(a) Reproduza o seguinte Shiny app:
-https://cursodashboards.shinyapps.io/select-multiple/
-
-(b) Troque o selectInput pelo checkboxGroupInput().
-
-Para acessar a base utilizada, rode o código abaixo:
-
-```{r, eval = FALSE}
-install.packages(nycflights13)
-nycflights13::flights
-```
-
----
-## Exercícios
-
-5) Shiny app com date input.
-
-Reproduza o seguinte Shiny app:
-https://cursodashboards.shinyapps.io/select-date/
-
-Para acessar a base utilizada, rode o código abaixo:
-
-```{r, eval = FALSE}
-install.packages(nycflights13)
-nycflights13::flights
-
-```
+2) Faça os exercícios do [Capítulo 4 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/debug.html#exerc%C3%ADcios).
 
 ---
 ## Referências e material extra
