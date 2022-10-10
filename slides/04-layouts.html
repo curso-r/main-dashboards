@@ -4,7 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
@@ -12,17 +12,25 @@
     <script src="libs/react-17.0.0/react-dom.min.js"></script>
     <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
     <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-    <script src="libs/reactable-binding-0.2.3/reactable.js"></script>
+    <script src="libs/reactable-binding-0.3.0/reactable.js"></script>
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Dashboards com R
+]
+.subtitle[
 ## Layouts
+]
+.author[
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### junho de 2022
+]
+.date[
+### Outubro de 2022
+]
 
 ---
 
@@ -47,8 +55,8 @@ No HTML, as instrução de formatação são chamadas *tags*. Utilizaremos as *t
 
 O pacote `shiny` traz diversas funções que simulam essas tags. As principais são:
 
-<div id="htmlwidget-66a0642098e2c65b093a" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-66a0642098e2c65b093a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"função":["a()","hr()","br()","h1(), ..., h6()","img()","p()","em()","strong()"],"para que serve":["cria um hiperlink","cria uma linha horizontal","insere uma quebra de linha","cria títulos","insere uma imagem","cria um parágrafo","formata o texto em itálico","formata o texto em negrito"]},"columns":[{"accessor":"função","name":"função","type":"character"},{"accessor":"para que serve","name":"para que serve","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"85fe072ac729410fa94bc4df8774a33f","key":"85fe072ac729410fa94bc4df8774a33f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-477158fa463425e8b527" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-477158fa463425e8b527">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"função":["a()","hr()","br()","h1(), ..., h6()","img()","p()","em()","strong()"],"para que serve":["cria um hiperlink","cria uma linha horizontal","insere uma quebra de linha","cria títulos","insere uma imagem","cria um parágrafo","formata o texto em itálico","formata o texto em negrito"]},"columns":[{"accessor":"função","name":"função","type":"character"},{"accessor":"para que serve","name":"para que serve","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"0db6023337cd0a471d22ed87e8a351e1"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Tags HTML
@@ -162,17 +170,17 @@ Vamos fazer um Shiny app para observar o grid system na prática.
 ---
 ## Layouts
 
-O pacote `shiny` fornece alguns layouts padrão. Os principais são:
+O pacote `shiny` fornece alguns layouts prontos. Os principais são:
 
 - `sidebarLayout()`: para criar um aplicativo com uma barra lateral.
 
 - `navbarPage()`: para criar um aplicativo com um menu de navegação no topo da tela.
 
-Alguns pacotes trazem funções que nos permitem construir outros tipos de layouts, como dashboards. Veremos aqui
+Também conseguimos layouts prontos em outros pacotes da comunidade Shiny:
 
-- `shinydashboard`
+- `shinydashboard`: para criar um app com barra de navegação lateral.
 
-- `bs4Dash`
+- `bs4Dash`: também cria um app com barra de navegação lateral, mas utiliza uma versão mais recente do Bootstrap.
 
 ---
 ## sidebarLayout
@@ -203,14 +211,14 @@ ui &lt;- fluidPage(
 ---
 ## sidebarLayout
 
-Esse código geraria um app com a seguinte UI:
+Esse código gera o app com a seguinte UI:
 
 &lt;img src = "img/sidebarLayout.png"&gt;
 
 ---
 ## sidebarLayout
 
-Todos os elementos do layout são colocados dentro da função `fluidPage()`.
+Todos os elementos do layout estão dentro da função `fluidPage()`.
 
 
 ```r
@@ -366,7 +374,7 @@ ui &lt;- fluidPage(
 ---
 ## sidebarLayout
 
-No exemplo, teremos apenas um gráfico na área principal do app.
+No exemplo, temos apenas um gráfico na área principal do app.
 
 
 ```r
@@ -427,9 +435,11 @@ ui &lt;- navbarPage(
 ---
 ## navbarPage
 
-Essa estrutura vai originar o seguinte layout. Cada opção da barra superior mostra uma página diferente do aplicativo.
+Essa estrutura vai originar o seguinte layout.
 
 &lt;img src = "img/navbarpage.png"&gt;
+
+Cada opção da barra superior mostra uma página diferente do aplicativo.
 
 ---
 ## navbarPage
@@ -455,7 +465,7 @@ ui &lt;- navbarPage(
 ---
 ## navbarPage
 
-Com a função `tabPanel()` as criamos diferentes páginas do aplicativo, que são acessadas pela barra superior. O `title` indica o título que aparecerá em cada botão. 
+Com a função `tabPanel()` criamos as diferentes páginas do aplicativo, que são acessadas pela barra superior. O argumento `title` indica o título que aparecerá em cada botão. 
 
 
 ```r
@@ -556,14 +566,9 @@ Vamos fazer um Shiny app com `navbarLayout()`.
 &lt;center&gt;
 
 ---
-class: middle, center
+## shinydashboard
 
-## Dashboards
-
----
-## Shinydashboard
-
-O `shinydasboard` é um pacote de R que introduz diversas ferramentas para o Shiny. A principal é o layout de dashboard. Com um simples template, conseguimos gerar uma UI naturalmente bonita e organizada.
+O `shinydasboard` é um pacote de R que introduz diversas ferramentas para o Shiny. A principal é um layout com barra de navegação lateral.
 
 .pull-left[
 
@@ -588,7 +593,7 @@ ui &lt;- dashboardPage(
 ## Elementos do shinydashboard
 
 .pull-left[
-- A função `dashboardPage()` é responsável por criar o layout de dashboard. Ela recebe três funções como argumentos: `dashboardHeader()`, `dashboardSidebar()` e `dashboardBody()`.
+- A função `dashboardPage()` é responsável por criar o layout. Ela recebe três funções como argumentos: `dashboardHeader()`, `dashboardSidebar()` e `dashboardBody()`.
 
 - A função `dashboardHeader()` é responsável por elementos da barra superior (azul).
 ]
@@ -599,14 +604,14 @@ ui &lt;- dashboardPage(
 
 ]
 
-- A função `dashboardSidebar()` é responsável por elementos da barra lateral (preta). Geralmente colocamos nelas um menu para criar várias páginas no nosso dashboard.
+- A função `dashboardSidebar()` é responsável por elementos da barra lateral (preta). Geralmente colocamos nela um menu para criar várias páginas no nosso app.
 
-- A função `dashboardBody()` controla os elementos da área principal do dashboard (cinza). É nela que colocaremos as nossas visualizações.
+- A função `dashboardBody()` controla os elementos da área principal do app (cinza). É nela que colocaremos as nossas visualizações.
 
 ---
 ## Atividade
 
-Vamos construir um app com o layout do Shinydashboard.
+Vamos construir um app com o layout do shinydashboard.
 
 &lt;br&gt;
 
@@ -676,7 +681,7 @@ ui &lt;- dashboardPage(
 ---
 ## Atividade
 
-Vamos construir um menu lateral no nosso Shinydashboard.
+Vamos construir um menu lateral no nosso shinydashboard.
 
 &lt;br&gt;
 
@@ -766,7 +771,7 @@ Vamos acrescentar esses novos elementos ao nosso Shinydashboard.
 ---
 ## bs4Dash
 
-Todos os conceitos que vimos para o `shinydashboard` valem para o pacote `bs4Dash`. A ideia desse pacote é construir o layout de dashboard do `shinydashboard`, mas utilizando a versão 4 do Bootstrap (em vez da 3).
+Todos os conceitos que vimos para o `shinydashboard` valem para o pacote `bs4Dash`. A ideia desse pacote é construir o mesmo layout do `shinydashboard`, mas utilizando a versão 4 do Bootstrap (em vez da 3).
 
 Com o `bs4Dash`, teremos um dashboard com o visual mais moderno e com mais opções prontas de interface. A partir da versão 2.0 do pacote, você pode pegar um app feito em `shinydashboard` e simplesmente mudar `library(shinydashboard)` para `library(bs4Dash)` que seu app estará "traduzido" para essa nova biblioteca.
 
@@ -789,17 +794,7 @@ Vamos transformar um `shinydashboard` em um `bs4Dash`.
 ---
 ## Exercícios
 
-1) Reconstrua os apps dos exercícios dos slides de Reatividade (parte 1), agora utilizando o sidebarLayout.
-
-2) Utilizando a base cetesb, faça um shiny app que tenha duas abas:
-
-- a primeira com uma série temporal da média diária do ozônio (O3), permitindo a escolha do intervalo de dias em que o gráfico é gerado
-
-- a segunda com a série temporal da média diária do último mês da base permitindo a escolha do poluente.
-
-3) Transforme o aplicativo construído no exercício anterior em um shinydasbhoard.
-
-4) Transforme o aplicativo construído no exercício anterior em um bs4Dash.
+Faça os exercícios do [Capítulo 5 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/layouts.html#exerc%C3%ADcios).
 
 ---
 ## Referências e material extra
@@ -810,9 +805,11 @@ Vamos transformar um `shinydashboard` em um `bs4Dash`.
 
 - [Mais sobre layout](https://shiny.rstudio.com/articles/#user-interface)
 
-- [Tutorial do Shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
-
 - [Bootstrap](https://getbootstrap.com/)
+
+- [Tutorial do shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+
+- [Demo do bs4Dash](https://dgranjon.shinyapps.io/bs4DashDemo/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -861,6 +858,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

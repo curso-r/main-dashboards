@@ -2,7 +2,7 @@
 title: "Dashboards com R"
 subtitle: "Layouts"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
-date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
     css: 
@@ -167,17 +167,17 @@ Vamos fazer um Shiny app para observar o grid system na prática.
 ---
 ## Layouts
 
-O pacote `shiny` fornece alguns layouts padrão. Os principais são:
+O pacote `shiny` fornece alguns layouts prontos. Os principais são:
 
 - `sidebarLayout()`: para criar um aplicativo com uma barra lateral.
 
 - `navbarPage()`: para criar um aplicativo com um menu de navegação no topo da tela.
 
-Alguns pacotes trazem funções que nos permitem construir outros tipos de layouts, como dashboards. Veremos aqui
+Também conseguimos layouts prontos em outros pacotes da comunidade Shiny:
 
-- `shinydashboard`
+- `shinydashboard`: para criar um app com barra de navegação lateral.
 
-- `bs4Dash`
+- `bs4Dash`: também cria um app com barra de navegação lateral, mas utiliza uma versão mais recente do Bootstrap.
 
 ---
 ## sidebarLayout
@@ -207,14 +207,14 @@ ui <- fluidPage(
 ---
 ## sidebarLayout
 
-Esse código geraria um app com a seguinte UI:
+Esse código gera o app com a seguinte UI:
 
 <img src = "img/sidebarLayout.png">
 
 ---
 ## sidebarLayout
 
-Todos os elementos do layout são colocados dentro da função `fluidPage()`.
+Todos os elementos do layout estão dentro da função `fluidPage()`.
 
 ```{r, eval=FALSE}
 ui <- fluidPage( #<<
@@ -364,7 +364,7 @@ ui <- fluidPage(
 ---
 ## sidebarLayout
 
-No exemplo, teremos apenas um gráfico na área principal do app.
+No exemplo, temos apenas um gráfico na área principal do app.
 
 ```{r, eval=FALSE}
 ui <- fluidPage(
@@ -423,9 +423,11 @@ ui <- navbarPage(
 ---
 ## navbarPage
 
-Essa estrutura vai originar o seguinte layout. Cada opção da barra superior mostra uma página diferente do aplicativo.
+Essa estrutura vai originar o seguinte layout.
 
 <img src = "img/navbarpage.png">
+
+Cada opção da barra superior mostra uma página diferente do aplicativo.
 
 ---
 ## navbarPage
@@ -547,14 +549,9 @@ Vamos fazer um Shiny app com `navbarLayout()`.
 <center>
 
 ---
-class: middle, center
+## shinydashboard
 
-## Dashboards
-
----
-## Shinydashboard
-
-O `shinydasboard` é um pacote de R que introduz diversas ferramentas para o Shiny. A principal é o layout de dashboard. Com um simples template, conseguimos gerar uma UI naturalmente bonita e organizada.
+O `shinydasboard` é um pacote de R que introduz diversas ferramentas para o Shiny. A principal é um layout com barra de navegação lateral.
 
 .pull-left[
 
@@ -578,7 +575,7 @@ ui <- dashboardPage(
 ## Elementos do shinydashboard
 
 .pull-left[
-- A função `dashboardPage()` é responsável por criar o layout de dashboard. Ela recebe três funções como argumentos: `dashboardHeader()`, `dashboardSidebar()` e `dashboardBody()`.
+- A função `dashboardPage()` é responsável por criar o layout. Ela recebe três funções como argumentos: `dashboardHeader()`, `dashboardSidebar()` e `dashboardBody()`.
 
 - A função `dashboardHeader()` é responsável por elementos da barra superior (azul).
 ]
@@ -589,14 +586,14 @@ ui <- dashboardPage(
 
 ]
 
-- A função `dashboardSidebar()` é responsável por elementos da barra lateral (preta). Geralmente colocamos nelas um menu para criar várias páginas no nosso dashboard.
+- A função `dashboardSidebar()` é responsável por elementos da barra lateral (preta). Geralmente colocamos nela um menu para criar várias páginas no nosso app.
 
-- A função `dashboardBody()` controla os elementos da área principal do dashboard (cinza). É nela que colocaremos as nossas visualizações.
+- A função `dashboardBody()` controla os elementos da área principal do app (cinza). É nela que colocaremos as nossas visualizações.
 
 ---
 ## Atividade
 
-Vamos construir um app com o layout do Shinydashboard.
+Vamos construir um app com o layout do shinydashboard.
 
 <br>
 
@@ -663,7 +660,7 @@ ui <- dashboardPage(
 ---
 ## Atividade
 
-Vamos construir um menu lateral no nosso Shinydashboard.
+Vamos construir um menu lateral no nosso shinydashboard.
 
 <br>
 
@@ -751,7 +748,7 @@ Vamos acrescentar esses novos elementos ao nosso Shinydashboard.
 ---
 ## bs4Dash
 
-Todos os conceitos que vimos para o `shinydashboard` valem para o pacote `bs4Dash`. A ideia desse pacote é construir o layout de dashboard do `shinydashboard`, mas utilizando a versão 4 do Bootstrap (em vez da 3).
+Todos os conceitos que vimos para o `shinydashboard` valem para o pacote `bs4Dash`. A ideia desse pacote é construir o mesmo layout do `shinydashboard`, mas utilizando a versão 4 do Bootstrap (em vez da 3).
 
 Com o `bs4Dash`, teremos um dashboard com o visual mais moderno e com mais opções prontas de interface. A partir da versão 2.0 do pacote, você pode pegar um app feito em `shinydashboard` e simplesmente mudar `library(shinydashboard)` para `library(bs4Dash)` que seu app estará "traduzido" para essa nova biblioteca.
 
@@ -774,17 +771,7 @@ Vamos transformar um `shinydashboard` em um `bs4Dash`.
 ---
 ## Exercícios
 
-1) Reconstrua os apps dos exercícios dos slides de Reatividade (parte 1), agora utilizando o sidebarLayout.
-
-2) Utilizando a base cetesb, faça um shiny app que tenha duas abas:
-
-- a primeira com uma série temporal da média diária do ozônio (O3), permitindo a escolha do intervalo de dias em que o gráfico é gerado
-
-- a segunda com a série temporal da média diária do último mês da base permitindo a escolha do poluente.
-
-3) Transforme o aplicativo construído no exercício anterior em um shinydasbhoard.
-
-4) Transforme o aplicativo construído no exercício anterior em um bs4Dash.
+Faça os exercícios do [Capítulo 5 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/layouts.html#exerc%C3%ADcios).
 
 ---
 ## Referências e material extra
@@ -795,6 +782,8 @@ Vamos transformar um `shinydashboard` em um `bs4Dash`.
 
 - [Mais sobre layout](https://shiny.rstudio.com/articles/#user-interface)
 
-- [Tutorial do Shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
-
 - [Bootstrap](https://getbootstrap.com/)
+
+- [Tutorial do shinydashboard](https://rstudio.github.io/shinydashboard/get_started.html)
+
+- [Demo do bs4Dash](https://dgranjon.shinyapps.io/bs4DashDemo/)
