@@ -4,7 +4,7 @@
     <title>Dashboards com R</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
@@ -13,10 +13,18 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Dashboards com R
+]
+.subtitle[
 ## Reatividade (parte 2)
+]
+.author[
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
-### Junho de 2022
+]
+.date[
+### outubro de 2022
+]
 
 ---
 
@@ -25,13 +33,13 @@ class: center, middle, inverse, title-slide
 
 
 
-## observers
+## Funções observadoras
 
-Já vimos que os observers são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de observer. Mas eles não são os únicos.
+Já vimos que as funções obervadoras são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de função observadora. Mas elas não são os únicas.
 
-Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas a geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
+Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas à geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
 
-Nesses casos, podemos utilizar as funções `observe()` e `oberveEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são observers.
+Nesses casos, podemos utilizar as funções `observe()` e `oberveEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são funções observadoras.
 
 ---
 
@@ -71,7 +79,7 @@ ui &lt;- fluidPage(
 
 ## A função `observe()`
 
-No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de um observer, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
+No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de uma função reativa, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
 
 
 ```r
@@ -272,16 +280,6 @@ ouput$orcamento &lt;- renderInfoBox({
 ]
 
 ---
-## Exercícios
-
-1) Usando a base da CETESB, construa um shiny app que possua um filtro de
-poluente que depende de um filtro de estação de monitoramento. Como output, faça uma série temporal com a média diária da concentração do poluente.
-
-2) Usando a base da SSP, construa um shiny app que possua um filtro de delegacia que depende de um filtro de município que depende de um filtro de região. Como output, faça uma série temporal do número de furtos.
-
-3) Faça um app que contenha um formulário de cadastro com os campos "nome", "e-mail", "idade" e "cidade" e um botão de salvar dados que faça o app salvar as informações em uma planilha no computador. O app também deve mostrar a tabela mais atualizada de pessoas cadastradas.
-
----
 ## Atividade
 
 Vamos usar essas funções para melhorar a experiência de uso do nosso app.
@@ -294,6 +292,12 @@ Vamos usar essas funções para melhorar a experiência de uso do nosso app.
 &lt;br&gt;
 <span style="color:#6495ed; font-weight: bold;">Ao RStudio: 19-observers.R</span>
 &lt;center&gt;
+
+---
+## Exercícios
+
+Faça os exercícios do [Capítulo 7 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/reatividade-mais-pecas.html#exerc%C3%ADcios).
+
 
 ---
 ## Referências e material extra
@@ -359,6 +363,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

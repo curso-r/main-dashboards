@@ -22,13 +22,13 @@ knit: pagedown::chrome_print
 
 ```
 
-## observers
+## Funções observadoras
 
-Já vimos que os observers são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de observer. Mas eles não são os únicos.
+Já vimos que as funções obervadoras são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de função observadora. Mas elas não são os únicas.
 
-Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas a geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
+Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas à geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
 
-Nesses casos, podemos utilizar as funções `observe()` e `oberveEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são observers.
+Nesses casos, podemos utilizar as funções `observe()` e `oberveEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são funções observadoras.
 
 ---
 
@@ -67,7 +67,7 @@ ui <- fluidPage(
 
 ## A função `observe()`
 
-No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de um observer, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
+No `server`, atualizamos as escolhas da segunda caixa de seleção com a função `updateSelectInput()`. Veja que, como essa função está dentro de uma função reativa, esse código será rodado novamente sempre que o valor de `input$dir` mudar.
 
 ```{r, eval = FALSE}
 server <- function(input, output, session) {
@@ -258,16 +258,6 @@ ouput$orcamento <- renderInfoBox({
 ]
 
 ---
-## Exercícios
-
-1) Usando a base da CETESB, construa um shiny app que possua um filtro de
-poluente que depende de um filtro de estação de monitoramento. Como output, faça uma série temporal com a média diária da concentração do poluente.
-
-2) Usando a base da SSP, construa um shiny app que possua um filtro de delegacia que depende de um filtro de município que depende de um filtro de região. Como output, faça uma série temporal do número de furtos.
-
-3) Faça um app que contenha um formulário de cadastro com os campos "nome", "e-mail", "idade" e "cidade" e um botão de salvar dados que faça o app salvar as informações em uma planilha no computador. O app também deve mostrar a tabela mais atualizada de pessoas cadastradas.
-
----
 ## Atividade
 
 Vamos usar essas funções para melhorar a experiência de uso do nosso app.
@@ -280,6 +270,12 @@ Vamos usar essas funções para melhorar a experiência de uso do nosso app.
 <br>
 `r blue('Ao RStudio: 19-observers.R')`
 <center>
+
+---
+## Exercícios
+
+Faça os exercícios do [Capítulo 7 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/reatividade-mais-pecas.html#exerc%C3%ADcios).
+
 
 ---
 ## Referências e material extra
