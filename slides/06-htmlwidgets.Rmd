@@ -208,14 +208,7 @@ ouput$mapa <- leaflet::renderLeaflet({
 ---
 ### Exercícios
 
-1) Reproduza o seguinte Shiny app: https://acursor.shinyapps.io/htmlwidgets-1/
-
-A base utilizada foi a cetesb, presente no material do curso. Você também pode acessar a base clicando no link abaixo:
-
-https://github.com/curso-r/livro-shiny/raw/master/exemplos/data/cetesb.rds
-
-
-2) Utilizando o pacote auth0, coloque tela de login no app feito no exercício anterior.
+Faça os exercícios do [Capítulo 8 do livro Programando em Shiny](https://programando-em-shiny.curso-r.com/htmlwidgets.html#exerc%C3%ADcios).
 
 ---
 
