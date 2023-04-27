@@ -1,5 +1,5 @@
 ---
-title: "Dashboards com R"
+title: "Dashboards em Shiny I"
 subtitle: "Introdução ao Shiny"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE), 'de', lubridate::year(Sys.Date()))`"
