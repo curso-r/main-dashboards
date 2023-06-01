@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Dashboards com R</title>
+    <title>Dashboards em Shiny I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.19/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/core-js-2.5.3/shim.min.js"></script>
@@ -12,7 +12,8 @@
     <script src="libs/react-17.0.0/react-dom.min.js"></script>
     <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
     <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-    <script src="libs/reactable-binding-0.3.0/reactable.js"></script>
+    <link href="libs/reactable-0.4.1/reactable.css" rel="stylesheet" />
+    <script src="libs/reactable-binding-0.4.1/reactable.js"></script>
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
   <body>
@@ -20,7 +21,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Dashboards com R
+# Dashboards em Shiny I
 ]
 .subtitle[
 ## Layouts
@@ -29,7 +30,7 @@ class: center, middle, inverse, title-slide
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
 ]
 .date[
-### Outubro de 2022
+### Maio de 2023
 ]
 
 ---
@@ -55,8 +56,8 @@ No HTML, as instrução de formatação são chamadas *tags*. Utilizaremos as *t
 
 O pacote `shiny` traz diversas funções que simulam essas tags. As principais são:
 
-<div id="htmlwidget-477158fa463425e8b527" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-477158fa463425e8b527">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"função":["a()","hr()","br()","h1(), ..., h6()","img()","p()","em()","strong()"],"para que serve":["cria um hiperlink","cria uma linha horizontal","insere uma quebra de linha","cria títulos","insere uma imagem","cria um parágrafo","formata o texto em itálico","formata o texto em negrito"]},"columns":[{"accessor":"função","name":"função","type":"character"},{"accessor":"para que serve","name":"para que serve","type":"character"}],"sortable":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"0db6023337cd0a471d22ed87e8a351e1"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-976bd2ed645056f8c4cd" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-976bd2ed645056f8c4cd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"função":["a()","hr()","br()","h1(), ..., h6()","img()","p()","em()","strong()"],"para que serve":["cria um hiperlink","cria uma linha horizontal","insere uma quebra de linha","cria títulos","insere uma imagem","cria um parágrafo","formata o texto em itálico","formata o texto em negrito"]},"columns":[{"id":"função","name":"função","type":"character"},{"id":"para que serve","name":"para que serve","type":"character"}],"sortable":false,"dataKey":"43ae932de20709ab4137977dfe1e4a4e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Tags HTML

@@ -1,5 +1,5 @@
 ---
-title: "Dashboards com R"
+title: "Dashboards em Shiny I"
 subtitle: "Introdução ao curso"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
@@ -76,7 +76,7 @@ link(
 <br>
 
 ```{r, echo = FALSE}
-htmltools::h3("Lives")
+htmltools::h3("Lives | Quarta, às 19h")
 link(
   href = "https://www.youtube.com/c/CursoR6",
   htmltools::img(src = "img/youtube.png", width = "200px")
@@ -124,25 +124,26 @@ class: middle, center
 ## Cronograma
 
 .pull-left[
-- **Aula 1**: 3 de outubro
+- **Aula 1**
   - Introdução e conceitos básicos
 
-- **Aula 2**: 6 de outubro
+- **Aula 2**
   - Reatividade - parte 1
   
-- **Aula 3**: 10 de outubro
+- **Aula 3**
   - Layouts e boostrap
 ]
 
 .pull-right[
-- **Aula 4**: 13 de outubro
+- **Aula 4**
   - Shinydashboard
 
-- **Aula 5**: 17 de outubro
+- **Aula 5**
   - Reatividade - parte 2
 
-- **Aula 6**: 20 de outubro
-  - htmlwidgets e auth0
+- **Aula 6**
+  - Htmlwidgets
+  - Miscelânea
 
 ]
 
@@ -174,14 +175,3 @@ class: middle, center
 
 - Só interrompa quem estiver falando em caso de emergência.
 
----
-## Tirando dúvidas
-
-- **Não fique com dúvida**.
- 
-- Fora do horário de aula ou monitoria:
-    - envie suas perguntas gerais **sobre o curso** no Classroom.
-     
-    - envie preferencialmente suas perguntas **sobre R** no [nosso discourse](https://discourse.curso-r.com/).
-
-- Saber fazer a pergunta certa vai te ajudar bastante nos estudos de programação. [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
