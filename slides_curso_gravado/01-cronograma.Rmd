@@ -1,0 +1,73 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "Cronograma"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+# knit: pagedown::chrome_print
+---
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+link <- function(href, ...) {
+  htmltools::a(
+    href = href,
+    target = "_blank",
+    ...
+  )
+}
+```
+
+## Cronograma
+
+- **Módulo 1**: Introdução e conceitos básicos
+  - O que é o Shiny?
+  - UI e server
+  - Inputs e Outputs
+
+
+--
+
+- **Módulo 2**: Reatividade - parte 1
+  - O que é reatividade?
+  - Valores reativos, expressões reativas e observers
+  - O pacote `reaclog`
+  - Debugging
+
+
+--
+  
+- **Módulo 3**: Layouts e boostrap
+  - SidebarLayout
+  - NavbarPage
+  - O pacote shinydashboard
+  - O pacote bs4Dash
+  
+---
+  
+## Cronograma
+
+- **Módulo 4**: Reatividade - parte 2
+  - Novos tipos de obsevers
+  - Novos tipos valores reativos
+  - Validação
+
+
+--
+
+- **Módulo 5**: HTMLWidgets
+  - Tabelas com DT e reactable
+  - Gráficos com plotly, echarts e highcharts
+  - Mapas com leaflet
+
+
