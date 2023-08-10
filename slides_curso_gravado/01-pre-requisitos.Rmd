@@ -42,7 +42,7 @@ link <- function(href, ...) {
   
 ---
 
-## Ond estudar os pré-requisitos?
+## Onde estudar os pré-requisitos?
 
 - [Ciência de Dados em R](https://livro.curso-r.com/) `r emo::ji("brazil")`
 
