@@ -1,6 +1,6 @@
 ---
 title: "Dashboards em Shiny I"
-subtitle: "Cronograma"
+subtitle: "Ementa"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 output:
   xaringan::moon_reader:
@@ -28,7 +28,7 @@ link <- function(href, ...) {
 }
 ```
 
-## Cronograma
+## Ementa
 
 - **Módulo 1**: Introdução e conceitos básicos
   - O que é o Shiny?
@@ -55,7 +55,7 @@ link <- function(href, ...) {
   
 ---
   
-## Cronograma
+## Ementa
 
 - **Módulo 4**: Reatividade - parte 2
   - Novos tipos de obsevers
