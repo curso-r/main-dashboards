@@ -1,0 +1,76 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "O que é Shiny?"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+# knit: pagedown::chrome_print
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+class: middle, center
+
+## Shiny é um framework em linguagem R para criação de aplicações web
+
+---
+class: middle, center
+
+### framework: conjunto de conceitos e ferramentas.
+
+--
+
+
+### aplicativo web: uma página web que possui um programa/funcionalidade por trás.
+
+---
+class:: middle, center
+
+### Shiny é um conjunto de conceitos e ferramentas em linguagem R para a criação de páginas web que possuem um programa rodando por trás.
+
+---
+class:: middle, center
+
+### Um aplicativo shiny vai ser uma página web, uma aplicação web e um código R.
+
+---
+class: middle, center
+## HTML, CSS, JS
+
+---
+class: middle, center
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/html_css.jpeg")
+```
+
+---
+class: middle, center
+
+## Shiny: programando em HTML sem saber HTML
+
+<br><br>
+
+<img src="img/hex-shiny.png" style="position: fixed; top: 280px; left: 430px; z-index: 1;" width="6%">
+
+<center>
+<img src="img/shiny.png" width = "50%">
+<img src="img/shiny2.png" width = "50%">
+<br>
+<span style = "font-size: 10pt">
+Fonte: <a href = http://www.rstudio.com/shiny/>rstudio.com/shiny/</a>
+</span>
+</center>
+
