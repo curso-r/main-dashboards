@@ -7,6 +7,13 @@
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="libs/core-js-2.5.3/shim.min.js"></script>
+    <script src="libs/react-17.0.0/react.min.js"></script>
+    <script src="libs/react-17.0.0/react-dom.min.js"></script>
+    <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+    <link href="libs/reactable-0.4.4/reactable.css" rel="stylesheet" />
+    <script src="libs/reactable-binding-0.4.4/reactable.js"></script>
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
   <body>
@@ -17,7 +24,7 @@ class: center, middle, inverse, title-slide
 # Dashboards em Shiny I
 ]
 .subtitle[
-## O que é Shiny?
+## outputs
 ]
 .author[
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
@@ -30,57 +37,28 @@ class: center, middle, inverse, title-slide
 
 
 
-class: middle, center
+## Outputs
 
-## Shiny é um framework em linguagem R para criação de aplicações web
+Os outputs são definidos na UI e criados no server. 
 
----
-class: middle, center
+Cada tipo de output é definido por uma função do tipo `*Output()`.
 
-### framework: conjunto de conceitos e ferramentas.
-
---
-
-
-### aplicativo web: uma página web que possui um programa/funcionalidade por trás.
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-98d476576383cf5658aa" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-98d476576383cf5658aa">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()","uiOutput()"],"Saída":["Gráficos","Tabelas","Textos","Elementos HTML (UI)"]},"columns":[{"id":"Função","name":"Função","type":"character"},{"id":"Saída","name":"Saída","type":"character"}],"sortable":false,"dataKey":"76a444f458326959958569668d0a2254"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 ---
-class:: middle, center
+## Funções render
 
-### Shiny é um conjunto de conceitos e ferramentas em linguagem R para a criação de páginas web que possuem um programa rodando por trás.
+Para criar um output, precisamos das funções do tipo `render*()`. Essas funções têm o papel de:
 
----
-class:: middle, center
+- receber o código que gera um output;
 
-### Um aplicativo shiny vai ser uma página web, uma aplicação web e um código R.
+- transformar sua saída em um código HTML.
 
----
-class: middle, center
-## HTML, CSS, JS
+Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
 
----
-class: middle, center
-
-&lt;img src="img/html_css.jpeg" width="907" style="display: block; margin: auto;" /&gt;
-
----
-class: middle, center
-
-## Shiny: programando em HTML sem saber HTML
-
-&lt;br&gt;&lt;br&gt;
-
-&lt;img src="img/hex-shiny.png" style="position: fixed; top: 280px; left: 430px; z-index: 1;" width="6%"&gt;
-
-&lt;center&gt;
-&lt;img src="img/shiny.png" width = "50%"&gt;
-&lt;img src="img/shiny2.png" width = "50%"&gt;
-&lt;br&gt;
-&lt;span style = "font-size: 10pt"&gt;
-Fonte: &lt;a href = http://www.rstudio.com/shiny/&gt;rstudio.com/shiny/&lt;/a&gt;
-&lt;/span&gt;
-&lt;/center&gt;
-
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-97402d3342cbbfe66949" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-97402d3342cbbfe66949">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()","uiOutput()"],"render*()":["renderPlot()","renderTable()","renderText()","renderUI()"]},"columns":[{"id":"*Output()","name":"*Output()","type":"character"},{"id":"render*()","name":"render*()","type":"character"}],"sortable":false,"dataKey":"5ba50ffec12cd4ad910ebee8a23cf09f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
