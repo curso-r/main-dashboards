@@ -1,0 +1,34 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "Inputs"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+# knit: pagedown::chrome_print
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+## Inputs
+
+Inputs representam as entradas do nosso aplicativo, isto é, a maneira como informações são transmitidas entre a pessoa usando o app e o servidor.
+
+--
+
+O pacote `shiny` possibilita diversas opções de *widgets*, a depender do tipo de valor a ser passado.
+
+--
+
+Para criar esses widgets utilizamos as famílias de funções `*Input()` ou `*Button`.
