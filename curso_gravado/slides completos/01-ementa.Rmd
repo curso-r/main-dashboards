@@ -48,10 +48,14 @@ link <- function(href, ...) {
 --
   
 - **Módulo 3**: Layouts e boostrap
-  - SidebarLayout
-  - NavbarPage
-  - O pacote shinydashboard
-  - O pacote bs4Dash
+  - HTML e Bootstrap
+  - fluidRow e columns
+  - sidebarLayout
+  - navbarPage
+  - bslib::page_fluid
+  - bslib::page_sidebar
+  - bslib::page_navbar
+  - bs4Dash
   
 ---
   
@@ -67,7 +71,7 @@ link <- function(href, ...) {
 
 - **Módulo 5**: HTMLWidgets
   - Tabelas com DT e reactable
-  - Gráficos com plotly, echarts e highcharts
+  - Gráficos com plotly e echarts
   - Mapas com leaflet
 
 
