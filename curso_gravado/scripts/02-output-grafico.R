@@ -1,9 +1,12 @@
-# app com um gráfico como output
-
 library(shiny)
 library(ggplot2)
 
 ui <- fluidPage(
+  selectInput(
+    inputId = "variavel",
+    label = "Selecione uma variável",
+    choices = names(mtcars)
+  ),
   plotOutput(outputId = "plot"),
   plotOutput(outputId = "ggplot")
 )
@@ -11,13 +14,13 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   output$plot <- renderPlot({
-    plot(x = mtcars$wt, y = mtcars$mpg)
+    plot(x = mtcars[[input$variavel]], y = mtcars$mpg)
   })
   
   output$ggplot <- renderPlot({
     mtcars |> 
-      ggplot() +
-      geom_point(aes(x = wt, y = mpg))
+      ggplot(aes(x = .data[[input$variavel]], y = mpg)) +
+      geom_point()
   })
   
 }

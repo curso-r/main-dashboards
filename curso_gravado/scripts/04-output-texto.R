@@ -10,9 +10,8 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   output$texto <- renderText({
-    glue::glue(
-      "A minha versão do R é: {R.version$major}.{R.version$minor}"
-    )
+    versao <- paste0(R.version$major, ".", R.version$minor)
+    paste0("A versão do R utilizada é: ", versao)
   })
   
 }

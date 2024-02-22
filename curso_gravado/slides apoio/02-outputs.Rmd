@@ -31,8 +31,7 @@ tibble::tribble(
   ~Função, ~`Saída`,
   "plotOutput()", "Gráficos",
   "tableOutput()", "Tabelas",
-  "textOutput()", "Textos",
-  "uiOutput()", "Elementos HTML (UI)"
+  "textOutput()", "Textos"
 ) |>
   reactable::reactable(
     sortable = FALSE
@@ -55,8 +54,7 @@ tibble::tribble(
   ~`*Output()`, ~`render*()`,
   "plotOutput()", "renderPlot()",
   "tableOutput()", "renderTable()",
-  "textOutput()", "renderText()",
-  "uiOutput()", "renderUI()"
+  "textOutput()", "renderText()"
 ) |>
   reactable::reactable(
     sortable = FALSE

@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Dashboards em Shiny I</title>
+    <title>Dashboards em Shiny</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <script src="libs/core-js-2.5.3/shim.min.js"></script>
-    <script src="libs/react-17.0.0/react.min.js"></script>
-    <script src="libs/react-17.0.0/react-dom.min.js"></script>
-    <script src="libs/reactwidget-1.0.0/react-tools.js"></script>
-    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-    <link href="libs/reactable-0.4.4/reactable.css" rel="stylesheet" />
-    <script src="libs/reactable-binding-0.4.4/reactable.js"></script>
     <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
   </head>
   <body>
@@ -21,10 +14,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Dashboards em Shiny I
+# Dashboards em Shiny
 ]
 .subtitle[
-## outputs
+## Vídeo 14 | Dois inputs e dois outputs
 ]
 .author[
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
@@ -33,32 +26,6 @@ class: center, middle, inverse, title-slide
 ---
 
 
-
-
-
-
-## Outputs
-
-Os outputs são definidos na UI e criados no server. 
-
-Cada tipo de output é definido por uma função do tipo `*Output()`.
-
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-00505ba5f05da84f9bef" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-00505ba5f05da84f9bef">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Função":["plotOutput()","tableOutput()","textOutput()"],"Saída":["Gráficos","Tabelas","Textos"]},"columns":[{"id":"Função","name":"Função","type":"character"},{"id":"Saída","name":"Saída","type":"character"}],"sortable":false,"dataKey":"95ce439547cd7a89b6510a272b555bb5"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-
----
-## Funções render
-
-Para criar um output, precisamos das funções do tipo `render*()`. Essas funções têm o papel de:
-
-- receber o código que gera um output;
-
-- transformar sua saída em um código HTML.
-
-Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
-
-<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b2af42fe6c7c4780ef29" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b2af42fe6c7c4780ef29">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"*Output()":["plotOutput()","tableOutput()","textOutput()"],"render*()":["renderPlot()","renderTable()","renderText()"]},"columns":[{"id":"*Output()","name":"*Output()","type":"character"},{"id":"render*()","name":"render*()","type":"character"}],"sortable":false,"dataKey":"6d6df165aab9bf41c4435c5245c637dc"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

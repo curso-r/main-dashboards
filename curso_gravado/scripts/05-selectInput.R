@@ -4,18 +4,13 @@ library(shiny)
 
 ui <- fluidPage(
   selectInput(
-    inputId = "eixo_x",
-    label = "Variável do eixo x",
-    choices = names(mtcars)
-  ),
-  plotOutput(outputId = "grafico")
+    inputId = "variavel",
+    label = "Selecione uma variável",
+    choices = c("Variável 1", "Variável 2", "Variável 3")
+  )
 )
 
 server <- function(input, output, session) {
-  
-  output$grafico <- renderPlot({
-    plot(y = mtcars$mpg, x = mtcars[[input$eixo_x]])
-  })
   
 }
 

@@ -1,6 +1,6 @@
 ---
 title: "Dashboards em Shiny I"
-subtitle: "Ementa"
+subtitle: "O que vamos ver?"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 output:
   xaringan::moon_reader:
@@ -38,7 +38,7 @@ link <- function(href, ...) {
 
 --
 
-- **Módulo 2**: Reatividade - parte 1
+- **Módulo 2**: Reatividade (parte 1)
   - O que é reatividade?
   - Valores reativos, expressões reativas e observers
   - O pacote `reaclog`
@@ -47,17 +47,18 @@ link <- function(href, ...) {
 
 --
   
-- **Módulo 3**: Layouts e boostrap
+- **Módulo 3**: Layouts
+  - Introdução a HTML e Bootstrap
   - SidebarLayout
   - NavbarPage
-  - O pacote shinydashboard
+  - O pacote bslib
   - O pacote bs4Dash
   
 ---
   
 ## Ementa
 
-- **Módulo 4**: Reatividade - parte 2
+- **Módulo 4**: Reatividade (parte 2)
   - Novos tipos de obsevers
   - Novos tipos valores reativos
   - Validação
@@ -67,7 +68,14 @@ link <- function(href, ...) {
 
 - **Módulo 5**: HTMLWidgets
   - Tabelas com DT e reactable
-  - Gráficos com plotly, echarts e highcharts
+  - Gráficos com plotly e echarts
   - Mapas com leaflet
 
 
+--
+
+- **Módulo 6**: Miscelânea de exemplos
+  - Download de arquivos
+  - Geração de relatórios
+  - Autenticação
+  - Muitos outros

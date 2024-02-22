@@ -13,11 +13,11 @@ server <- function(input, output, session) {
     mtcars |> 
       dplyr::group_by(cyl) |> 
       dplyr::summarise(
-        media_mpg = mean(mpg)
+        mpg = mean(mpg)
       ) |> 
       dplyr::rename(
         `Número de cilindros` = cyl,
-        `Consumo de gasolina` = media_mpg
+        `Consumo de combustível (milhas/galão)` = mpg
       )
   })
   

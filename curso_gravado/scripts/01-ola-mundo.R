@@ -1,6 +1,5 @@
 library(shiny)
 
-# user interface (interface de usuário)
 ui <- fluidPage(
   "Olá, mundo!"
 )
