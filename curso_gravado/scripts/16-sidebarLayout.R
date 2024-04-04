@@ -11,7 +11,7 @@ ui <- fluidPage(
       )
     ),
     mainPanel = mainPanel(
-      plotOutput(outputId = "grafico")
+      plotOutput("grafico")
     )
   )
 )
@@ -25,4 +25,3 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-
