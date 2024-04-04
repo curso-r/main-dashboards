@@ -1,23 +1,16 @@
 library(shiny)
 
 ui <- fluidPage(
-  titlePanel("Fluid Page"),
-  fluidRow(
-    column(
-      width = 4,
-      # selectInput(
-      #   inputId = "variavel",
-      #   label = "Selecione uma variável",
-      #   choices = names(mtcars)
-      # ),
+  titlePanel("Sidebar Layout"),
+  sidebarLayout(
+    sidebarPanel = sidebarPanel(
       varSelectInput(
         inputId = "variavel",
         label = "Selecione uma variável",
         data = mtcars
       )
     ),
-    column(
-      width = 8,
+    mainPanel = mainPanel(
       plotOutput(outputId = "grafico")
     )
   )
@@ -32,12 +25,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-
-
-
-
-
-
-
-
 
