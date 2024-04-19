@@ -1,7 +1,7 @@
 library(shiny)
 
 ui <- bslib::page_fluid(
-  titlePanel("Shiny com bslib"),
+  titlePanel("App com bslib"),
   bslib::layout_columns(
     col_widths = c(4, 8),
     selectInput(
@@ -9,14 +9,12 @@ ui <- bslib::page_fluid(
       label = "Número de cilindros",
       choices = sort(unique(mtcars$cyl))
     ),
-    tagList(
-      tableOutput("tabela")
-    )
+    tableOutput(outputId = "tabela")
   )
 )
 
 # ui <- fluidPage(
-#   titlePanel("Shiny com bslib"),
+#   titlePanel("App com bslib"),
 #   fluidRow(
 #     column(
 #       width = 4,
@@ -28,7 +26,7 @@ ui <- bslib::page_fluid(
 #     ),
 #     column(
 #       width = 8,
-#       tableOutput("tabela")
+#       tableOutput(outputId = "tabela")
 #     )
 #   )
 # )
@@ -43,3 +41,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
+
+
+
