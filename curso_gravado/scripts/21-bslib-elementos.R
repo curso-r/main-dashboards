@@ -8,14 +8,14 @@ ui <- bslib::page_fillable(
     bslib::value_box(
       title = "Número de carros",
       value = nrow(mtcars),
-      showcase = bsicons::bs_icon("car-front")
+      showcase = bsicons::bs_icon(name = "car-front")
     ),
     bslib::value_box(
       title = "Maior consumo",
-      value = max(mtcars$mpg),
-      showcase = bsicons::bs_icon("fuel-pump")
+      value = glue::glue("{max(mtcars$mpg)} milhas/galão"),
+      showcase = bsicons::bs_icon(name = "fuel-pump")
     ),
-    uiOutput("vb_menor_consumo", fill = TRUE),
+    uiOutput(outputId = "vb_menor_consumo", fill = TRUE),
     bslib::card(
       bslib::card_header(
         bslib::card_title("Consumo vs peso")
@@ -29,7 +29,7 @@ ui <- bslib::page_fillable(
         bslib::card_title("Consumo vs potência")
       ),
       bslib::card_body(
-        plotOutput("grafico_hp")
+        plotOutput("grafico_potencia")
       )
     )
   )
@@ -40,8 +40,8 @@ server <- function(input, output, session) {
   output$vb_menor_consumo <- renderUI({
     bslib::value_box(
       title = "Menor consumo",
-      value = min(mtcars$mpg),
-      showcase = bsicons::bs_icon("Speedometer")
+      value = glue::glue("{min(mtcars$mpg)} milhas/galão"),
+      showcase = bsicons::bs_icon(name = "speedometer2")
     )
   })
   
@@ -53,7 +53,7 @@ server <- function(input, output, session) {
       theme_minimal()
   })
   
-  output$grafico_hp <- renderPlot({
+  output$grafico_potencia <- renderPlot({
     mtcars |> 
       ggplot(aes(x = hp, y = mpg)) +
       geom_point() +
