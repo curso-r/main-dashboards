@@ -43,13 +43,6 @@ server <- function(input, output, session) {
         row.names = FALSE,
         col.names = FALSE
       )
-    
-    showModal(modalDialog(
-      title = "Dados salvos",
-      "Seus dados foram salvos com sucesso!",
-      easyClose = TRUE,
-      footer = NULL
-    ))
   })
   
 }

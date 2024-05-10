@@ -1,0 +1,62 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "Mais sobre funções observadoras"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+# knit: pagedown::chrome_print
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+## Funções observadoras
+
+Já vimos que as funções obervadoras são os pontos finais de um diagrama de reatividade de um shiny app e que, sem eles, a reatividade não é ativada. 
+
+--
+
+Também vimos que as funções `render*()`, que geram os nossos outputs, são o tipo mais comum de função observadora. Mas elas não são os únicas.
+
+--
+
+Muitas vezes queremos usar a reatividade para disparar ações que não estão ligadas à geração de outputs, como o registro de informações em bases de dados ou a atualização de elementos da UI.
+
+--
+
+Nesses casos, podemos utilizar as funções `observe()` e `oberveEvent()`. Elas funcionam de maneira similar às funções `reactive()` e `eventReactive()`, mas em vez de criar expressões reativas, elas são funções observadoras.
+
+---
+
+## A função `observe()`
+
+A função `observe({codigo})` monitora os valores e expressões reativas que estão dentro dela e roda seu código quando algum desses valores são modificados.
+
+--
+
+A diferença do `observe()` para a função `reactive()` é que a primeira não gera expressões reativas, servindo apenas para códigos que têm efeitos colaterais.
+
+--
+
+Essa função é muito utilizada com as funções da família `update*()`, que servem para atualizar valores de um input na UI.
+
+---
+## A função `observeEvent()`
+
+A função `observeEvent(gatilho, {codigo})` funciona assim como a `observe()`, mas ela escuta apenas um valor ou expressão reativa, que é definido em seu primeiro argumento, assim como na função `eventReactive()`.
+
+--
+
+Ela é muito utiliza para disparar ações, como gravar informações em uma base de dados, a partir de botões.
+

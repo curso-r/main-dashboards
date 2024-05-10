@@ -38,7 +38,6 @@ server <- function(input, output, session) {
   })
   
   output$select_time <- renderUI({
-    browser()
     if (!is.null(input$temporada)) {
       times <- dados |> 
         dplyr::filter(season == input$temporada) |> 

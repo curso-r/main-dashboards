@@ -1,0 +1,82 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "Mais sobre valores reativos"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+# knit: pagedown::chrome_print
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+## Valores reativos
+
+Vimos que os valores reativos são o início do diagrama de reatividade e que os valores da lista `input` são o principal tipo de valor reativo em um shiny app.
+
+--
+
+Em alguns casos, no entanto, vamos precisar de valores reativos que não são inputs, isto é, não estão associados a ações vindas da UI. A lista `input` possui a restrição de não podermos escrever nela, o que nos impede de criar um valor que disparasse o fluxo reativo e que só existisse dentro do server.
+
+--
+
+Para criar valores reativos com essa característica, podemos usar as funções `reactiveVal()` e `reactiveValues()`. A única diferença entre as duas é que a primeira cria apenas um valor reativo enquanto a segunda permite criar uma lista de valores reativos.
+
+---
+## A função `reactiveVal()`
+
+Para criar um valor reativo:
+
+```{r, eval = FALSE}
+valor_reativo <- reactiveVal(1)
+```
+
+Para acessar o valor atual:
+
+```{r, eval = FALSE}
+valor_reativo()
+#> 1
+```
+
+Para atualizar o valor:
+
+```{r, eval = FALSE}
+valor_reativo(2)
+```
+
+---
+## A função `reactiveValues()`
+
+Para criar um valor reativo:
+
+```{r, eval = FALSE}
+rv <- reactiveValues(a = 1, b = 2)
+```
+
+Para acessar o valor atual:
+
+```{r, eval = FALSE}
+rv$a
+#> 1
+
+rv$b
+#> 2
+```
+
+Para atualizar o valor:
+
+```{r, eval = FALSE}
+rv$a <- 3
+rv$b <- 4
+```
