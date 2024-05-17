@@ -1,30 +1,35 @@
 library(shiny)
-library(dplyr)
 
 ui <- fluidPage(
   titlePanel("Cadastro de clientes"),
   sidebarLayout(
     sidebarPanel(
-      h3("Adicionar cliente"),
+      h4("Adicionar novo cliente"),
       textInput(
-        "nome",
-        label = "Nome",
+        inputId = "nome",
+        label = "nome",
         value = ""
       ),
       textInput(
-        "email",
+        inputId = "email",
         label = "E-mail",
         value = ""
       ),
-      actionButton("adicionar", label = "Adicionar cliente"),
-      hr(),
-      h3("Remover cliente"),
-      selectInput(
-        "id",
-        label = "ID do cliente",
-        choices = c("Carregando..." = "")
+      actionButton(
+        inputId = "adicionar",
+        label = "Adicionar cliente"
       ),
-      actionButton("remover", label = "Remover cliente")
+      hr(),
+      h4("Remover um cliente"),
+      selectInput(
+        inputId = "id",
+        label = "ID do cliente",
+        choices = ""
+      ),
+      actionButton(
+        inputId = "remover",
+        label = "Remover cliente"
+      )
     ),
     mainPanel(
       tableOutput("tabela")
@@ -33,50 +38,58 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  
+ 
   tab_clientes <- reactiveVal(tibble::tibble(
-    id = 0L,
-    nome = "Fulano",
-    email = "fulano@gmail.com"
+    id = 1L,
+    nome = "William Amorim",
+    email = "william@email.com"
   ))
   
-  observe({
-    clientes <- tab_clientes() |> 
-      dplyr::pull(id)
-    
-    updateSelectInput(
-      session,
-      "id",
-      choices = clientes
-    )
-  })
-  
-  observeEvent(input$remover, {
-    if (!input$id %in% tab_clientes()$id) {
-      showModal(modalDialog(
-        title = "Erro",
-        "ID não encontrado",
-        footer = modalButton("Fechar"),
-        easyClose = TRUE
-      ))
-    } else {
-      nova_tab <- tab_clientes() |> 
-        dplyr::filter(id != input$id)
-      tab_clientes(nova_tab)
-    }
-  })
-  
   observeEvent(input$adicionar, {
-    novo_id <- max(tab_clientes()$id) + 1L
-    nova_tab <- tab_clientes() |> 
-      tibble::add_row(id = novo_id, nome = input$nome, email = input$email, .before = 1)
-    tab_clientes(nova_tab)
+    novo_id <- as.integer(max(tab_clientes()$id) + 1)
+    nova_tabela <- tab_clientes() |> 
+      tibble::add_row(id = novo_id, nome = input$nome, email = input$email)
+    
+    tab_clientes(nova_tabela)
+    
+    showModal(
+      modalDialog(
+        title = "Sucesso",
+        "Cliente adicionado com sucesso"
+      )
+    )
   })
   
   output$tabela <- renderTable({
     tab_clientes()
   })
   
+  observe({
+    ids <- sort(tab_clientes()$id)
+    
+    updateSelectInput(
+      inputId = "id",
+      choices = ids
+    )
+  })
+  
+  observeEvent(input$remover, {
+    
+    nova_tabela <- tab_clientes() |> 
+      dplyr::filter(id != input$id)
+    
+    tab_clientes(nova_tabela)
+    
+  })
+   
+  
+  
 }
 
 shinyApp(ui, server)
+
+
+
+
+
+

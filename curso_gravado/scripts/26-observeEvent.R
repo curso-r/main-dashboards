@@ -33,13 +33,12 @@ server <- function(input, output, session) {
   observeEvent(input$salvar, {
     tibble::tibble(
       nome = input$nome,
-      data_nascimento = input$data_nascimento,
+      data_nasc = input$data_nascimento,
       estado = input$estado
     ) |> 
       write.table(
-        "dados.txt",
+        file = "dados.txt",
         append = TRUE,
-        sep = ",",
         row.names = FALSE,
         col.names = FALSE
       )

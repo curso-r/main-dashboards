@@ -44,13 +44,25 @@ server <- function(input, output, session) {
         col.names = FALSE
       )
     
-    showModal(modalDialog(
-      title = "Dados salvos",
-      "Seus dados foram salvos com sucesso!",
-      easyClose = TRUE,
-      footer = NULL
-    ))
+    validacao <- TRUE
+    
+    if (validacao) {
+      showModal(modalDialog(
+        title = "Sucesso",
+        "Os seus dados foram salvos dentro do servidor com sucesso!",
+        footer = modalButton("Fechar"),
+        easyClose = TRUE
+      ))
+    } else {
+      showModal(modalDialog(
+        title = "Erro",
+        "Ocorreu algum erro na hora de salvar!"
+      ))
+    }
+    
   })
+  
+  
   
 }
 

@@ -1,7 +1,7 @@
 library(shiny)
 
 ui <- fluidPage(
-  titlePanel("Validação"),
+  titlePanel("observe + update"),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -12,8 +12,8 @@ ui <- fluidPage(
       selectInput(
         inputId = "carro",
         label = "Carro",
-        choices = c("Carregando..." = "")
-      ),
+        choices = ""
+      )
     ),
     mainPanel(
     )
@@ -24,16 +24,27 @@ server <- function(input, output, session) {
   
   observe({
     carros <- mtcars |> 
-      dplyr::filter(cyl == input$cyl) |>
-      rownames() |> 
-      sort()
+      dplyr::filter(cyl == input$cyl) |> 
+      row.names()
+    
     updateSelectInput(
-      session,
-      "carro",
+      inputId = "carro",
       choices = carros
     )
   })
   
+  
+  
+  
+  
 }
 
 shinyApp(ui, server)
+
+
+
+
+
+
+
+
