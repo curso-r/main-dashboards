@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Dashboards em Shiny I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://curso-r.github.io/assets/css/padrao-curso-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Dashboards em Shiny I
+]
+.subtitle[
+## O que é reatividade?
+]
+.author[
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>
+]
+
+---
+
+
+
+
+
+
+## Reatividade: outro paradigma
+
+Quando escrevemos código R, duas características estão sempre presentes:
+
+--
+
+- podemos avaliar uma linha de código assim que a escrevermos; e
+
+--
+
+- se decidirmos rodar todo o script de uma vez, as linhas de código serão avaliadas sequencialmente.
+
+---
+## Exemplo de script sequencial
+
+
+```r
+tab_starwars &lt;- dplyr::starwars
+
+tab_grafico &lt;- tab_starwars |&gt;
+  tidyr::unnest(films) |&gt; 
+  tidyr::drop_na(species) |&gt; 
+  dplyr::group_by(films) |&gt;
+  dplyr::summarise(total_especies = dplyr::n_distinct(species)) |&gt; 
+  dplyr::mutate(
+    films = forcats::fct_reorder(films, total_especies)
+  )
+
+tab_grafico |&gt; 
+  ggplot2::ggplot(ggplot2::aes(y = films, x = total_especies)) +
+  ggplot2::geom_col() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Total de espécies", y = "Filme")
+```
+
+--
+
+Esse paradigma é conhecido como **programação imperativa**.
+
+---
+## Programação declarativa
+
+Na **programação declarativa**, os comandos não são executados imediatamente. Nosso código funciona como uma receita, que só será utilizada quando necessário.
+
+--
+
+No contexto do Shiny, a nossa receita é transformada em um **diagrama de reatividade**, isto é, um diagrama de dependências que decide quais outputs devem ser recalculados quando um input muda.
+
+--
+
+O diagrama de reatividade de um shiny app possui 3 estruturas: 
+
+- **valores reativos**
+
+- **funções observadoras**
+
+- **expressões reativas**
+
+---
+## Valores reativos
+
+Os valores reativos são **a origem do diagrama de reatividade**. Eles têm o papel guardar valores e disparar um *aviso* sempre que essas valores mudam.
+
+--
+
+Os valores da lista `input` são um exemplo de valor reativo.
+
+---
+## Funções observadoras
+
+As funções observadoras são **o ponto final do diagrama de reatividade**. Elas têm o papel de capturar os avisos enviados pelos valores reativos e recalcular os seus próprios valores, a partir do código definido dentro delas.
+
+--
+
+As funções `render*()` são um exemplo de **funções observadoras**.
+
+---
+## Um exemplo simples
+
+&lt;img src="img/reactive1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+## Expressões reativas
+
+Muitas vezes, um aplicativo shiny precisa de passos intermediários, entre um valor reativo e uma função observadora.
+
+--
+
+Precisamos de uma estrutura que receba um valor reativo, faça alguma conta e devolva um resultado, um valor também reativo que será utilizado posteriormente em uma função observadora.
+
+--
+
+Essas estruturas são as **expressões reativas**. Para criá-las, podemos utilizar as funções `reactive()` e `eventReactive()`.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

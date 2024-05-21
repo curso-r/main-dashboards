@@ -1,0 +1,51 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "Pré-requisitos"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+knit: pagedown::chrome_print
+---
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+link <- function(href, ...) {
+  htmltools::a(
+    href = href,
+    target = "_blank",
+    ...
+  )
+}
+```
+
+## Pré-requisitos
+
+- Lógica de programação em R
+  - if/else
+  - for/while
+  - criação de funções
+  - utilização do operador pipe
+- Manipulação de dados
+  - `dplyr`
+  - `tidyr`
+- Visualização de dados
+  - `ggplot2`
+  
+---
+
+## Onde estudar os pré-requisitos?
+
+- [Ciência de Dados em R](https://livro.curso-r.com/) `r emo::ji("brazil")`
+
+- [R for Data Science](https://r4ds.hadley.nz/) `r emo::ji("united")`
+

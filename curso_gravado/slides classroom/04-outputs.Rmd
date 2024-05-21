@@ -1,0 +1,63 @@
+---
+title: "Dashboards em Shiny I"
+subtitle: "outputs"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+output:
+  xaringan::moon_reader:
+    css: 
+      - "default"
+      - "default-fonts"
+      - "https://curso-r.github.io/assets/css/padrao-curso-r.css"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "4:3"
+knit: pagedown::chrome_print
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+## Outputs
+
+Os outputs são definidos na UI e criados no server. 
+
+Cada tipo de output é definido por uma função do tipo `*Output()`.
+
+```{r, echo = FALSE, eval=TRUE, out.width="100%"}
+tibble::tribble(
+  ~Função, ~`Saída`,
+  "plotOutput()", "Gráficos",
+  "tableOutput()", "Tabelas",
+  "textOutput()", "Textos"
+) |>
+  reactable::reactable(
+    sortable = FALSE
+  )
+```
+
+---
+## Funções render
+
+Para criar um output, precisamos das funções do tipo `render*()`. Essas funções têm o papel de:
+
+- receber o código que gera um output;
+
+- transformar sua saída em um código HTML.
+
+Na grande maioria dos casos, teremos o par `visualizacaoOutput()` `renderVisualizacao()`. 
+
+```{r, echo = FALSE, eval=TRUE}
+tibble::tribble(
+  ~`*Output()`, ~`render*()`,
+  "plotOutput()", "renderPlot()",
+  "tableOutput()", "renderTable()",
+  "textOutput()", "renderText()"
+) |>
+  reactable::reactable(
+    sortable = FALSE
+  )
+```
