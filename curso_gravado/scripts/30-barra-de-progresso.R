@@ -19,15 +19,15 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   output$grafico <- renderPlot({
-    
-    withProgress(message = "Coletando os dados...", {
+    withProgress(message = "Construindo gráfico...", {
       Sys.sleep(1)
-      incProgress(1/3, message = "Manipulando dados...")
+      incProgress(0.1, message = "Importando base de dados...")
       Sys.sleep(1)
-      incProgress(1/3, message = "Gerando gráfico...")
+      incProgress(0.2, message = "Criando tabela do gráfico...")
       Sys.sleep(1)
+      incProgress(0.6, message = "Gerando o gráfico...")
       plot(x = mtcars[[input$variavel]], y = mtcars$mpg)
-      incProgress(1/3)
+      Sys.sleep(1)
     })
     
   })
@@ -35,3 +35,9 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
+
+
+
+
+

@@ -36,34 +36,28 @@ server <- function(input, output, session) {
   
   dados <- readr::read_csv(url)
   
+  temporadas <- sort(unique(dados$season))
+  
   gatilho <- reactiveVal(0)
   
-  observe({
-    temporadas <- sort(unique(dados$season))
-    
-    updateSelectInput(
-      session = session,
-      inputId = "temporada",
-      choices = temporadas
-    )
-    
-  })
+  updateSelectInput(
+    inputId = "temporada",
+    choices = temporadas
+  )
   
   observeEvent(input$temporada, {
     req(input$temporada)
-    
     times <- dados |> 
       dplyr::filter(season == input$temporada) |> 
       dplyr::pull(home) |> 
       unique() |> 
       sort()
     
-    if (times[1] == input$time) {
+    if (input$time == times[1]) {
       gatilho(gatilho() + 1)
     }
     
     updateSelectInput(
-      session = session,
       inputId = "time",
       choices = times
     )
@@ -83,6 +77,7 @@ server <- function(input, output, session) {
   })
   
   output$tabela <- renderTable({
+    Sys.sleep(1)
     dados_time() |> 
       dplyr::mutate(
         date = format(date, "%d/%m/%Y")
@@ -96,9 +91,6 @@ server <- function(input, output, session) {
   })
   
   output$texto <- renderText({
-    
-    Sys.sleep(1)
-    
     tab <- dados_time() |> 
       tidyr::separate_wider_delim(
         cols = score,
