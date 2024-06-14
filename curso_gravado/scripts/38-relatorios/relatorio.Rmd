@@ -1,0 +1,64 @@
+---
+title: "Pokemon"
+params: 
+  pokemon: "bulbasaur"
+output: 
+  pagedreport::paged_windmill:
+    logo: "https://iconape.com/wp-content/png_logo_vector/pokeball-logo.png"
+    front_img: "capa.jpg"
+    img_to_dark: TRUE
+    logo_to_white: FALSE
+    # other_css: "custom.css"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+dados <- readr::read_rds("pkmn.rds")
+
+pkmn <- params$pokemon
+cor <- dados$cor_1[dados$pokemon == pkmn]
+id <- dados |>
+  dplyr::filter(pokemon == pkmn) |>
+  dplyr::pull(id) |>
+  stringr::str_pad(width = 3, side = "left", pad = "0")
+imagem <- glue::glue(
+  "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/{id}.png"
+)
+```
+
+---
+subtitle: `r pkmn`
+main-color: "`r cor`"
+---
+
+# `r pkmn` {-}
+
+<center>
+```{r}
+knitr::include_graphics(imagem)
+```
+</center>
+
+```{r}
+dados |> 
+  dplyr::filter(pokemon == pkmn) |> 
+  dplyr::select(
+    HP = hp,
+    ATK = ataque,
+    DEF = defesa,
+    VEL = velocidade,
+    `ATK ESP` = ataque_especial,
+    `DEF ESP` = defesa_especial
+  ) |> 
+  reactable::reactable()
+```
+
+<div style = "display: none;">
+$$
+1
+$$
+</div>
+
