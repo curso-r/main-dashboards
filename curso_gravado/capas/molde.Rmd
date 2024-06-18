@@ -1,6 +1,6 @@
 ---
 title: "Dashboards em Shiny"
-subtitle: "Vídeo 41 | A função reactiveVal"
+subtitle: "Vídeo 50 | leaflet"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
 output:
   xaringan::moon_reader:
