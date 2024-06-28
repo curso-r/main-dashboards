@@ -1,19 +1,22 @@
+# install.packages("reactable")
+
 library(shiny)
 
 ui <- fluidPage(
+  titlePanel("Reactable"),
   sidebarLayout(
     sidebarPanel(
-      selectInput(
-        inputId = "var", 
-        label = "Variável", 
-        choices = names(mtcars), 
-        selected = c("mpg", "cyl", "wt"),
-        multiple = TRUE
+      varSelectInput(
+        inputId = "variaveis",
+        label = "Variável",
+        data = mtcars,
+        multiple = TRUE,
+        selected = c("mpg", "cyl", "wt")
       )
     ),
     mainPanel(
       reactable::reactableOutput("tabela"),
-      textOutput("texto")
+      textOutput("carro")
     )
   )
 )
@@ -21,30 +24,40 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   tabela <- reactive({
-    mtcars[, input$var]
+    variaveis <- as.character(input$variaveis)
+    mtcars |> 
+      dplyr::select(dplyr::any_of(variaveis))
   })
   
   output$tabela <- reactable::renderReactable({
-    reactable::reactable(
-      tabela()
-      # striped = TRUE,
-      # pagination = FALSE,
-      # defaultPageSize = 8,
-      # filterable = TRUE,
-      # searchable = TRUE,
-      # selection = "single"
-    )
+    tabela() |> 
+      reactable::reactable(
+        striped = TRUE,
+        pagination = TRUE,
+        defaultPageSize = 10,
+        filterable = TRUE,
+        searchable = TRUE,
+        selection = "single",
+        defaultSelected = 1
+      )
   })
   
-  # output$texto <- renderText({
-  #   linha <- reactable::getReactableState(outputId = "tabela", name = "selected")
-  #   
-  #   carro <- tabela() |> 
-  #     dplyr::slice(linha) |> 
-  #     rownames()
-  #   
-  #   paste("Você selecionou o carro", carro)
-  # })
+  output$carro <- renderText({
+    
+    num_linha <- reactable::getReactableState(
+      outputId = "tabela",
+      name = "selected"
+    )
+    
+    req(num_linha)
+    
+    carro <- tabela() |> 
+      dplyr::slice(num_linha) |> 
+      rownames()
+    
+    glue::glue("O carro selecionado é o {carro}.")
+    
+  })
   
 }
 

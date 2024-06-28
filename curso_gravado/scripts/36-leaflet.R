@@ -1,16 +1,12 @@
-# https://rstudio.github.io/leaflet
-# https://rstudio.github.io/leaflet/articles/shiny.html 
-
-# municipios <- abjData::pnud_min |> 
-#   dplyr::filter(ano == 2010) |> 
-#   dplyr::select(muni_id, uf_sigla, muni_nm, idhm, lat, lon) |> 
-#   dplyr::arrange(uf_sigla, muni_nm)
-# 
-# readr::write_csv(municipios, "curso_gravado/scripts/municipios.csv")
-
-dados <- readr::read_csv("municipios.csv")
+# install.packages("leaflet")
 
 library(shiny)
+
+dados <- readr::read_csv(
+  here::here(
+    "curso_gravado/scripts/municipios.csv"
+  )
+)
 
 ui <- fluidPage(
   titlePanel("Leaflet"),
@@ -18,19 +14,18 @@ ui <- fluidPage(
     sidebarPanel(
       selectInput(
         inputId = "estado",
-        label = "Selecione o estado",
-        choices = unique(dados$uf_sigla)
+        label = "Estado",
+        choices = sort(unique(dados$uf_sigla))
       ),
       selectInput(
-        inputId = "muni",
-        label = "Selecione o município",
-        choices = "",
-        multiple = TRUE
-      ),
-      textOutput("texto")
+        inputId = "municipio",
+        label = "Município",
+        choices = c("Carregando..." = "")
+      )
     ),
     mainPanel(
-      leaflet::leafletOutput("mapa")
+      leaflet::leafletOutput("mapa"),
+      textOutput("texto")
     )
   )
 )
@@ -38,29 +33,29 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   observe({
-    municipios <- dados |>
-      dplyr::filter(uf_sigla == input$estado) |>
-      dplyr::select(muni_nm, muni_id) |> 
+    municipios <- dados |> 
+      dplyr::filter(uf_sigla == input$estado) |> 
+      dplyr::distinct(muni_nm, muni_id) |> 
       tibble::deframe()
     
     updateSelectInput(
-      session = session,
-      inputId = "muni",
-      choices = municipios,
-      selected = municipios[1]
+      inputId = "municipio",
+      choices = municipios
     )
   })
   
   output$mapa <- leaflet::renderLeaflet({
     dados |> 
-      dplyr::filter(muni_id %in% input$muni) |>
-      leaflet::leaflet() |>
-      leaflet::addTiles() |>
+      dplyr::filter(
+        muni_id == input$municipio
+      ) |> 
+      leaflet::leaflet() |> 
+      leaflet::addTiles() |> 
       leaflet::addMarkers(
         lng = ~lon,
         lat = ~lat,
         layerId = ~muni_id,
-        popup = ~paste(muni_nm, "<br>", "IDHM: ", idhm)
+        popup = ~paste("<b>Município</b>:", muni_nm, "<br>", "<b>IDHM</b>:", idhm)
       )
   })
   
@@ -69,14 +64,20 @@ server <- function(input, output, session) {
     
     req(clique)
     
-    muni <- dados |> 
-      dplyr::filter(muni_id == clique$id) |>
+    municipio <- dados |> 
+      dplyr::filter(muni_id == clique$id) |> 
       dplyr::pull(muni_nm)
     
-    glue::glue("Você clicou no município {muni}")
-    
+    glue::glue("O município clicado foi {municipio}.")
   })
   
 }
 
 shinyApp(ui, server)
+
+
+
+
+
+
+

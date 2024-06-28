@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r}
-dados <- readr::read_rds("pkmn.rds")
+dados <- pokemon::pokemon_ptbr
 
 pkmn <- params$pokemon
 cor <- dados$cor_1[dados$pokemon == pkmn]
@@ -56,6 +56,7 @@ dados |>
   reactable::reactable()
 ```
 
+<!-- Faz a reactable funcionar no pagedown -->
 <div style = "display: none;">
 $$
 1

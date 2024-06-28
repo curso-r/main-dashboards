@@ -43,13 +43,29 @@ server <- function(input, output, session) {
   })
 }
 
-auth0::shinyAppAuth0(ui, server)
+auth0::shinyAppAuth0(ui, server, options = list(port = 8080))
 
-# auth0::use_auth0()
-# usethis::edit_r_environ()
+# Usar auth0
 
-# options(shiny.port = 8080)
-# shiny::runApp("exemplos/auth0/")
+# 0. Criar um aplicativo no serviço Auth0
 
-# http://localhost:8080 to the "Allowed Callback URLs", 
-# "Allowed Web Origins" and "Allowed Logout URLs"
+# 1. Trocar shinyApp() por auth0::shinyAppAuth0
+# install.packages("auth0")
+
+# 2. Rodar auth0::use_auth0()
+
+# 3. Preencher o _auth0.yml
+
+# 4. Criar cridenciais no .renviron
+# usethis::edit_r_environ(scope = "project")
+
+# 5. Colocar http://localhost:8080 em
+# - Allowed Callback URLs 
+# - Allowed Logout URLs
+# - Allowed Web Origins
+
+# 6. Rodar o app na porta 8080
+# options = list(port = 8080)
+
+# 7. Colocar botão de logout
+# auth0::logoutButton()

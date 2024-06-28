@@ -19,17 +19,16 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   output$grafico <- renderPlot({
-    withProgress(message = "Construindo gráfico...", {
+    withProgress(message = "Gerando gráfico...", {
+      incProgress(0.1, message = "Arruando base...")
       Sys.sleep(1)
-      incProgress(0.1, message = "Importando base de dados...")
+      incProgress(0.3, message = "Criando colunas...")
+      Sys.sleep(2)
+      incProgress(0.4, message = "Gerando gráfico...")
       Sys.sleep(1)
-      incProgress(0.2, message = "Criando tabela do gráfico...")
-      Sys.sleep(1)
-      incProgress(0.6, message = "Gerando o gráfico...")
       plot(x = mtcars[[input$variavel]], y = mtcars$mpg)
-      Sys.sleep(1)
+      incProgress(0.1)
     })
-    
   })
   
 }

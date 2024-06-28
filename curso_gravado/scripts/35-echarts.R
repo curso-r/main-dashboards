@@ -1,5 +1,4 @@
-# https://echarts4r.john-coene.com/
-# https://echarts.apache.org/en/index.html
+# install.packages("echarts4r")
 
 library(shiny)
 

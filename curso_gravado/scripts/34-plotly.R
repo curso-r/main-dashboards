@@ -1,4 +1,4 @@
-# https://plotly.com/r/
+# install.packages("plotly")
 
 library(shiny)
 
@@ -11,46 +11,70 @@ ui <- fluidPage(
         label = "Selecione a variável",
         choices = c("cyl", "vs", "am", "gear")
       ),
-      textOutput("texto_click")
+      textOutput("texto_click_a"),
+      textOutput("texto_click_b"),
     ),
     mainPanel(
+      # plotOutput("grafico")
       plotly::plotlyOutput("grafico_plotly"),
-      plotly::plotlyOutput("grafico_ggplotly"),
+      plotly::plotlyOutput("grafico_ggplotly")
     )
   )
 )
 
 server <- function(input, output, session) {
   
+  output$grafico_ggplotly <- plotly::renderPlotly({
+    p <- mtcars |>
+      dplyr::select(variavel_x = dplyr::any_of(input$variavel)) |>
+      ggplot2::ggplot() +
+      ggplot2::geom_bar(ggplot2::aes(x = variavel_x)) +
+      ggplot2::theme_minimal()
+    
+    plotly::ggplotly(p, source = "B")
+  })
+  
   output$grafico_plotly <- plotly::renderPlotly({
-    mtcars |>
-      dplyr::select(x = dplyr::one_of(input$variavel)) |> 
-      dplyr::count(x) |>
+    mtcars |> 
+      dplyr::select(variavel_x = dplyr::any_of(input$variavel)) |> 
+      dplyr::count(variavel_x) |> 
       plotly::plot_ly(
-        x = ~x,
+        x = ~variavel_x,
         y = ~n,
         type = "bar",
-        source = "grafico_plotly"
+        source = "A"
       )
   })
   
-  output$grafico_ggplotly <- plotly::renderPlotly({
-    p <- mtcars |>
-      dplyr::select(x = dplyr::one_of(input$variavel)) |> 
-      dplyr::count(x) |>
-      ggplot2::ggplot(ggplot2::aes(x = x, y = n)) +
-      ggplot2::geom_col() +
-      ggplot2::theme_minimal()
-    plotly::ggplotly(p, source = "grafico_ggplotly")
+  output$texto_click_a <- renderText({
+    clique <- plotly::event_data(
+      event = "plotly_click",
+      source = "A"
+    )
+    
+    req(clique)
+    
+    glue::glue(
+      "Existem {clique$y} carros com {input$variavel} = {clique$x}."
+    )
   })
   
-  output$texto_click <- renderText({
-    clique <- plotly::event_data("plotly_click", source = "grafico_plotly")
+  output$texto_click_b <- renderText({
+    clique <- plotly::event_data(
+      event = "plotly_click",
+      source = "B"
+    )
+    
     req(clique)
-    variavel <- isolate(input$variavel)
-    glue::glue("Existem {clique$y} carros com {variavel} = {clique$x}.")
+    
+    glue::glue(
+      "Existem {clique$y} carros com {input$variavel} = {clique$x}!"
+    )
   })
   
 }
 
 shinyApp(ui, server)
+
+
+
